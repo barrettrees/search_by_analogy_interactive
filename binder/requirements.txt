@@ -1,7 +1,0 @@
-keras
-re
-numpy
-matplotlib
-array
-IPython.display
-ipywidgets
