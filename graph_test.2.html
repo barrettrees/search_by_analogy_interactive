@@ -7,56 +7,53 @@
     <title>2D Analogy Graph</title>
   </head>
   <body>
+    <div class="responsive">
+      <div class="gallery">
+          <img id="imagetest1"  width="256" height="224">
+        <div class="desc" id = "pointA">A</div>
+      </div>
+    </div>
+    <div class="responsive">
+      <div class="gallery">
+          <img id="imagetest2" width="256" height="224">
+        <div class="desc" id = "pointB">B</div>
+      </div>
+    </div>
+    <div class="responsive">
+      <div class="gallery">
+          <img id="imagetest3" width="256" height="224">
+        <div class="desc" id = "pointC">C</div>
+      </div>
+    </div>
+    <div class="responsive">
+      <div class="gallery">
+          <img id="imagetest4" width="256" height="224">
+        <div class="desc" id = "pointD">D</div>
+      </div>
+    </div>
+    <div>
 
-  <div class="responsive">
-    <div class="gallery">
-        <img id="imagetest1"  width="256" height="224">
-      <div class="desc" id = "pointA">A</div>
+    <button id ="gameSwitchButton">Switch Games</button>
+    <button id="presetButton">Preset 1</button>
+    <button id="presetButton2">Preset 2</button>
+    <button id="searchButton">Search</button>
+    <label class ="switch"><input id ="autoSearch" type = "checkbox"><span class ="slider round"></span>Autosearch</label>
     </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-        <img id="imagetest2" width="256" height="224">
-      <div class="desc" id = "pointB">B</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-        <img id="imagetest3" width="256" height="224">
-      <div class="desc" id = "pointC">C</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-        <img id="imagetest4" width="256" height="224">
-      <div class="desc" id = "pointD">D</div>
-    </div>
-  </div>
-  <div>
 
-  <button id ="gameSwitchButton">Switch Games</button>
-  <button id="presetButton">Preset 1</button>
-  <button id="presetButton2">Preset 2</button>
-  <button id="searchButton">Search</button>
-  <label class ="switch"><input id ="autoSearch" type = "checkbox"><span class ="slider round"></span>Autosearch</label>
-  </div>
-
-  <nav class="container">
-    <div class="desc" id = "labelA"> <font face="Helvetica" width = "10%">A</font>
-      <input class="pointRangeSlider" type="range" min="1" max="2376" value="301" class="slider" id="myRangeA">
-    </div>
-    <div class="desc" id = "labelB"> <font face="Helvetica" width = "10%">B</font>
-      <input class="pointRangeSlider"  type="range" min="1" max="2376"  value="1858" class="slider" id="myRangeB">
-    </div>
-    <div class="desc" id = "labelC"> <font face="Helvetica" width = "10%">C</font>
-      <input class="pointRangeSlider"  type="range" min="1" max="2376"  value="1020" class="slider" id="myRangeC">
-    </div>
-    <div class="desc" id = "labelD"> <font face="Helvetica" width = "10%">D</font>
-      <input class="pointRangeSlider"  type="range" min="1"  max="2376"  value="2170" class="slider" id="myRangeD">
-    </div>
-  </nav>
-
-
+    <nav class="container">
+      <div class="desc" id = "labelA"> <font face="Helvetica" width = "10%">A</font>
+        <input class="pointRangeSlider" type="range" min="1" max="2376" value="301" class="slider" id="myRangeA">
+      </div>
+      <div class="desc" id = "labelB"> <font face="Helvetica" width = "10%">B</font>
+        <input class="pointRangeSlider"  type="range" min="1" max="2376"  value="1858" class="slider" id="myRangeB">
+      </div>
+      <div class="desc" id = "labelC"> <font face="Helvetica" width = "10%">C</font>
+        <input class="pointRangeSlider"  type="range" min="1" max="2376"  value="1020" class="slider" id="myRangeC">
+      </div>
+      <div class="desc" id = "labelD"> <font face="Helvetica" width = "10%">D</font>
+        <input class="pointRangeSlider"  type="range" min="1"  max="2376"  value="2170" class="slider" id="myRangeD">
+      </div>
+    </nav>
     
     <div id="scatter"></div>  
         <div class="desc" id = "kValue">K</div>
@@ -68,7 +65,7 @@
     <script src="js/d3.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script src="js/vectors.js"></script>
+    <script src="js/vectorFunctions.js"></script>
     <script src="js/graph.js"></script>
   </body>
 </html>
