@@ -118,7 +118,7 @@ rect {
 			    stroke: #ffab00;
 			    stroke-width: 3;
 			}
-			  
+
 			.overlay {
 			  fill: none;
 			  pointer-events: all;
@@ -129,7 +129,7 @@ rect {
 			    fill: #ffab00;
 			    stroke: #fff;
 			}
-			  
+
 			  .focus circle {
 			  fill: none;
 			  stroke: steelblue;

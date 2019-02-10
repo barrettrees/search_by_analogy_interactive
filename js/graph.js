@@ -1,154 +1,190 @@
-let experiment_config = {
-  screenshot_path: "../images/mario_screenshots/",
-  screenshot_path_mario: "../images/mario_screenshots/",
-  screenshot_path_metroid: "../images/metroid_screenshots/",
-  model_path: "models/mario_screenshots_predicted.bin",
-  model_path_mario: "models/mario_screenshots_predicted.bin",
-  model_path_metroid: "models/metroid_screenshots_predicted.bin",
-  game: "mario",
-  num_images: 2377,
-  mario_num_images: 2377,
-  metroid_num_images: 4969,
-  frames_per_step: 10,
-  a_time: 301,
-  b_time: 1858,
-  c_time: 1020,
-  d_time: 2170,
-  mario_a_time: 301,
-  mario_b_time: 1858,
-  mario_c_time: 1020,
-  mario_d_time: 2170,
-  metroid_a_time: 2005,
-  metroid_b_time: 4944,
-  metroid_c_time: 2267,
-  metroid_d_time: 4623
-};
+// this holds the data we need for each game
+game_presets = {
+  mario: {
+    screenshot_path: "../images/mario_screenshots/",
+    model_path: "../models/mario_screenshots_predicted.bin",
+    num_images: 2377,
+    frames_per_step: 10,
+    a_time: 301,
+    b_time: 1858,
+    c_time: 1020,
+    d_time: 2170
+  },
+  metroid: {
+    screenshot_path: "../images/metroid_screenshots/",
+    model_path: "../models/metroid_screenshots_predicted.bin",
+    num_images: 4969,
+    frames_per_step: 10,
+    a_time: 2005,
+    b_time: 4944,
+    c_time: 2267,
+    d_time: 4623
+  }
+}
 
-const positionFile = "models/mario_screenshots_predicted.bin";
-const positionFile2 = "models/metroid_screenshots_predicted.bin";
-let vectorArray = [];
-let vectorArray_mario = [];
-let vectorArray_metroid = [];
+// this holds the vectorArrays for each game
+gameVectorArrays = {
+  mario: [],
+  metroid: []
+}
+
+// the current config displayed
+let experiment_config = game_presets['mario'];
+let vectorArray;
 let dimensions = 256;
+
 let searchCheckBox = document.getElementById("autoSearch");
 searchCheckBox.checked = true;
 
-let oReq = new XMLHttpRequest();
-oReq.open("GET", positionFile, true); //Use your file path name here
-oReq.responseType = "arraybuffer"; //Add this attribute
-
-oReq.onload = function (oEvent) {
-  vectorArray = [];
-  let arrayBuffer = oReq.response; // Note: not oReq.responseText
-  if (arrayBuffer) {
-    let float32Array = new Float32Array(arrayBuffer);
-    for (let i = 0; i < float32Array.length; i = i + dimensions) {
-      let temp = [];
-      for (let j = 0; j < dimensions; j++) {
-        temp[j] = float32Array[i+j] ;
+// get the vectorArray for each game
+for (let game in gameVectorArrays) {
+  let oReq = new XMLHttpRequest();
+  // use model file path name of game
+  oReq.open("GET", game_presets[game]['model_path'], true);
+  oReq.responseType = "arraybuffer"; // add this attribute
+  oReq.onload = function (oEvent) {
+    vectorArray = [];
+    let arrayBuffer = oReq.response; // Note: not oReq.responseText
+    if (arrayBuffer) {
+      let float32Array = new Float32Array(arrayBuffer);
+      for (let i = 0; i < float32Array.length; i = i + dimensions) {
+        let temp = [];
+        for (let j = 0; j < dimensions; j++) {
+          temp[j] = float32Array[i+j] ;
+        }
+        vectorArray.push(temp)
       }
-      vectorArray.push(temp)
-      vectorArray_mario.push(temp);
     }
-  }
-  mydataset = update_data();
-};
+    // mydataset = update_data();
+    gameVectorArrays[game] = vectorArray;
+  };
+  oReq.send(null);
+}
 
+function show_image(src, whereto) {
+  document.getElementById(whereto).src = src;
+}
 
-oReq.send(null);
+// this function complicates the code
+function replace_text(txt,whereto){
+  document.getElementById(whereto).innerHTML = txt;
+}
 
-let oReq2 = new XMLHttpRequest();
-oReq2.open("GET", positionFile2, true); //Use your file path name here
-oReq2.responseType = "arraybuffer"; //Add this attribute
+// // set reference to the caption text under respective image
+// let pointA = document.getElementById("pointA");
+// let pointB = document.getElementById("pointB");
+// let pointC = document.getElementById("pointC");
+// let pointD = document.getElementById("pointD");
+//
+//
+// // set reference to the slider inputs A, B, C, D
+// let sliderA = document.getElementById("myRangeA");
+// let sliderB = document.getElementById("myRangeB");
+// let sliderC = document.getElementById("myRangeC");
+// let sliderD = document.getElementById("myRangeD");
+// let sliderK = document.getElementById("myRangeK");
 
-oReq2.onload = function (oEvent) {
-  vectorArray_metroid = [];
-  let arrayBuffer = oReq2.response; // Note: not oReq.responseText
-  if (arrayBuffer) {
-    let float32Array = new Float32Array(arrayBuffer);
-    for (let i = 0; i < float32Array.length; i = i + dimensions) {
-      let temp = []
-      for (let j = 0; j < dimensions; j++) {
-        temp[j] = float32Array[i+j] ;
-      }
-      vectorArray_metroid.push(temp);
-    }
-  }
-};
-
-
-oReq2.send(null);
-
-
-show_image("../images/mario_screenshots/3010.png","imagetest1");
-show_image("../images/mario_screenshots/18580.png","imagetest2");
-show_image("../images/mario_screenshots/10200.png","imagetest3");
-show_image("../images/mario_screenshots/21700.png","imagetest4");
+// initialize first images and numbers
+show_image("images/mario_screenshots/3010.png","imagetest1");
+show_image("images/mario_screenshots/18580.png","imagetest2");
+show_image("images/mario_screenshots/10200.png","imagetest3");
+show_image("images/mario_screenshots/21700.png","imagetest4");
 replace_text(myRangeA.value,"pointA")
 replace_text(myRangeB.value,"pointB")
 replace_text(myRangeC.value,"pointC")
 replace_text(myRangeD.value,"pointD")
 replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue")
 
+// set event listeners for the sliders
+myRangeA.addEventListener("input",sliderChangedA);
+myRangeB.addEventListener("input",sliderChangedB);
+myRangeC.addEventListener("input",sliderChangedC);
+myRangeD.addEventListener("input",sliderChangedD);
+myRangeK.addEventListener("input",sliderChangedK);
 
-gameSwitchButton.addEventListener("click",gameSwitchButtonClicked);
-function gameSwitchButtonClicked (e) {
-  if (experiment_config['game'] == 'mario') {
-    experiment_config['game'] = 'metroid';
-    experiment_config["screenshot_path"] = experiment_config["screenshot_path_metroid"];
-    experiment_config["num_images"] = experiment_config["metroid_num_images"];
-    experiment_config["a_time"] = experiment_config["metroid_a_time"];
-    experiment_config["b_time"] = experiment_config["metroid_b_time"];
-    experiment_config["c_time"] = experiment_config["metroid_c_time"];
-    experiment_config["d_time"] = experiment_config["metroid_d_time"];
-    experiment_config["model_path"] = experiment_config["model_path_metroid"];
-    vectorArray = vectorArray_metroid;
-    myRangeA.max = vectorArray.length;
-    myRangeB.max = vectorArray.length;
-    myRangeC.max = vectorArray.length;
-    myRangeD.max = vectorArray.length;
-  } else if (experiment_config['game'] == 'metroid') {
-      experiment_config['game'] = 'mario';
-      experiment_config["screenshot_path"] = experiment_config["screenshot_path_mario"];
-      experiment_config["num_images"] = experiment_config["mario_num_images"];
-      experiment_config["a_time"] = experiment_config["mario_a_time"];
-      experiment_config["b_time"] = experiment_config["mario_b_time"];
-      experiment_config["c_time"] = experiment_config["mario_c_time"];
-      experiment_config["d_time"] = experiment_config["mario_d_time"];
-      experiment_config["model_path"] = experiment_config["model_path_mario"];
-      vectorArray = vectorArray_mario;
-      myRangeA.max = vectorArray.length;
-      myRangeB.max = vectorArray.length;
-      myRangeC.max = vectorArray.length;
-      myRangeD.max = vectorArray.length;
-  }
-  // console.log("game switched: "+ experiment_config['game'] )
-  presetButtonClicked();
+function sliderChangedA(e) {
+  let filename = experiment_config['screenshot_path']
+    +(myRangeA.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest1");
+  replace_text(myRangeA.value,"pointA")
+  if (searchCheckBox.checked == true){searchButtonClicked();}
+}
+function sliderChangedB(e) {
+  let filename = experiment_config['screenshot_path']
+    +(myRangeB.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest2");
+  replace_text(myRangeB.value,"pointB")
+  if (searchCheckBox.checked == true){searchButtonClicked();}
+}
+function sliderChangedC(e) {
+  let filename = experiment_config['screenshot_path']
+    +(myRangeC.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest3");
+  replace_text(myRangeC.value,"pointC")
+  if (searchCheckBox.checked == true){searchButtonClicked();}
+}
+function sliderChangedD(e) {
+  let filename = experiment_config['screenshot_path']
+    +(myRangeD.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest4");
+  replace_text(myRangeD.value,"pointD")
+  if (searchCheckBox.checked == true){searchButtonClicked();}
 }
 
-presetButton.addEventListener("click",presetButtonClicked);
-function presetButtonClicked(e) {
-  console.log('preset button clicked');
-  myRangeA.value = experiment_config['a_time'];
-  sliderChangedA();
-  myRangeB.value = experiment_config['b_time'];
-  sliderChangedB();
-  myRangeC.value = experiment_config['c_time'];
-  sliderChangedC();
-  myRangeD.value = experiment_config['d_time'];
-  sliderChangedD();
-  myRangeK.value = 1;
-  sliderChangedK();
+function sliderChangedK(e) {
   replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue")
+  if (searchCheckBox.checked == true){searchButtonClicked();}
+}
+
+// only called if value from dropdown list is changed
+gameListButton.addEventListener("change",gameListButtonClicked);
+function gameListButtonClicked(e) {
+  // if game is switched update accordingly
+  let game = gameListButton.value;
+  console.log("game switched to " + game);
+  experiment_config = game_presets[game];
+  // console.log(experiment_config);
+  vectorArray = gameVectorArrays[game];
+  loadPreset();
+}
+
+presetButton.addEventListener("click",loadPreset);
+function loadPreset(e) {
+  console.log('loading preset config');
+  let imgCount = experiment_config['num_images'];
+  myRangeA.max = imgCount;
+  myRangeB.max = imgCount;
+  myRangeC.max = imgCount;
+  myRangeD.max = imgCount;
+  myRangeA.value = experiment_config['a_time'];
+  myRangeB.value = experiment_config['b_time'];
+  myRangeC.value = experiment_config['c_time'];
+  myRangeD.value = experiment_config['d_time'];
+  myRangeK.value = 1;
+  let filename = experiment_config['screenshot_path']
+    +(myRangeA.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest1");
+  filename = experiment_config['screenshot_path']
+    +(myRangeB.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest2");
+  filename = experiment_config['screenshot_path']
+    +(myRangeC.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest3");
+  filename = experiment_config['screenshot_path']
+    +(myRangeD.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest4");
+  replace_text(myRangeA.value, "pointA");
+  replace_text(myRangeB.value, "pointB");
+  replace_text(myRangeC.value, "pointC");
+  replace_text(myRangeD.value, "pointD");
+  replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue");
+  searchButtonClicked();
 }
 
 searchButton.addEventListener("click",searchButtonClicked);
 function searchButtonClicked(e) {
   let data = [];
   for (let i = 0; i < experiment_config['num_images']-2; i++) {
-    // console.log("b: " + myRangeB.value);
-    // console.log("a: " + myRangeA.value);
-    // console.log("length: " + vectorArray.length);
     let qVector = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value])
     qVector = scalarMultiplication(myRangeK.value, qVector)
     qVector = vectorSum(vectorArray[myRangeC.value], qVector)
@@ -196,6 +232,9 @@ function update_data(e) {
   }
   return dataset;
 }
+
+// d3 functions below
+// ---------------------------------
 
 function update_graphs(data) {
   d3.select("svg").remove();
@@ -358,57 +397,6 @@ function update_graphs(data) {
     return "translate(" + x(d[xCat]) + "," + y(d[yCat]) + ")";
   }
 };
-
-
-myRangeA.addEventListener("input",sliderChangedA);
-myRangeB.addEventListener("input",sliderChangedB);
-myRangeC.addEventListener("input",sliderChangedC);
-myRangeD.addEventListener("input",sliderChangedD);
-myRangeK.addEventListener("input",sliderChangedK);
-
-function sliderChangedA(e) {
-  let filename = experiment_config['screenshot_path']
-    +(myRangeA.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest1");
-  replace_text(myRangeA.value,"pointA")
-  if (searchCheckBox.checked == true){searchButtonClicked()}
-}
-function sliderChangedB(e) {
-  let filename = experiment_config['screenshot_path']
-    +(myRangeB.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest2");
-  replace_text(myRangeB.value,"pointB")
-  if (searchCheckBox.checked == true){searchButtonClicked()}
-}
-function sliderChangedC(e) {
-  let filename = experiment_config['screenshot_path']
-    +(myRangeC.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest3");
-  replace_text(myRangeC.value,"pointC")
-  if (searchCheckBox.checked == true){searchButtonClicked()}
-}
-function sliderChangedD(e) {
-  let filename = experiment_config['screenshot_path']
-    +(myRangeD.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest4");
-  replace_text(myRangeD.value,"pointD")
-}
-
-function sliderChangedK(e) {
-  replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue")
-  if (searchCheckBox.checked == true){searchButtonClicked()}
-}
-
-
-
-function show_image(src, whereto) {
-  document.getElementById(whereto).src = src;
-}
-
-function replace_text(txt,whereto){
-  document.getElementById(whereto).innerHTML = txt;
-}
-
 
 
 let margin = { top: 50, right: 50, bottom: 50, left: 50 },

@@ -33,7 +33,10 @@
     </div>
     <div>
 
-    <button id ="gameSwitchButton">Switch Games</button>
+    <select id ="gameListButton">
+      <option value="mario">Mario</option>
+      <option value="metroid">Metroid</option>
+    </select>
     <button id="presetButton">Preset 1</button>
     <button id="presetButton2">Preset 2</button>
     <button id="searchButton">Search</button>
@@ -41,27 +44,32 @@
     </div>
 
     <nav class="container">
-      <div class="desc" id = "labelA"> <font face="Helvetica" width = "10%">A</font>
-        <input class="pointRangeSlider" type="range" min="1" max="2376" value="301" class="slider" id="myRangeA">
+      <div class="desc" id = "labelA">
+        A
+        <input class="pointRangeSlider" type="range" min="1" max="2377" value="301" class="slider" id="myRangeA">
       </div>
-      <div class="desc" id = "labelB"> <font face="Helvetica" width = "10%">B</font>
-        <input class="pointRangeSlider"  type="range" min="1" max="2376"  value="1858" class="slider" id="myRangeB">
+      <div class="desc" id = "labelB">
+        B
+        <input class="pointRangeSlider"  type="range" min="1" max="2377"  value="1858" class="slider" id="myRangeB">
       </div>
-      <div class="desc" id = "labelC"> <font face="Helvetica" width = "10%">C</font>
-        <input class="pointRangeSlider"  type="range" min="1" max="2376"  value="1020" class="slider" id="myRangeC">
+      <div class="desc" id = "labelC">
+        C
+        <input class="pointRangeSlider"  type="range" min="1" max="2377"  value="1020" class="slider" id="myRangeC">
       </div>
-      <div class="desc" id = "labelD"> <font face="Helvetica" width = "10%">D</font>
-        <input class="pointRangeSlider"  type="range" min="1"  max="2376"  value="2170" class="slider" id="myRangeD">
+      <div class="desc" id = "labelD">
+        D
+        <input class="pointRangeSlider"  type="range" min="1"  max="2377"  value="2170" class="slider" id="myRangeD">
       </div>
     </nav>
-    
-    <div id="scatter"></div>  
-        <div class="desc" id = "kValue">K</div>
-          <div class="desc" id = "labelD"> <font face="Helvetica" width = "10%">K</font>
+
+    <div id="scatter"></div>
+    <div class="desc" id = "kValue">K</div>
+    <div class="desc" id = "labelK">
+      K
       <input class="pointRangeSlider"  type="range" min="-1" max="10" value="1" class="slider" step =.1 id="myRangeK">
     </div>
 <!--     <input type="button" name="xAxis" value="xAxis">
- -->    
+ -->
     <script src="js/d3.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
