@@ -55,7 +55,6 @@ for (let game in gameVectorArrays) {
         vectorArray.push(temp)
       }
     }
-    // mydataset = update_data();
     gameVectorArrays[game] = vectorArray;
   };
   oReq.send(null);
@@ -71,18 +70,19 @@ function replace_text(txt,whereto){
 }
 
 // // set reference to the caption text under respective image
+// in progress...
+// this is for removing show_image and replace_text functions
 // let pointA = document.getElementById("pointA");
 // let pointB = document.getElementById("pointB");
 // let pointC = document.getElementById("pointC");
 // let pointD = document.getElementById("pointD");
-//
-//
+
 // // set reference to the slider inputs A, B, C, D
-// let sliderA = document.getElementById("myRangeA");
-// let sliderB = document.getElementById("myRangeB");
-// let sliderC = document.getElementById("myRangeC");
-// let sliderD = document.getElementById("myRangeD");
-// let sliderK = document.getElementById("myRangeK");
+let myRangeA = document.getElementById("myRangeA");
+let myRangeB = document.getElementById("myRangeB");
+let myRangeC = document.getElementById("myRangeC");
+let myRangeD = document.getElementById("myRangeD");
+let myRangeK = document.getElementById("myRangeK");
 
 // initialize first images and numbers
 show_image("images/mario_screenshots/3010.png","imagetest1");
@@ -201,7 +201,7 @@ function searchButtonClicked(e) {
   let filename = experiment_config['screenshot_path']+(myRangeD.value*experiment_config['frames_per_step'])+".png";
   show_image(filename, "imagetest4");
   replace_text(myRangeD.value,"pointD")
-  mydataset = update_data();
+  let mydataset = update_data();
   update_graphs(mydataset);
 }
 
@@ -237,6 +237,7 @@ function update_data(e) {
 // ---------------------------------
 
 function update_graphs(data) {
+  // remove old chart
   d3.select("svg").remove();
   data.forEach(function(d) {
     d.AB_Similarity = +d.AB_Similarity;
@@ -289,6 +290,8 @@ function update_graphs(data) {
     .append("svg")
       .attr("width", outerWidth)
       .attr("height", outerHeight)
+      .style("display", "block")
+      .style("margin", "auto")
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(zoomBeh);
@@ -341,18 +344,15 @@ function update_graphs(data) {
       .attr("x2", 0)
       .attr("y2", height);
 
-  objects.selectAll(".dot")
+  objects.selectAll()
       .data(data)
     .enter().append("circle")
-
       .classed("dot", true)
       .attr("r", function (d) {
         let radius = 6 * Math.sqrt((d[rCat]+1)*(d[rCat]+1) / Math.PI);
         return radius;
       })
       .attr("transform", transform)
-
-
       .style("fill", function(d) {
         if (d[rCat] > 0.95) {return "E50300"}
         else if (d[rCat] > 0.9) {return "DA0B09"}
@@ -374,22 +374,41 @@ function update_graphs(data) {
         else if (d[rCat] > -0.7) {return "20A1A3"}
         else if (d[rCat] > -0.8) {return "15AAAC"}
         else if (d[rCat] > -0.9) {return "0AB3B5"}
-        else if (d[rCat] > -1) {return "00BCBF"}
-          ; })
+        else {return "00BCBF"}
+      })
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide);
 
-  // gdots.append("text").text (function (d) {
-  //   return d.name;
-  // }).attr("x", function (d) {
-  //     return x(d.x);
-  //   })
+  objects.selectAll()
+      .data(data)
+    .enter().append("text")
+      .classed("dataLabel", true)
+      .attr("x", function(d) { return d[xCat]; })
+      .attr("y", function(d) { return d[yCat]; })
+      .attr("transform", transform)
+      .text(function(d) {
+        let id = d.ImageID;
+        if(id == myRangeA.value) {
+          return "A";
+        }
+        else if(id == myRangeB.value) {
+          return "B";
+        }
+        else if(id == myRangeC.value) {
+          return "C";
+        }
+        else if(id == myRangeD.value) {
+          return "D";
+        }
+      });
 
   function zoom() {
     svg.select(".x.axis").call(xAxis);
     svg.select(".y.axis").call(yAxis);
 
     svg.selectAll(".dot")
+        .attr("transform", transform);
+    svg.selectAll(".dataLabel")
         .attr("transform", transform);
   }
 
@@ -455,6 +474,7 @@ d3.csv("result.csv", function(data) {
 
   let color = d3.scale.category10();
 
+  // tip displayed on datapoint hover
   let tip = d3.tip()
       .attr("class", "d3-tip")
       .offset([-10, 0])
@@ -473,12 +493,15 @@ d3.csv("result.csv", function(data) {
     .append("svg")
       .attr("width", outerWidth)
       .attr("height", outerHeight)
+      .style("display", "block") // svg element is display:inline by defualt
+      .style("margin", "auto")
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(zoomBeh);
 
   svg.call(tip);
 
+  // insert rect so user can pan/zoom when clicking anywhere in chart
   svg.append("rect")
       .attr("width", width)
       .attr("height", height);
@@ -510,6 +533,7 @@ d3.csv("result.csv", function(data) {
       .attr("width", width)
       .attr("height", height);
 
+  // x axis border
   objects.append("svg:line")
       .classed("axisLine hAxisLine", true)
       .attr("x1", 0)
@@ -518,6 +542,7 @@ d3.csv("result.csv", function(data) {
       .attr("y2", 0)
       .attr("transform", "translate(0," + height + ")");
 
+  // y axis border
   objects.append("svg:line")
       .classed("axisLine vAxisLine", true)
       .attr("x1", 0)
@@ -525,7 +550,12 @@ d3.csv("result.csv", function(data) {
       .attr("x2", 0)
       .attr("y2", height);
 
-  objects.selectAll(".dot")
+  // not sure how d3 doesnt throw an exception
+  // at this point in code there are no elements with the .dot class
+  // ????
+  // objects.selectAll(".dot")
+
+  objects.selectAll()
       .data(data)
     .enter().append("circle")
       .classed("dot", true)
@@ -534,7 +564,8 @@ d3.csv("result.csv", function(data) {
         return radius;
       })
       .attr("transform", transform)
-      .style("fill", "E50300")
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide)
       .style("fill", function(d) {
         if (d[rCat] > 0.95) {return "E50300"}
         else if (d[rCat] > 0.9) {return "DA0B09"}
@@ -556,10 +587,31 @@ d3.csv("result.csv", function(data) {
         else if (d[rCat] > -0.7) {return "20A1A3"}
         else if (d[rCat] > -0.8) {return "15AAAC"}
         else if (d[rCat] > -0.9) {return "0AB3B5"}
-        else if (d[rCat] > -1) {return "00BCBF"}
-           })
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide);
+        else {return "00BCBF"}
+      })
+
+  objects.selectAll()
+      .data(data)
+    .enter().append("text")
+      .classed("dataLabel", true)
+      .attr("x", function(d) { return d[xCat]; })
+      .attr("y", function(d) { return d[yCat]; })
+      .attr("transform", transform)
+      .text(function(d) {
+        let id = d.ImageID;
+        if(id == myRangeA.value) {
+          return "A";
+        }
+        else if(id == myRangeB.value) {
+          return "B";
+        }
+        else if(id == myRangeC.value) {
+          return "C";
+        }
+        else if(id == myRangeD.value) {
+          return "D";
+        }
+      });
 
   // let legend = svg.selectAll(".legend")
   //     .data(color.domain())
@@ -598,6 +650,8 @@ d3.csv("result.csv", function(data) {
     svg.select(".y.axis").call(yAxis);
 
     svg.selectAll(".dot")
+        .attr("transform", transform);
+    svg.selectAll(".dataLabel")
         .attr("transform", transform);
   }
 
