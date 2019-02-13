@@ -8,17 +8,39 @@ game_presets = {
     a_time: 301,
     b_time: 1858,
     c_time: 1020,
-    d_time: 2170
+    d_time: 2170,
+    a_time2: 560,
+    b_time2: 1769,
+    c_time2: 2155,
+    d_time2: 1083
+  },
+  mario2: {
+    screenshot_path: "../images/mario2_screenshots/",
+    model_path: "../models/mario_screenshots_predicted.bin",
+    num_images: 6524,
+    frames_per_step: 10,
+    a_time: 1000,
+    b_time: 2000,
+    c_time: 3000,
+    d_time: 4000,
+    a_time2: 1,
+    b_time2: 2,
+    c_time2: 3,
+    d_time2: 4
   },
   metroid: {
     screenshot_path: "../images/metroid_screenshots/",
     model_path: "../models/metroid_screenshots_predicted.bin",
-    num_images: 4969,
+    num_images: 4967, //4969 gives cannot read prop of undefined error
     frames_per_step: 10,
     a_time: 2005,
     b_time: 4944,
     c_time: 2267,
-    d_time: 4623
+    d_time: 4623,
+    a_time2: 1,
+    b_time2: 2,
+    c_time2: 3,
+    d_time2: 4
   }
 }
 
@@ -180,6 +202,40 @@ function loadPreset(e) {
   replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue");
   searchButtonClicked();
 }
+
+presetButton2.addEventListener("click",loadPreset2);
+function loadPreset2(e) {
+  console.log('loading preset2 config');
+  // let imgCount = experiment_config['num_images'];
+  // myRangeA.max = imgCount;
+  // myRangeB.max = imgCount;
+  // myRangeC.max = imgCount;
+  // myRangeD.max = imgCount;
+  myRangeA.value = experiment_config['a_time2'];
+  myRangeB.value = experiment_config['b_time2'];
+  myRangeC.value = experiment_config['c_time2'];
+  myRangeD.value = experiment_config['d_time2'];
+  myRangeK.value = 1;
+  let filename = experiment_config['screenshot_path']
+    +(myRangeA.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest1");
+  filename = experiment_config['screenshot_path']
+    +(myRangeB.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest2");
+  filename = experiment_config['screenshot_path']
+    +(myRangeC.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest3");
+  filename = experiment_config['screenshot_path']
+    +(myRangeD.value*experiment_config['frames_per_step'])+".png";
+  show_image(filename, "imagetest4");
+  replace_text(myRangeA.value, "pointA");
+  replace_text(myRangeB.value, "pointB");
+  replace_text(myRangeC.value, "pointC");
+  replace_text(myRangeD.value, "pointD");
+  replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue");
+  searchButtonClicked();
+}
+
 
 searchButton.addEventListener("click",searchButtonClicked);
 function searchButtonClicked(e) {
@@ -389,15 +445,19 @@ function update_graphs(data) {
       .text(function(d) {
         let id = d.ImageID;
         if(id == myRangeA.value) {
+          console.log("a: " + id);
           return "A";
         }
         else if(id == myRangeB.value) {
+          console.log("b: " + id);
           return "B";
         }
         else if(id == myRangeC.value) {
+          console.log("c: " + id);
           return "C";
         }
         else if(id == myRangeD.value) {
+          console.log("d: " + id);
           return "D";
         }
       });
@@ -600,15 +660,19 @@ d3.csv("result.csv", function(data) {
       .text(function(d) {
         let id = d.ImageID;
         if(id == myRangeA.value) {
+          console.log("a: " + id);
           return "A";
         }
         else if(id == myRangeB.value) {
+          console.log("b: " + id);
           return "B";
         }
         else if(id == myRangeC.value) {
+          console.log("c: " + id);
           return "C";
         }
         else if(id == myRangeD.value) {
+          console.log("d: " + id);
           return "D";
         }
       });
