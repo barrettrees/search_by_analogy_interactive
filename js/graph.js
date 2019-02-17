@@ -1,4 +1,4 @@
-// this holds the data we need for each game
+// store data needed for each game
 game_presets = {
   mario: {
     screenshot_path: "../images/mario_screenshots/",
@@ -7,12 +7,16 @@ game_presets = {
     frames_per_step: 10,
     a_time: 301,
     b_time: 1858,
-    c_time: 1020,
-    d_time: 2170,
+    c_time: 1086,
+    d_time: 2092,
     a_time2: 560,
     b_time2: 1769,
     c_time2: 2155,
     d_time2: 1083
+    // a_time2: 301,
+    // b_time2: 1717,
+    // c_time2: 1020,
+    // d_time2: 2092
   },
   mario2: {
     screenshot_path: "../images/mario2_screenshots/",
@@ -44,14 +48,13 @@ game_presets = {
   }
 }
 
-// this holds the vectorArrays for each game
+// store vectorArrays for each game
 gameVectorArrays = {
   mario: [],
   metroid: []
 }
 
-// the current config displayed
-let experiment_config = game_presets['mario'];
+let experiment_config;
 let vectorArray;
 let dimensions = 256;
 
@@ -82,79 +85,119 @@ for (let game in gameVectorArrays) {
   oReq.send(null);
 }
 
-function show_image(src, whereto) {
-  document.getElementById(whereto).src = src;
-}
+// set reference to frame # displayed under image
+let pointA = document.getElementById("pointA");
+let pointB = document.getElementById("pointB");
+let pointC = document.getElementById("pointC");
+let pointD = document.getElementById("pointD");
 
-// this function complicates the code
-function replace_text(txt,whereto){
-  document.getElementById(whereto).innerHTML = txt;
-}
+// reference to k value
+let kVar = document.getElementById("kVar");
 
-// // set reference to the caption text under respective image
-// in progress...
-// this is for removing show_image and replace_text functions
-// let pointA = document.getElementById("pointA");
-// let pointB = document.getElementById("pointB");
-// let pointC = document.getElementById("pointC");
-// let pointD = document.getElementById("pointD");
-
-// // set reference to the slider inputs A, B, C, D
+// set reference to slider inputs A, B, C, D
 let myRangeA = document.getElementById("myRangeA");
 let myRangeB = document.getElementById("myRangeB");
 let myRangeC = document.getElementById("myRangeC");
 let myRangeD = document.getElementById("myRangeD");
 let myRangeK = document.getElementById("myRangeK");
 
-// initialize first images and numbers
-show_image("images/mario_screenshots/3010.png","imagetest1");
-show_image("images/mario_screenshots/18580.png","imagetest2");
-show_image("images/mario_screenshots/10200.png","imagetest3");
-show_image("images/mario_screenshots/21700.png","imagetest4");
-replace_text(myRangeA.value,"pointA")
-replace_text(myRangeB.value,"pointB")
-replace_text(myRangeC.value,"pointC")
-replace_text(myRangeD.value,"pointD")
-replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue")
+// set reference to the four videogame images
+let imagetest1 = document.getElementById("imagetest1");
+let imagetest2 = document.getElementById("imagetest2");
+let imagetest3 = document.getElementById("imagetest3");
+let imagetest4 = document.getElementById("imagetest4");
+
+// initialize experiment
+let myVar = setInterval(waitVectorArray, 1000);
+function waitVectorArray() {
+  if(vectorArray.length > 0) {
+    clearInterval(myVar);
+    // console.log(vectorArray);
+    gameListButtonClicked();
+  }
+}
+
+function updateFrameNums() {
+  pointA.value = myRangeA.value;
+  pointB.value = myRangeB.value;
+  pointC.value = myRangeC.value;
+  pointD.innerHTML = myRangeD.value;
+  kVar.innerHTML = parseFloat(myRangeK.value).toFixed(1);
+}
+
+function updateImage(src, image) {
+  image.src = src;
+}
+
+function isValidFrame(frameNum) {
+  return (frameNum >= 1 && frameNum <= experiment_config['num_images']);
+}
+
+// set event listeners for the frame # input fields
+pointA.addEventListener("input", function(e) {
+  let newNum = this.value;
+  console.log(newNum);
+  if(isValidFrame(newNum)) {
+    myRangeA.value = newNum;
+    sliderChangedA();
+  }
+  else {
+    //this.value = myRangeA.value;
+  }
+});
+pointB.addEventListener("input", function(e) {
+  let newNum = this.value;
+  console.log(newNum);
+  if(isValidFrame(newNum)) {
+    myRangeB.value = newNum;
+    sliderChangedB();
+  }
+  else {
+    //this.value = myRangeB.value;
+  }
+});
+pointC.addEventListener("input", function(e) {
+  let newNum = this.value;
+  console.log(newNum);
+  if(isValidFrame(newNum)) {
+    myRangeC.value = newNum;
+    sliderChangedC();
+  }
+  else {
+    //this.value = myRangeC.value;
+  }
+});
 
 // set event listeners for the sliders
 myRangeA.addEventListener("input",sliderChangedA);
 myRangeB.addEventListener("input",sliderChangedB);
 myRangeC.addEventListener("input",sliderChangedC);
-myRangeD.addEventListener("input",sliderChangedD);
 myRangeK.addEventListener("input",sliderChangedK);
 
 function sliderChangedA(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest1");
-  replace_text(myRangeA.value,"pointA")
+  updateImage(filename, imagetest1);
+  pointA.value = myRangeA.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
 function sliderChangedB(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest2");
-  replace_text(myRangeB.value,"pointB")
+  updateImage(filename, imagetest2);
+  pointB.value = myRangeB.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
 function sliderChangedC(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest3");
-  replace_text(myRangeC.value,"pointC")
-  if (searchCheckBox.checked == true){searchButtonClicked();}
-}
-function sliderChangedD(e) {
-  let filename = experiment_config['screenshot_path']
-    +(myRangeD.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest4");
-  replace_text(myRangeD.value,"pointD")
+  updateImage(filename, imagetest3);
+  pointC.value = myRangeC.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
 
 function sliderChangedK(e) {
-  replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue")
+  kVar.innerHTML = parseFloat(myRangeK.value).toFixed(1);
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
 
@@ -185,32 +228,23 @@ function loadPreset(e) {
   myRangeK.value = 1;
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest1");
+  updateImage(filename, imagetest1);
   filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest2");
+  updateImage(filename, imagetest2);
   filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest3");
+  updateImage(filename, imagetest3);
   filename = experiment_config['screenshot_path']
     +(myRangeD.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest4");
-  replace_text(myRangeA.value, "pointA");
-  replace_text(myRangeB.value, "pointB");
-  replace_text(myRangeC.value, "pointC");
-  replace_text(myRangeD.value, "pointD");
-  replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue");
+  updateImage(filename, imagetest4);
+  updateFrameNums();
   searchButtonClicked();
 }
 
 presetButton2.addEventListener("click",loadPreset2);
 function loadPreset2(e) {
   console.log('loading preset2 config');
-  // let imgCount = experiment_config['num_images'];
-  // myRangeA.max = imgCount;
-  // myRangeB.max = imgCount;
-  // myRangeC.max = imgCount;
-  // myRangeD.max = imgCount;
   myRangeA.value = experiment_config['a_time2'];
   myRangeB.value = experiment_config['b_time2'];
   myRangeC.value = experiment_config['c_time2'];
@@ -218,47 +252,50 @@ function loadPreset2(e) {
   myRangeK.value = 1;
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest1");
+  updateImage(filename, imagetest1);
   filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest2");
+  updateImage(filename, imagetest2);
   filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest3");
+  updateImage(filename, imagetest3);
   filename = experiment_config['screenshot_path']
     +(myRangeD.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest4");
-  replace_text(myRangeA.value, "pointA");
-  replace_text(myRangeB.value, "pointB");
-  replace_text(myRangeC.value, "pointC");
-  replace_text(myRangeD.value, "pointD");
-  replace_text(parseFloat(myRangeK.value).toFixed(1),"kValue");
+  updateImage(filename, imagetest4);
+  updateFrameNums();
   searchButtonClicked();
 }
 
 
 searchButton.addEventListener("click",searchButtonClicked);
 function searchButtonClicked(e) {
-  let data = [];
-  for (let i = 0; i < experiment_config['num_images']-2; i++) {
-    let qVector = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value])
-    qVector = scalarMultiplication(myRangeK.value, qVector)
-    qVector = vectorSum(vectorArray[myRangeC.value], qVector)
-    data.push( cosineSimilarity(vectorArray[i], qVector ) );
+  if(myRangeA.value == myRangeB.value) {
+    myRangeD.value = myRangeC.value;
+    d3.select("svg").remove(); // clear graph data
+  }
+  else {
+    let data = [];
+    for (let i = 0; i < experiment_config['num_images']-2; i++) {
+      let qVector = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value])
+      qVector = scalarMultiplication(myRangeK.value, qVector)
+      qVector = vectorSum(vectorArray[myRangeC.value], qVector)
+      data.push( cosineSimilarity(vectorArray[i], qVector ) );
+    }
+
+    sortWithIndeces(data);
+    data.sortIndices.reverse();
+    myRangeD.value = data.sortIndices[0];
+    let mydataset = update_data();
+    update_graphs(mydataset);
   }
 
-  sortWithIndeces(data);
-  data.sortIndices.reverse();
-  myRangeD.value = data.sortIndices[0];
   if (searchCheckBox.checked == false) {
     console.log("Search: K = "+ myRangeK.value + ", and D = "+ myRangeD.value);
   }
 
   let filename = experiment_config['screenshot_path']+(myRangeD.value*experiment_config['frames_per_step'])+".png";
-  show_image(filename, "imagetest4");
-  replace_text(myRangeD.value,"pointD")
-  let mydataset = update_data();
-  update_graphs(mydataset);
+  updateImage(filename, imagetest4);
+  pointD.innerHTML = myRangeD.value;
 }
 
 function sortWithIndeces(toSort) {
@@ -406,11 +443,21 @@ function update_graphs(data) {
       .classed("dot", true)
       .attr("r", function (d) {
         let radius = 6 * Math.sqrt((d[rCat]+1)*(d[rCat]+1) / Math.PI);
+        let id = d.ImageID;
+        if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+          return radius * 1.5;
+        }
         return radius;
       })
       .attr("transform", transform)
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide)
       .style("fill", function(d) {
-        if (d[rCat] > 0.95) {return "E50300"}
+        let id = d.ImageID;
+        if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+          return "00FF00";
+        }
+        else if (d[rCat] > 0.95) {return "E50300"}
         else if (d[rCat] > 0.9) {return "DA0B09"}
         else if (d[rCat] > 0.8) {return "CF1412"}
         else if (d[rCat] > 0.7) {return "C41D1B"}
@@ -419,12 +466,12 @@ function update_graphs(data) {
         else if (d[rCat] > 0.4) {return "A33736"}
         else if (d[rCat] > 0.3) {return "98403F"}
         else if (d[rCat] > 0.2) {return "8D4948"}
-        else if (d[rCat]> 0.1) {return "825251"}
+        else if (d[rCat] > 0.1) {return "825251"}
         else if (d[rCat] > 0) {return "775B5A"}
         else if (d[rCat] > -0.1) {return "6D6364"}
         else if (d[rCat] > -0.2) {return "626C6D"}
         else if (d[rCat] > -0.3) {return "577576"}
-        else if (d[rCat]> -0.4) {return "4C7E7F"}
+        else if (d[rCat] > -0.4) {return "4C7E7F"}
         else if (d[rCat] > -0.5) {return "418788"}
         else if (d[rCat] > -0.6) {return "2B989A"}
         else if (d[rCat] > -0.7) {return "20A1A3"}
@@ -432,11 +479,26 @@ function update_graphs(data) {
         else if (d[rCat] > -0.9) {return "0AB3B5"}
         else {return "00BCBF"}
       })
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide);
+      .style("stroke", function(d) {
+        let id = d.ImageID;
+        if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+          return "black";
+        }
+        else {
+          return "white";
+        };
+      });
+
+  function filterByID(data) {
+    id = data.ImageID;
+    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+      return true;
+    }
+    return false;
+  }
 
   objects.selectAll()
-      .data(data)
+      .data(data.filter(filterByID))
     .enter().append("text")
       .classed("dataLabel", true)
       .attr("x", function(d) { return d[xCat]; })
@@ -445,19 +507,15 @@ function update_graphs(data) {
       .text(function(d) {
         let id = d.ImageID;
         if(id == myRangeA.value) {
-          console.log("a: " + id);
           return "A";
         }
         else if(id == myRangeB.value) {
-          console.log("b: " + id);
           return "B";
         }
         else if(id == myRangeC.value) {
-          console.log("c: " + id);
           return "C";
         }
         else if(id == myRangeD.value) {
-          console.log("d: " + id);
           return "D";
         }
       });
@@ -497,229 +555,241 @@ let xCat = "AB_Similarity",
     idCat = "ImageID";
 
 
-d3.csv("result.csv", function(data) {
-  data.forEach(function(d) {
-    d.AB_Similarity = +d.AB_Similarity;
-    d.C_Similarity = +d.C_Similarity;
-    d.matchScore = +d.matchScore;
-    d.ImageID = +d.ImageID;
-  });
-
-  let xMax = d3.max(data, function(d) { return d[xCat]; }) * 1.05;
-  let xMin = d3.min(data, function(d) { return d[xCat]; });
-  if (xMin > 0) {
-    xMin = 0;
-  }
-  let yMax = d3.max(data, function(d) { return d[yCat]; }) * 1.05;
-  let yMin = d3.min(data, function(d) { return d[yCat]; });
-  if (yMin > 0) {
-    yMin = 0;
-  }
-
-  x.domain([xMin, xMax]);
-  y.domain([yMin, yMax]);
-
-  // x.domain([-.2, 1.1]);
-  // y.domain([0, 1.1]);
-
-  let xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom")
-      .tickSize(-height);
-
-  let yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left")
-      .tickSize(-width);
-
-  let color = d3.scale.category10();
-
-  // tip displayed on datapoint hover
-  let tip = d3.tip()
-      .attr("class", "d3-tip")
-      .offset([-10, 0])
-      .html(function(d) {
-        filename = "<img src =" + experiment_config['screenshot_path']+d[idCat]*10+".png" +">";
-        return xCat + ": " + d[xCat] + "<br>" + yCat + ": " + d[yCat]+ "<br>" + rCat + ": " + d[rCat]+ "<br>" + idCat + ": " + d[idCat] + "<br>" + filename ;
-      });
-
-  let zoomBeh = d3.behavior.zoom()
-      .x(x)
-      .y(y)
-      .scaleExtent([0, 500])
-      .on("zoom", zoom);
-
-  let svg = d3.select("#scatter")
-    .append("svg")
-      .attr("width", outerWidth)
-      .attr("height", outerHeight)
-      .style("display", "block") // svg element is display:inline by defualt
-      .style("margin", "auto")
-    .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .call(zoomBeh);
-
-  svg.call(tip);
-
-  // insert rect so user can pan/zoom when clicking anywhere in chart
-  svg.append("rect")
-      .attr("width", width)
-      .attr("height", height);
-
-  svg.append("g")
-      .classed("x axis", true)
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-    .append("text")
-      .classed("label", true)
-      .attr("x", width)
-      .attr("y", margin.bottom - 10)
-      .style("text-anchor", "end")
-      .text(xCat);
-
-  svg.append("g")
-      .classed("y axis", true)
-      .call(yAxis)
-    .append("text")
-      .classed("label", true)
-      .attr("transform", "rotate(-90)")
-      .attr("y", -margin.left)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text(yCat);
-
-  let objects = svg.append("svg")
-      .classed("objects", true)
-      .attr("width", width)
-      .attr("height", height);
-
-  // x axis border
-  objects.append("svg:line")
-      .classed("axisLine hAxisLine", true)
-      .attr("x1", 0)
-      .attr("y1", 0)
-      .attr("x2", width)
-      .attr("y2", 0)
-      .attr("transform", "translate(0," + height + ")");
-
-  // y axis border
-  objects.append("svg:line")
-      .classed("axisLine vAxisLine", true)
-      .attr("x1", 0)
-      .attr("y1", 0)
-      .attr("x2", 0)
-      .attr("y2", height);
-
-  // not sure how d3 doesnt throw an exception
-  // at this point in code there are no elements with the .dot class
-  // ????
-  // objects.selectAll(".dot")
-
-  objects.selectAll()
-      .data(data)
-    .enter().append("circle")
-      .classed("dot", true)
-      .attr("r", function (d) {
-        let radius = 6 * Math.sqrt((d[rCat]+1)*(d[rCat]+1) / Math.PI);
-        return radius;
-      })
-      .attr("transform", transform)
-      .on("mouseover", tip.show)
-      .on("mouseout", tip.hide)
-      .style("fill", function(d) {
-        if (d[rCat] > 0.95) {return "E50300"}
-        else if (d[rCat] > 0.9) {return "DA0B09"}
-        else if (d[rCat] > 0.8) {return "CF1412"}
-        else if (d[rCat] > 0.7) {return "C41D1B"}
-        else if (d[rCat] > 0.6) {return "B92624"}
-        else if (d[rCat] > 0.5) {return "AE2F2D"}
-        else if (d[rCat] > 0.4) {return "A33736"}
-        else if (d[rCat] > 0.3) {return "98403F"}
-        else if (d[rCat] > 0.2) {return "8D4948"}
-        else if (d[rCat] > 0.1) {return "825251"}
-        else if (d[rCat] > 0) {return "775B5A"}
-        else if (d[rCat] > -0.1) {return "6D6364"}
-        else if (d[rCat] > -0.2) {return "626C6D"}
-        else if (d[rCat] > -0.3) {return "577576"}
-        else if (d[rCat] > -0.4) {return "4C7E7F"}
-        else if (d[rCat] > -0.5) {return "418788"}
-        else if (d[rCat] > -0.6) {return "2B989A"}
-        else if (d[rCat] > -0.7) {return "20A1A3"}
-        else if (d[rCat] > -0.8) {return "15AAAC"}
-        else if (d[rCat] > -0.9) {return "0AB3B5"}
-        else {return "00BCBF"}
-      })
-
-  objects.selectAll()
-      .data(data)
-    .enter().append("text")
-      .classed("dataLabel", true)
-      .attr("x", function(d) { return d[xCat]; })
-      .attr("y", function(d) { return d[yCat]; })
-      .attr("transform", transform)
-      .text(function(d) {
-        let id = d.ImageID;
-        if(id == myRangeA.value) {
-          console.log("a: " + id);
-          return "A";
-        }
-        else if(id == myRangeB.value) {
-          console.log("b: " + id);
-          return "B";
-        }
-        else if(id == myRangeC.value) {
-          console.log("c: " + id);
-          return "C";
-        }
-        else if(id == myRangeD.value) {
-          console.log("d: " + id);
-          return "D";
-        }
-      });
-
-  // let legend = svg.selectAll(".legend")
-  //     .data(color.domain())
-  //   .enter().append("g")
-  //     .classed("legend", true)
-  //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  // legend.append("circle")
-  //     .attr("r", 3.5)
-  //     .attr("cx", width + 20)
-  //     .attr("fill", color);
-
-  // legend.append("text")
-  //     .attr("x", width + 26)
-  //     .attr("dy", ".35em")
-  //     .text(function(d) { return d; });
-
-  // d3.select("input").on("click", change);
-
-  // function change() {
-  //   xCat = "Carbs";
-  //   xMax = d3.max(data, function(d) { return d[xCat]; });
-  //   xMin = d3.min(data, function(d) { return d[xCat]; });
-
-  //   zoomBeh.x(x.domain([xMin, xMax])).y(y.domain([yMin, yMax]));
-
-  //   let svg = d3.select("#scatter").transition();
-
-  //   svg.select(".x.axis").duration(750).call(xAxis).select(".label").text(xCat);
-
-  //   objects.selectAll(".dot").transition().duration(1000).attr("transform", transform);
-  // }
-
-  function zoom() {
-    svg.select(".x.axis").call(xAxis);
-    svg.select(".y.axis").call(yAxis);
-
-    svg.selectAll(".dot")
-        .attr("transform", transform);
-    svg.selectAll(".dataLabel")
-        .attr("transform", transform);
-  }
-
-  function transform(d) {
-    return "translate(" + x(d[xCat]) + "," + y(d[yCat]) + ")";
-  }
-});
+// d3.csv("result.csv", function(data) {
+//   data.forEach(function(d) {
+//     d.AB_Similarity = +d.AB_Similarity;
+//     d.C_Similarity = +d.C_Similarity;
+//     d.matchScore = +d.matchScore;
+//     d.ImageID = +d.ImageID;
+//   });
+//
+//   let xMax = d3.max(data, function(d) { return d[xCat]; }) * 1.05;
+//   let xMin = d3.min(data, function(d) { return d[xCat]; });
+//   if (xMin > 0) {
+//     xMin = 0;
+//   }
+//   let yMax = d3.max(data, function(d) { return d[yCat]; }) * 1.05;
+//   let yMin = d3.min(data, function(d) { return d[yCat]; });
+//   if (yMin > 0) {
+//     yMin = 0;
+//   }
+//
+//   x.domain([xMin, xMax]);
+//   y.domain([yMin, yMax]);
+//
+//   // x.domain([-.2, 1.1]);
+//   // y.domain([0, 1.1]);
+//
+//   let xAxis = d3.svg.axis()
+//       .scale(x)
+//       .orient("bottom")
+//       .tickSize(-height);
+//
+//   let yAxis = d3.svg.axis()
+//       .scale(y)
+//       .orient("left")
+//       .tickSize(-width);
+//
+//   let color = d3.scale.category10();
+//
+//   // tip displayed on datapoint hover
+//   let tip = d3.tip()
+//       .attr("class", "d3-tip")
+//       .offset([-10, 0])
+//       .html(function(d) {
+//         filename = "<img src =" + experiment_config['screenshot_path']+d[idCat]*10+".png" +">";
+//         return xCat + ": " + d[xCat] + "<br>" + yCat + ": " + d[yCat]+ "<br>" + rCat + ": " + d[rCat]+ "<br>" + idCat + ": " + d[idCat] + "<br>" + filename ;
+//       });
+//
+//   let zoomBeh = d3.behavior.zoom()
+//       .x(x)
+//       .y(y)
+//       .scaleExtent([0, 500])
+//       .on("zoom", zoom);
+//
+//   let svg = d3.select("#scatter")
+//     .append("svg")
+//       .attr("width", outerWidth)
+//       .attr("height", outerHeight)
+//       .style("display", "block") // svg element is display:inline by defualt
+//       .style("margin", "auto")
+//     .append("g")
+//       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+//       .call(zoomBeh);
+//
+//   svg.call(tip);
+//
+//   // insert rect so user can pan/zoom when clicking anywhere in chart
+//   svg.append("rect")
+//       .attr("width", width)
+//       .attr("height", height);
+//
+//   svg.append("g")
+//       .classed("x axis", true)
+//       .attr("transform", "translate(0," + height + ")")
+//       .call(xAxis)
+//     .append("text")
+//       .classed("label", true)
+//       .attr("x", width)
+//       .attr("y", margin.bottom - 10)
+//       .style("text-anchor", "end")
+//       .text(xCat);
+//
+//   svg.append("g")
+//       .classed("y axis", true)
+//       .call(yAxis)
+//     .append("text")
+//       .classed("label", true)
+//       .attr("transform", "rotate(-90)")
+//       .attr("y", -margin.left)
+//       .attr("dy", ".71em")
+//       .style("text-anchor", "end")
+//       .text(yCat);
+//
+//   let objects = svg.append("svg")
+//       .classed("objects", true)
+//       .attr("width", width)
+//       .attr("height", height);
+//
+//   // x axis border
+//   objects.append("svg:line")
+//       .classed("axisLine hAxisLine", true)
+//       .attr("x1", 0)
+//       .attr("y1", 0)
+//       .attr("x2", width)
+//       .attr("y2", 0)
+//       .attr("transform", "translate(0," + height + ")");
+//
+//   // y axis border
+//   objects.append("svg:line")
+//       .classed("axisLine vAxisLine", true)
+//       .attr("x1", 0)
+//       .attr("y1", 0)
+//       .attr("x2", 0)
+//       .attr("y2", height);
+//
+//   objects.selectAll()
+//       .data(data)
+//     .enter().append("circle")
+//       .classed("dot", true)
+//       .attr("r", function (d) {
+//         let radius = 6 * Math.sqrt((d[rCat]+1)*(d[rCat]+1) / Math.PI);
+//         return radius;
+//       })
+//       .attr("transform", transform)
+//       .on("mouseover", tip.show)
+//       .on("mouseout", tip.hide)
+//       .style("fill", function(d) {
+//         let id = d.ImageID;
+//         if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+//           return "00FF00";
+//         }
+//         else if (d[rCat] > 0.95) {return "E50300"}
+//         else if (d[rCat] > 0.9) {return "DA0B09"}
+//         else if (d[rCat] > 0.8) {return "CF1412"}
+//         else if (d[rCat] > 0.7) {return "C41D1B"}
+//         else if (d[rCat] > 0.6) {return "B92624"}
+//         else if (d[rCat] > 0.5) {return "AE2F2D"}
+//         else if (d[rCat] > 0.4) {return "A33736"}
+//         else if (d[rCat] > 0.3) {return "98403F"}
+//         else if (d[rCat] > 0.2) {return "8D4948"}
+//         else if (d[rCat] > 0.1) {return "825251"}
+//         else if (d[rCat] > 0) {return "775B5A"}
+//         else if (d[rCat] > -0.1) {return "6D6364"}
+//         else if (d[rCat] > -0.2) {return "626C6D"}
+//         else if (d[rCat] > -0.3) {return "577576"}
+//         else if (d[rCat] > -0.4) {return "4C7E7F"}
+//         else if (d[rCat] > -0.5) {return "418788"}
+//         else if (d[rCat] > -0.6) {return "2B989A"}
+//         else if (d[rCat] > -0.7) {return "20A1A3"}
+//         else if (d[rCat] > -0.8) {return "15AAAC"}
+//         else if (d[rCat] > -0.9) {return "0AB3B5"}
+//         else {return "00BCBF"}
+//       })
+//       .style("stroke", function(d) {
+//         let id = d.ImageID;
+//         if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+//           return "black";
+//         }
+//         else {
+//           return "white";
+//         };
+//       });
+//
+//   function filterByID(data) {
+//     id = data.ImageID;
+//     if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+//       return true;
+//     }
+//     return false;
+//   }
+//
+//   objects.selectAll()
+//       .data(data.filter(filterByID))
+//     .enter().append("text")
+//       .classed("dataLabel", true)
+//       .attr("x", function(d) { return d[xCat]; })
+//       .attr("y", function(d) { return d[yCat]; })
+//       .attr("transform", transform)
+//       .text(function(d) {
+//         let id = d.ImageID;
+//         if(id == myRangeA.value) {
+//           return "A";
+//         }
+//         else if(id == myRangeB.value) {
+//           return "B";
+//         }
+//         else if(id == myRangeC.value) {
+//           return "C";
+//         }
+//         else if(id == myRangeD.value) {
+//           return "D";
+//         }
+//       });
+//
+//   // let legend = svg.selectAll(".legend")
+//   //     .data(color.domain())
+//   //   .enter().append("g")
+//   //     .classed("legend", true)
+//   //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+//
+//   // legend.append("circle")
+//   //     .attr("r", 3.5)
+//   //     .attr("cx", width + 20)
+//   //     .attr("fill", color);
+//
+//   // legend.append("text")
+//   //     .attr("x", width + 26)
+//   //     .attr("dy", ".35em")
+//   //     .text(function(d) { return d; });
+//
+//   // d3.select("input").on("click", change);
+//
+//   // function change() {
+//   //   xCat = "Carbs";
+//   //   xMax = d3.max(data, function(d) { return d[xCat]; });
+//   //   xMin = d3.min(data, function(d) { return d[xCat]; });
+//
+//   //   zoomBeh.x(x.domain([xMin, xMax])).y(y.domain([yMin, yMax]));
+//
+//   //   let svg = d3.select("#scatter").transition();
+//
+//   //   svg.select(".x.axis").duration(750).call(xAxis).select(".label").text(xCat);
+//
+//   //   objects.selectAll(".dot").transition().duration(1000).attr("transform", transform);
+//   // }
+//
+//   function zoom() {
+//     svg.select(".x.axis").call(xAxis);
+//     svg.select(".y.axis").call(yAxis);
+//
+//     svg.selectAll(".dot")
+//         .attr("transform", transform);
+//     svg.selectAll(".dataLabel")
+//         .attr("transform", transform);
+//   }
+//
+//   function transform(d) {
+//     return "translate(" + x(d[xCat]) + "," + y(d[yCat]) + ")";
+//   }
+// });

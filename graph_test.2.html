@@ -9,31 +9,32 @@
   <body>
     <div class="responsive">
       <div class="gallery">
-          <img id="imagetest1"  width="256" height="224">
-        <div class="desc" id = "pointA">A</div>
+        <img id="imagetest1"  width="256" height="224">
+        <input class="frame-num" type="text" id="pointA">
       </div>
     </div>
     <div class="responsive">
       <div class="gallery">
-          <img id="imagetest2" width="256" height="224">
-        <div class="desc" id = "pointB">B</div>
+        <img id="imagetest2" width="256" height="224">
+        <input class="frame-num" type="text" id="pointB">
       </div>
     </div>
     <div class="responsive">
       <div class="gallery">
-          <img id="imagetest3" width="256" height="224">
-        <div class="desc" id = "pointC">C</div>
+        <img id="imagetest3" width="256" height="224">
+        <input class="frame-num" type="text" id="pointC">
       </div>
     </div>
     <div class="responsive">
       <div class="gallery">
-          <img id="imagetest4" width="256" height="224">
-        <div class="desc" id = "pointD">D</div>
+        <img id="imagetest4" width="256" height="224">
+        <!-- <input class="frame-num" type="text" id="pointD"> -->
+        <div class="desc" id="pointD">D</div>
       </div>
     </div>
     <div>
 
-    <select id ="gameListButton">
+    <select id="gameListButton">
       <option value="mario">Mario</option>
       <option value="mario2">Mario2</option>
       <option value="metroid">Metroid</option>
@@ -45,27 +46,27 @@
     </div>
 
     <nav class="container">
-      <div class="desc" id = "labelA">
+      <div class="desc" id="labelA">
         A
         <input class="pointRangeSlider" type="range" min="1" max="2377" value="301" class="slider" id="myRangeA">
       </div>
-      <div class="desc" id = "labelB">
+      <div class="desc" id="labelB">
         B
         <input class="pointRangeSlider"  type="range" min="1" max="2377"  value="1858" class="slider" id="myRangeB">
       </div>
-      <div class="desc" id = "labelC">
+      <div class="desc" id="labelC">
         C
-        <input class="pointRangeSlider"  type="range" min="1" max="2377"  value="1020" class="slider" id="myRangeC">
+        <input class="pointRangeSlider"  type="range" min="1" max="2377"  value="1086" class="slider" id="myRangeC">
       </div>
-      <div class="desc" id = "labelD">
+      <div class="desc" id="labelD">
         D
-        <input class="pointRangeSlider"  type="range" min="1"  max="2377"  value="2170" class="slider" id="myRangeD">
+        <input class="pointRangeSlider"  type="range" min="1"  max="2377"  value="2092" class="slider" id="myRangeD">
       </div>
     </nav>
 
     <div id="scatter"></div>
-    <div class="desc" id = "kValue">K</div>
-    <div class="desc" id = "labelK">
+    <div class="desc" id="kVar">0.0</div>
+    <div class="desc" id="labelK">
       K
       <input class="pointRangeSlider"  type="range" min="-1" max="10" value="1" class="slider" step =.1 id="myRangeK">
     </div>
