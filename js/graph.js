@@ -3,20 +3,24 @@ game_presets = {
   mario: {
     screenshot_path: "../images/mario_screenshots/",
     model_path: "../models/mario_screenshots_predicted.bin",
-    num_images: 2377,
+    num_images: 2375, //2377 gives error
     frames_per_step: 10,
-    a_time: 301,
+    a_time: 410,
     b_time: 1858,
-    c_time: 1086,
-    d_time: 2092,
-    a_time2: 560,
-    b_time2: 1769,
-    c_time2: 2155,
-    d_time2: 1083
+    c_time: 1020,
+    d_time: 2170,
     // a_time2: 301,
-    // b_time2: 1717,
+    // b_time2: 1582,
     // c_time2: 1020,
-    // d_time2: 2092
+    // d_time2: 2069
+    // a_time2: 1582,
+    // b_time2: 410,
+    // c_time2: 1350,
+    // d_time2: 910
+    a_time2: 1582,
+    b_time2: 1309,
+    c_time2: 564,
+    d_time2: 850
   },
   mario2: {
     screenshot_path: "../images/mario2_screenshots/",
