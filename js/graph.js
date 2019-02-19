@@ -20,13 +20,13 @@ game_presets = {
   },
   mario2: {
     screenshot_path: "../images/mario2_screenshots/",
-    model_path: "../models/mario_screenshots_predicted.bin",
+    model_path: "../models/mario_screenshots_predicted2.bin",
     num_images: 6524,
     frames_per_step: 10,
-    a_time: 1000,
-    b_time: 2000,
-    c_time: 3000,
-    d_time: 4000,
+    a_time: 2232,
+    b_time: 4153,
+    c_time: 4987,
+    d_time: 4127,
     a_time2: 1,
     b_time2: 2,
     c_time2: 3,
@@ -59,6 +59,7 @@ game_presets = {
 // store vectorArrays for each game
 gameVectorArrays = {
   mario: [],
+  mario2: [],
   metroid: []
 }
 
