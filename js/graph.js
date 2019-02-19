@@ -9,18 +9,14 @@ game_presets = {
     b_time: 1858,
     c_time: 1020,
     d_time: 2170,
-    // a_time2: 301,
-    // b_time2: 1582,
-    // c_time2: 1020,
-    // d_time2: 2069
-    // a_time2: 1582,
-    // b_time2: 410,
-    // c_time2: 1350,
-    // d_time2: 910
     a_time2: 1582,
     b_time2: 1309,
     c_time2: 564,
-    d_time2: 850
+    d_time2: 850,
+    a_save: 410,
+    b_save: 1858,
+    c_save: 1020,
+    k_save: 1
   },
   mario2: {
     screenshot_path: "../images/mario2_screenshots/",
@@ -34,7 +30,11 @@ game_presets = {
     a_time2: 1,
     b_time2: 2,
     c_time2: 3,
-    d_time2: 4
+    d_time2: 4,
+    a_save: 1,
+    b_save: 1,
+    c_save: 1,
+    k_save: 1
   },
   metroid: {
     screenshot_path: "../images/metroid_screenshots/",
@@ -48,7 +48,11 @@ game_presets = {
     a_time2: 1,
     b_time2: 2,
     c_time2: 3,
-    d_time2: 4
+    d_time2: 4,
+    a_save: 2005,
+    b_save: 4944,
+    c_save: 4623,
+    k_save: 1
   }
 }
 
@@ -215,6 +219,36 @@ function gameListButtonClicked(e) {
   // console.log(experiment_config);
   vectorArray = gameVectorArrays[game];
   loadPreset();
+}
+
+saveButton.addEventListener("click",savePreset);
+function savePreset(e) {
+  console.log('saving user preset');
+  experiment_config['a_save'] = myRangeA.value;
+  experiment_config['b_save'] = myRangeB.value;
+  experiment_config['c_save'] = myRangeC.value;
+  experiment_config['k_save'] = myRangeK.value;
+}
+
+
+loadButton.addEventListener("click",loadSave);
+function loadSave(e) {
+  console.log('loading save config');
+  myRangeA.value = experiment_config['a_save'];
+  myRangeB.value = experiment_config['b_save'];
+  myRangeC.value = experiment_config['c_save'];
+  myRangeK.value = experiment_config['k_save'];
+  let filename = experiment_config['screenshot_path']
+    +(myRangeA.value*experiment_config['frames_per_step'])+".png";
+  updateImage(filename, imagetest1);
+  filename = experiment_config['screenshot_path']
+    +(myRangeB.value*experiment_config['frames_per_step'])+".png";
+  updateImage(filename, imagetest2);
+  filename = experiment_config['screenshot_path']
+    +(myRangeC.value*experiment_config['frames_per_step'])+".png";
+  updateImage(filename, imagetest3);
+  updateFrameNums();
+  searchButtonClicked();
 }
 
 presetButton.addEventListener("click",loadPreset);
@@ -505,8 +539,8 @@ function update_graphs(data) {
       .data(data.filter(filterByID))
     .enter().append("text")
       .classed("dataLabel", true)
-      .attr("x", function(d) { return d[xCat]; })
-      .attr("y", function(d) { return d[yCat]; })
+      .attr("x", function(d) { return d[xCat] + 6; })
+      .attr("y", function(d) { return d[yCat] - 6; })
       .attr("transform", transform)
       .text(function(d) {
         let id = d.ImageID;
@@ -557,243 +591,3 @@ let xCat = "AB_Similarity",
     yCat = "C_Similarity",
     rCat = "matchScore",
     idCat = "ImageID";
-
-
-// d3.csv("result.csv", function(data) {
-//   data.forEach(function(d) {
-//     d.AB_Similarity = +d.AB_Similarity;
-//     d.C_Similarity = +d.C_Similarity;
-//     d.matchScore = +d.matchScore;
-//     d.ImageID = +d.ImageID;
-//   });
-//
-//   let xMax = d3.max(data, function(d) { return d[xCat]; }) * 1.05;
-//   let xMin = d3.min(data, function(d) { return d[xCat]; });
-//   if (xMin > 0) {
-//     xMin = 0;
-//   }
-//   let yMax = d3.max(data, function(d) { return d[yCat]; }) * 1.05;
-//   let yMin = d3.min(data, function(d) { return d[yCat]; });
-//   if (yMin > 0) {
-//     yMin = 0;
-//   }
-//
-//   x.domain([xMin, xMax]);
-//   y.domain([yMin, yMax]);
-//
-//   // x.domain([-.2, 1.1]);
-//   // y.domain([0, 1.1]);
-//
-//   let xAxis = d3.svg.axis()
-//       .scale(x)
-//       .orient("bottom")
-//       .tickSize(-height);
-//
-//   let yAxis = d3.svg.axis()
-//       .scale(y)
-//       .orient("left")
-//       .tickSize(-width);
-//
-//   let color = d3.scale.category10();
-//
-//   // tip displayed on datapoint hover
-//   let tip = d3.tip()
-//       .attr("class", "d3-tip")
-//       .offset([-10, 0])
-//       .html(function(d) {
-//         filename = "<img src =" + experiment_config['screenshot_path']+d[idCat]*10+".png" +">";
-//         return xCat + ": " + d[xCat] + "<br>" + yCat + ": " + d[yCat]+ "<br>" + rCat + ": " + d[rCat]+ "<br>" + idCat + ": " + d[idCat] + "<br>" + filename ;
-//       });
-//
-//   let zoomBeh = d3.behavior.zoom()
-//       .x(x)
-//       .y(y)
-//       .scaleExtent([0, 500])
-//       .on("zoom", zoom);
-//
-//   let svg = d3.select("#scatter")
-//     .append("svg")
-//       .attr("width", outerWidth)
-//       .attr("height", outerHeight)
-//       .style("display", "block") // svg element is display:inline by defualt
-//       .style("margin", "auto")
-//     .append("g")
-//       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-//       .call(zoomBeh);
-//
-//   svg.call(tip);
-//
-//   // insert rect so user can pan/zoom when clicking anywhere in chart
-//   svg.append("rect")
-//       .attr("width", width)
-//       .attr("height", height);
-//
-//   svg.append("g")
-//       .classed("x axis", true)
-//       .attr("transform", "translate(0," + height + ")")
-//       .call(xAxis)
-//     .append("text")
-//       .classed("label", true)
-//       .attr("x", width)
-//       .attr("y", margin.bottom - 10)
-//       .style("text-anchor", "end")
-//       .text(xCat);
-//
-//   svg.append("g")
-//       .classed("y axis", true)
-//       .call(yAxis)
-//     .append("text")
-//       .classed("label", true)
-//       .attr("transform", "rotate(-90)")
-//       .attr("y", -margin.left)
-//       .attr("dy", ".71em")
-//       .style("text-anchor", "end")
-//       .text(yCat);
-//
-//   let objects = svg.append("svg")
-//       .classed("objects", true)
-//       .attr("width", width)
-//       .attr("height", height);
-//
-//   // x axis border
-//   objects.append("svg:line")
-//       .classed("axisLine hAxisLine", true)
-//       .attr("x1", 0)
-//       .attr("y1", 0)
-//       .attr("x2", width)
-//       .attr("y2", 0)
-//       .attr("transform", "translate(0," + height + ")");
-//
-//   // y axis border
-//   objects.append("svg:line")
-//       .classed("axisLine vAxisLine", true)
-//       .attr("x1", 0)
-//       .attr("y1", 0)
-//       .attr("x2", 0)
-//       .attr("y2", height);
-//
-//   objects.selectAll()
-//       .data(data)
-//     .enter().append("circle")
-//       .classed("dot", true)
-//       .attr("r", function (d) {
-//         let radius = 6 * Math.sqrt((d[rCat]+1)*(d[rCat]+1) / Math.PI);
-//         return radius;
-//       })
-//       .attr("transform", transform)
-//       .on("mouseover", tip.show)
-//       .on("mouseout", tip.hide)
-//       .style("fill", function(d) {
-//         let id = d.ImageID;
-//         if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
-//           return "00FF00";
-//         }
-//         else if (d[rCat] > 0.95) {return "E50300"}
-//         else if (d[rCat] > 0.9) {return "DA0B09"}
-//         else if (d[rCat] > 0.8) {return "CF1412"}
-//         else if (d[rCat] > 0.7) {return "C41D1B"}
-//         else if (d[rCat] > 0.6) {return "B92624"}
-//         else if (d[rCat] > 0.5) {return "AE2F2D"}
-//         else if (d[rCat] > 0.4) {return "A33736"}
-//         else if (d[rCat] > 0.3) {return "98403F"}
-//         else if (d[rCat] > 0.2) {return "8D4948"}
-//         else if (d[rCat] > 0.1) {return "825251"}
-//         else if (d[rCat] > 0) {return "775B5A"}
-//         else if (d[rCat] > -0.1) {return "6D6364"}
-//         else if (d[rCat] > -0.2) {return "626C6D"}
-//         else if (d[rCat] > -0.3) {return "577576"}
-//         else if (d[rCat] > -0.4) {return "4C7E7F"}
-//         else if (d[rCat] > -0.5) {return "418788"}
-//         else if (d[rCat] > -0.6) {return "2B989A"}
-//         else if (d[rCat] > -0.7) {return "20A1A3"}
-//         else if (d[rCat] > -0.8) {return "15AAAC"}
-//         else if (d[rCat] > -0.9) {return "0AB3B5"}
-//         else {return "00BCBF"}
-//       })
-//       .style("stroke", function(d) {
-//         let id = d.ImageID;
-//         if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
-//           return "black";
-//         }
-//         else {
-//           return "white";
-//         };
-//       });
-//
-//   function filterByID(data) {
-//     id = data.ImageID;
-//     if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
-//       return true;
-//     }
-//     return false;
-//   }
-//
-//   objects.selectAll()
-//       .data(data.filter(filterByID))
-//     .enter().append("text")
-//       .classed("dataLabel", true)
-//       .attr("x", function(d) { return d[xCat]; })
-//       .attr("y", function(d) { return d[yCat]; })
-//       .attr("transform", transform)
-//       .text(function(d) {
-//         let id = d.ImageID;
-//         if(id == myRangeA.value) {
-//           return "A";
-//         }
-//         else if(id == myRangeB.value) {
-//           return "B";
-//         }
-//         else if(id == myRangeC.value) {
-//           return "C";
-//         }
-//         else if(id == myRangeD.value) {
-//           return "D";
-//         }
-//       });
-//
-//   // let legend = svg.selectAll(".legend")
-//   //     .data(color.domain())
-//   //   .enter().append("g")
-//   //     .classed("legend", true)
-//   //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-//
-//   // legend.append("circle")
-//   //     .attr("r", 3.5)
-//   //     .attr("cx", width + 20)
-//   //     .attr("fill", color);
-//
-//   // legend.append("text")
-//   //     .attr("x", width + 26)
-//   //     .attr("dy", ".35em")
-//   //     .text(function(d) { return d; });
-//
-//   // d3.select("input").on("click", change);
-//
-//   // function change() {
-//   //   xCat = "Carbs";
-//   //   xMax = d3.max(data, function(d) { return d[xCat]; });
-//   //   xMin = d3.min(data, function(d) { return d[xCat]; });
-//
-//   //   zoomBeh.x(x.domain([xMin, xMax])).y(y.domain([yMin, yMax]));
-//
-//   //   let svg = d3.select("#scatter").transition();
-//
-//   //   svg.select(".x.axis").duration(750).call(xAxis).select(".label").text(xCat);
-//
-//   //   objects.selectAll(".dot").transition().duration(1000).attr("transform", transform);
-//   // }
-//
-//   function zoom() {
-//     svg.select(".x.axis").call(xAxis);
-//     svg.select(".y.axis").call(yAxis);
-//
-//     svg.selectAll(".dot")
-//         .attr("transform", transform);
-//     svg.selectAll(".dataLabel")
-//         .attr("transform", transform);
-//   }
-//
-//   function transform(d) {
-//     return "translate(" + x(d[xCat]) + "," + y(d[yCat]) + ")";
-//   }
-// });
