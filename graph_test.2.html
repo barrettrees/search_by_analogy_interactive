@@ -2,78 +2,71 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <!-- css -->
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <title>2D Analogy Graph</title>
   </head>
   <body>
-    <div class="responsive">
+    <div class="about">
+      <h2>Search by Analogy Widget</h2>
+      <p>An experiment in search by analogy for videogame moments. A is to B as C is to D.</p>
+    </div>
+    <div class="frame-container">
       <div class="gallery">
-        <img id="imagetest1"  width="256" height="224">
+        <img class="moment" id="imagetest1">
         <input class="frame-num" type="text" id="pointA">
+        <br>
+        <input class="pointRangeSlider" type="range" min="1" class="slider" id="myRangeA">
+        <br>
+        <h>A</h>
       </div>
-    </div>
-    <div class="responsive">
       <div class="gallery">
-        <img id="imagetest2" width="256" height="224">
+        <img class="moment" id="imagetest2">
         <input class="frame-num" type="text" id="pointB">
+        <br>
+        <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeB">
+        <br>
+        <h>B</h>
       </div>
-    </div>
-    <div class="responsive">
       <div class="gallery">
-        <img id="imagetest3" width="256" height="224">
+        <img class="moment" id="imagetest3">
         <input class="frame-num" type="text" id="pointC">
+        <br>
+        <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeC">
+        <br>
+        <h>C</h>
       </div>
-    </div>
-    <div class="responsive">
-      <div class="gallery">
-        <img id="imagetest4" width="256" height="224">
-        <!-- <input class="frame-num" type="text" id="pointD"> -->
-        <div class="desc" id="pointD">D</div>
+      <div class="gallery result">
+        <img class="moment" id="imagetest4">
+        <p id="pointD">D</p>
+        <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeD" disabled>
+        <br>
+        <h>D</h>
       </div>
-    </div>
-    <div>
-
-    <select id="gameListButton">
-      <option value="mario">Mario</option>
-      <option value="mario2">Mario2</option>
-      <option value="metroid">Metroid</option>
-    </select>
-    <button id="presetButton">Preset 1</button>
-    <button id="presetButton2">Preset 2</button>
-    <button id="searchButton">Search</button>
-    <button id="saveButton">Save Preset</button>
-    <button id="loadButton">Load Save</button>
-    <label class ="switch"><input id ="autoSearch" type = "checkbox"><span class ="slider round"></span>Autosearch</label>
     </div>
 
-    <nav class="container">
-      <div class="desc" id="labelA">
-        A
-        <input class="pointRangeSlider" type="range" min="1" max="2377" value="301" class="slider" id="myRangeA">
-      </div>
-      <div class="desc" id="labelB">
-        B
-        <input class="pointRangeSlider"  type="range" min="1" max="2377"  value="1858" class="slider" id="myRangeB">
-      </div>
-      <div class="desc" id="labelC">
-        C
-        <input class="pointRangeSlider"  type="range" min="1" max="2377"  value="1086" class="slider" id="myRangeC">
-      </div>
-      <div class="desc" id="labelD">
-        D
-        <input class="pointRangeSlider"  type="range" min="1"  max="2377"  value="2092" class="slider" id="myRangeD">
-      </div>
-    </nav>
+    <div class="buttons">
+      <select id="gameListButton">
+        <option value="mario">Mario</option>
+        <option value="mario2">Mario2</option>
+        <option value="metroid">Metroid</option>
+      </select>
+      <button id="presetButton">Preset 1</button>
+      <button id="presetButton2">Preset 2</button>
+      <button id="saveButton">Save Preset</button>
+      <button id="loadButton">Load Save</button>
+      <button id="searchButton">Search</button>
+      <label class ="switch"><input id ="autoSearch" type = "checkbox"><span class ="slider round"></span>Autosearch</label>
+    </div>
 
     <div id="scatter"></div>
-    <div class="desc" id="kVar">0.0</div>
-    <div class="desc" id="labelK">
-      K
-      <input class="pointRangeSlider"  type="range" min="-1" max="10" value="1" class="slider" step =.1 id="myRangeK">
+    <div class="k-container">
+      <p id="kVar">0.0</p>
+      <div>
+        K
+        <input class="pointRangeSlider"  type="range" min="-1" max="10" value="1" class="slider" step =.1 id="myRangeK">
+      </div>
     </div>
-<!--     <input type="button" name="xAxis" value="xAxis">
- -->
+
     <script src="js/d3.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>

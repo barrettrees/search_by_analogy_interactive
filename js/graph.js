@@ -27,13 +27,13 @@ game_presets = {
     b_time: 4153,
     c_time: 4987,
     d_time: 4127,
-    a_time2: 1,
-    b_time2: 2,
-    c_time2: 3,
-    d_time2: 4,
-    a_save: 1,
-    b_save: 1,
-    c_save: 1,
+    a_time2: 4870,
+    b_time2: 2075,
+    c_time2: 4987,
+    d_time2: 1530,
+    a_save: 2232,
+    b_save: 4153,
+    c_save: 4987,
     k_save: 1
   },
   metroid: {
@@ -151,7 +151,7 @@ pointA.addEventListener("input", function(e) {
     sliderChangedA();
   }
   else {
-    //this.value = myRangeA.value;
+    pointA.style.border = "3px inset red";
   }
 });
 pointB.addEventListener("input", function(e) {
@@ -162,7 +162,7 @@ pointB.addEventListener("input", function(e) {
     sliderChangedB();
   }
   else {
-    //this.value = myRangeB.value;
+    pointB.style.border = "3px inset red";
   }
 });
 pointC.addEventListener("input", function(e) {
@@ -173,7 +173,7 @@ pointC.addEventListener("input", function(e) {
     sliderChangedC();
   }
   else {
-    //this.value = myRangeC.value;
+    pointC.style.border = "3px inset red";
   }
 });
 
@@ -187,6 +187,7 @@ function sliderChangedA(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest1);
+  pointA.style.border = "";
   pointA.value = myRangeA.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
@@ -194,6 +195,7 @@ function sliderChangedB(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest2);
+  pointB.style.border = "";
   pointB.value = myRangeB.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
@@ -201,6 +203,7 @@ function sliderChangedC(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest3);
+  pointC.style.border = "";
   pointC.value = myRangeC.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
@@ -408,8 +411,27 @@ function update_graphs(data) {
       .attr("class", "d3-tip")
       .offset([-10, 0])
       .html(function(d) {
-        filename = "<img src =" + experiment_config['screenshot_path']+d[idCat]*10+".png" +">";
-        return xCat + ": " + d[xCat] + "<br>" + yCat + ": " + d[yCat]+ "<br>" + rCat + ": " + d[rCat]+ "<br>" + idCat + ": " + d[idCat] + "<br>" + filename ;
+        let id = d[idCat];
+        let imageName = "Moment  " + d[idCat];
+        filename = "<img style=\"margin-top: 8px;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+        if(id == myRangeA.value) {
+          imageName = "Moment A";
+          filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+        }
+        if(id == myRangeB.value) {
+          imageName = "Moment B";
+          filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+        }
+        if(id == myRangeC.value) {
+          imageName = "Moment C";
+          filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+        }
+        if(id == myRangeD.value) {
+          imageName = "Moment D";
+          filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+        }
+        return imageName + "<hr>" + xCat + ": " + d[xCat] + "<br>" + yCat + ": " + d[yCat]
+            + "<br>" + rCat + ": " + d[rCat] + "<br>" + filename;
       });
 
   let zoomBeh = d3.behavior.zoom()
@@ -476,27 +498,36 @@ function update_graphs(data) {
       .attr("x2", 0)
       .attr("y2", height);
 
+  function filterPoints(data) {
+    id = data.ImageID;
+    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+      return true;
+    }
+    return false;
+  }
+
+  function filterNonPoints(data) {
+    id = data.ImageID;
+    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+      return false;
+    }
+    return true;
+  }
+
+  // create circles for all non A,B,C,D points
   objects.selectAll()
-      .data(data)
+      .data(data.filter(filterNonPoints))
     .enter().append("circle")
       .classed("dot", true)
       .attr("r", function (d) {
         let radius = 6 * Math.sqrt((d[rCat]+1)*(d[rCat]+1) / Math.PI);
-        let id = d.ImageID;
-        if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
-          return radius * 1.5;
-        }
         return radius;
       })
       .attr("transform", transform)
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
       .style("fill", function(d) {
-        let id = d.ImageID;
-        if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
-          return "00FF00";
-        }
-        else if (d[rCat] > 0.95) {return "E50300"}
+        if (d[rCat] > 0.95) {return "E50300"}
         else if (d[rCat] > 0.9) {return "DA0B09"}
         else if (d[rCat] > 0.8) {return "CF1412"}
         else if (d[rCat] > 0.7) {return "C41D1B"}
@@ -519,25 +550,31 @@ function update_graphs(data) {
         else {return "00BCBF"}
       })
       .style("stroke", function(d) {
-        let id = d.ImageID;
-        if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
-          return "black";
-        }
-        else {
           return "white";
-        };
       });
 
-  function filterByID(data) {
-    id = data.ImageID;
-    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
-      return true;
-    }
-    return false;
-  }
-
+  // create circles for A,B,C,D points
   objects.selectAll()
-      .data(data.filter(filterByID))
+      .data(data.filter(filterPoints))
+    .enter().append("circle")
+      .classed("dot", true)
+      .attr("r", function (d) {
+        let radius = 6 * Math.sqrt((d[rCat]+1)*(d[rCat]+1) / Math.PI);
+        return radius * 1.25;
+      })
+      .attr("transform", transform)
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide)
+      .style("fill", function(d) {
+          return "00FF00";
+      })
+      .style("stroke", function(d) {
+          return "black";
+      });
+
+  // create data labels A,B,C,D
+  objects.selectAll()
+      .data(data.filter(filterPoints))
     .enter().append("text")
       .classed("dataLabel", true)
       .attr("x", function(d) { return d[xCat] + 6; })
@@ -575,10 +612,10 @@ function update_graphs(data) {
 };
 
 
-let margin = { top: 50, right: 50, bottom: 50, left: 50 },
+let margin = { top: 20, right: 50, bottom: 50, left: 50 },
 outerWidth = 800,
 // outerWidth = 400,
-outerHeight = 400,
+outerHeight = 350,
 width = outerWidth - margin.left - margin.right,
 height = outerHeight - margin.top - margin.bottom;
 

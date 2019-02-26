@@ -1,3 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  background-color: #FFF5EE;
+}
+
+.about {
+  margin: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.frame-container {
+  display: flex;
+  margin: 20px;
+}
+
+.gallery {
+  flex: 25%;
+  text-align: center;
+  border: 1px solid #777;
+  padding-bottom: 5px;
+  margin: 0 6px;
+}
+
+.result {
+  border: 3px solid black;
+}
+
+.moment {
+  width: 100%;
+}
+
+.frame-num {
+  margin: 5px;
+  width: 3rem;
+  text-align: center;
+  letter-spacing: 0.05rem;
+}
+
+.pointRangeSlider {
+  width: 80%;
+}
+
+#pointD {
+  padding-top: 1px;
+  margin: 6px;
+}
+
+#kVar {
+  margin: 0px;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.k-container {
+  text-align: center;
+}
+
+/* d3 styles */
 rect {
   fill: transparent;
   shape-rendering: crispEdges;
@@ -8,13 +72,6 @@ rect {
   fill: none;
   stroke: rgba(0, 0, 0, 0.1);
   shape-rendering: crispEdges;
-}
-
-.axisLine {
-  fill: none;
-  shape-rendering: crispEdges;
-  stroke: rgba(0, 0, 0, 0.5);
-  stroke-width: 2px;
 }
 
 .dot {
@@ -45,148 +102,12 @@ rect {
 
 /* Style northward tooltips differently */
 .d3-tip.n:after {
-  margin: -1px 0 0 0;
   top: 100%;
   left: 0;
 }
 
-
-.container {
-				width: 100%;
-				}
-
-			.container {
-				  border: 5px solid #ffcc5c;
-				  display: flex;
-				}
-
-			.container > div {
-				  padding: 10px;
-				  text-align: center;
-				  font-size: 2em;
-				  color: #000000;
-				}
-
-			.container2> div {
-				  padding: 10px;
-				  text-align: center;
-				  font-size: 2em;
-				  color: #ffeead;
-				}
-
-			.container2 {
-				width: 100%;
-				}
-
-			.container2 {
-				  border: 1px solid #ffcc5c;
-				  display: flex;
-				}
-			.container2 > div:nth-child(1) {
-				  background-color: #fb9a99;
-				  width: 5%;
-				}
-
-			html, body {
-			  background-color: #FFF5EE;
-			  margin: 0px;
-			}
-
-			.container > div:nth-child(1) {
-			  background-color: #a6cee3;
-			  width: 25%;
-			}
-
-			.container > div:nth-child(2) {
-			  background-color: #1f78b4;
-			  width: 25%;
-			}
-
-			.container > div:nth-child(3) {
-			  background-color: #b2df8a;
-			  width: 25%;
-			}
-
-			.container > div:nth-child(4) {
-			  background-color: #33a02c;
-			  width: 25%;
-			}
-
-			/* Style the lines by removing the fill and applying a stroke */
-			.line {
-			    fill: none;
-			    stroke: #ffab00;
-			    stroke-width: 3;
-			}
-
-			.overlay {
-			  fill: none;
-			  pointer-events: all;
-			}
-
-			/* Style the dots by assigning a fill and stroke */
-			.dot {
-			    fill: #ffab00;
-			    stroke: #fff;
-			}
-
-			  .focus circle {
-			  fill: none;
-			  stroke: steelblue;
-			}
-
-
-
-		div.gallery {
-		    border: 1px solid #ccc;
-		}
-
-		div.gallery:hover {
-		    border: 1px solid #777;
-		}
-
-		div.gallery img {
-		    width: 100%;
-		    height: auto;
-		}
-
-		div.desc {
-		    padding: 5px;
-		    text-align: center;
-		}
-
-		* {
-		    box-sizing: border-box;
-		}
-
-		.responsive {
-		    padding: 0 6px;
-		    float: left;
-		    width: 25%;
-		}
-
-		@media only screen and (max-width: 700px) {
-		    .responsive {
-		        width: 49.99999%;
-		        margin: 6px 0;
-		    }
-		}
-
-		@media only screen and (max-width: 500px) {
-		    .responsive {
-		        width:  100%;
-		    }
-		}
-
-		.clearfix:after {
-		    content: "";
-		    display: table;
-		    clear: both;
-		}
-
-		.text{
-		font-family: Arial, Helvetica, sans-serif;
-		}
-
-		.pointRangeSlider{
-			width: 80%;
+/* * {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+} */
