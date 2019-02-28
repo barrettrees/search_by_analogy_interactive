@@ -151,7 +151,7 @@ pointA.addEventListener("input", function(e) {
     sliderChangedA();
   }
   else {
-    pointA.style.border = "3px inset red";
+    pointA.style.outlineColor = "red";
   }
 });
 pointB.addEventListener("input", function(e) {
@@ -162,7 +162,7 @@ pointB.addEventListener("input", function(e) {
     sliderChangedB();
   }
   else {
-    pointB.style.border = "3px inset red";
+    pointB.style.outlineColor = "red";
   }
 });
 pointC.addEventListener("input", function(e) {
@@ -173,7 +173,7 @@ pointC.addEventListener("input", function(e) {
     sliderChangedC();
   }
   else {
-    pointC.style.border = "3px inset red";
+    pointC.style.outlineColor = "red";
   }
 });
 
@@ -187,7 +187,7 @@ function sliderChangedA(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest1);
-  pointA.style.border = "";
+  pointA.style.outline = "";
   pointA.value = myRangeA.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
@@ -195,7 +195,7 @@ function sliderChangedB(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest2);
-  pointB.style.border = "";
+  pointB.style.outline = "";
   pointB.value = myRangeB.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
@@ -203,7 +203,7 @@ function sliderChangedC(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest3);
-  pointC.style.border = "";
+  pointC.style.outline = "";
   pointC.value = myRangeC.value;
   if (searchCheckBox.checked == true){searchButtonClicked();}
 }
