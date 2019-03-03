@@ -10,60 +10,68 @@
       <h2>Search by Analogy Widget</h2>
       <p>An experiment in search by analogy for videogame moments. A is to B as C is to D.</p>
     </div>
-    <div class="frame-container">
-      <div class="gallery">
-        <img class="moment" id="imagetest1">
-        <input class="frame-num" type="text" id="pointA">
-        <br>
-        <input class="pointRangeSlider" type="range" min="1" class="slider" id="myRangeA">
-        <br>
-        <h>A</h>
+    <div class="wrapper">
+      <div class="frames-container">
+        <div class="gallery">
+          <img class="moment" id="imagetest1">
+          <div>
+            <label for="pointA">A:</label>
+            <input class="frame-num" type="text" id="pointA" name="pointA">
+          </div>
+          <input class="pointRangeSlider" type="range" min="1" class="slider" id="myRangeA">
+        </div>
+        <div class="gallery">
+          <img class="moment" id="imagetest2">
+          <div>
+            <label for="pointB">B:</label>
+            <input class="frame-num" type="text" id="pointB" name="pointB">
+          </div>
+          <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeB">
+        </div>
+        <div class="gallery">
+          <img class="moment" id="imagetest3">
+          <div>
+            <label for="pointC">C:</label>
+            <input class="frame-num" type="text" id="pointC" name="pointC">
+          </div>
+          <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeC">
+        </div>
+        <div class="gallery result">
+          <img class="moment" id="imagetest4">
+          <div>
+            <p class="result-num">D: <span id="pointD"></span></p>
+          </div>
+          <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeD" disabled>
+        </div>
       </div>
-      <div class="gallery">
-        <img class="moment" id="imagetest2">
-        <input class="frame-num" type="text" id="pointB">
-        <br>
-        <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeB">
-        <br>
-        <h>B</h>
-      </div>
-      <div class="gallery">
-        <img class="moment" id="imagetest3">
-        <input class="frame-num" type="text" id="pointC">
-        <br>
-        <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeC">
-        <br>
-        <h>C</h>
-      </div>
-      <div class="gallery result">
-        <img class="moment" id="imagetest4">
-        <p id="pointD">D</p>
-        <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeD" disabled>
-        <br>
-        <h>D</h>
-      </div>
-    </div>
 
-    <div class="buttons">
-      <select id="gameListButton">
-        <option value="mario">Mario</option>
-        <option value="mario2">Mario2</option>
-        <option value="metroid">Metroid</option>
-      </select>
-      <button id="presetButton">Preset 1</button>
-      <button id="presetButton2">Preset 2</button>
-      <button id="saveButton">Save Preset</button>
-      <button id="loadButton">Load Save</button>
-      <button id="searchButton">Search</button>
-      <label class ="switch"><input id ="autoSearch" type = "checkbox"><span class ="slider round"></span>Autosearch</label>
-    </div>
+      <div class="graph-container">
+        <div class="buttons">
+          <select id="gameListButton">
+            <option value="mario">Mario</option>
+            <option value="mario2">Mario2</option>
+            <option value="metroid">Metroid</option>
+          </select>
+          <button id="presetButton">Preset 1</button>
+          <button id="presetButton2">Preset 2</button>
+          <button id="saveButton">Save Preset</button>
+          <button id="loadButton">Load Save</button>
+          <button id="searchButton">Search</button>
+        </div>
 
-    <div id="scatter"></div>
-    <div class="k-container">
-      <p id="kVar">0.0</p>
-      <div>
-        K
-        <input class="pointRangeSlider"  type="range" min="-1" max="10" value="1" class="slider" step =.1 id="myRangeK">
+        <div id="scatter"></div>
+        <div class="k-container">
+          <p id="kVar">0.0</p>
+          <div>
+            K
+            <input class="pointRangeSlider"  type="range" min="-1" max="10" value="1" class="slider" step =.1 id="myRangeK">
+          </div>
+        </div>
+        <div class="description">
+          Lorem ipsum dolor sit amet, alterum periculis ne mei, porro facete aperiri an est, no pri commune
+          delicata vituperatoribus. Ne mea eruditi concludaturque. Ad recusabo scriptorem mea.
+          Et mea quodsi meliore, movet quaeque cum eu. Ius quaeque tacimates ut, prompta erroribus et qui.
+        </div>
       </div>
     </div>
 

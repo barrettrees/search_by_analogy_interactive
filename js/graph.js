@@ -67,9 +67,6 @@ let experiment_config;
 let vectorArray;
 let dimensions = 256;
 
-let searchCheckBox = document.getElementById("autoSearch");
-searchCheckBox.checked = true;
-
 // get the vectorArray for each game
 for (let game in gameVectorArrays) {
   let oReq = new XMLHttpRequest();
@@ -151,7 +148,8 @@ pointA.addEventListener("input", function(e) {
     sliderChangedA();
   }
   else {
-    pointA.style.outlineColor = "red";
+    pointA.style.outline = "auto red";
+    pointA.style.outlineOffset = "-2px";
   }
 });
 pointB.addEventListener("input", function(e) {
@@ -162,7 +160,8 @@ pointB.addEventListener("input", function(e) {
     sliderChangedB();
   }
   else {
-    pointB.style.outlineColor = "red";
+    pointB.style.outline = "auto red";
+    pointB.style.outlineOffset = "-2px";
   }
 });
 pointC.addEventListener("input", function(e) {
@@ -173,7 +172,8 @@ pointC.addEventListener("input", function(e) {
     sliderChangedC();
   }
   else {
-    pointC.style.outlineColor = "red";
+    pointC.style.outline = "auto red";
+    pointC.style.outlineOffset = "-2px";
   }
 });
 
@@ -188,29 +188,32 @@ function sliderChangedA(e) {
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest1);
   pointA.style.outline = "";
+  pointA.style.outlineOffset = "";
   pointA.value = myRangeA.value;
-  if (searchCheckBox.checked == true){searchButtonClicked();}
+  searchButtonClicked();
 }
 function sliderChangedB(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest2);
   pointB.style.outline = "";
+  pointB.style.outlineOffset = "";
   pointB.value = myRangeB.value;
-  if (searchCheckBox.checked == true){searchButtonClicked();}
+  searchButtonClicked();
 }
 function sliderChangedC(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest3);
   pointC.style.outline = "";
+  pointC.style.outlineOffset = "";
   pointC.value = myRangeC.value;
-  if (searchCheckBox.checked == true){searchButtonClicked();}
+  searchButtonClicked();
 }
 
 function sliderChangedK(e) {
   kVar.innerHTML = parseFloat(myRangeK.value).toFixed(1);
-  if (searchCheckBox.checked == true){searchButtonClicked();}
+  searchButtonClicked();
 }
 
 // only called if value from dropdown list is changed
@@ -308,7 +311,7 @@ function loadPreset2(e) {
   searchButtonClicked();
 }
 
-
+let mydataset;
 searchButton.addEventListener("click",searchButtonClicked);
 function searchButtonClicked(e) {
   if(myRangeA.value == myRangeB.value) {
@@ -327,12 +330,8 @@ function searchButtonClicked(e) {
     sortWithIndeces(data);
     data.sortIndices.reverse();
     myRangeD.value = data.sortIndices[0];
-    let mydataset = update_data();
+    mydataset = update_data();
     update_graphs(mydataset);
-  }
-
-  if (searchCheckBox.checked == false) {
-    console.log("Search: K = "+ myRangeK.value + ", and D = "+ myRangeD.value);
   }
 
   let filename = experiment_config['screenshot_path']+(myRangeD.value*experiment_config['frames_per_step'])+".png";
@@ -368,8 +367,25 @@ function update_data(e) {
   return dataset;
 }
 
+window.addEventListener("resize", function() {update_graphs(mydataset)});
+
 // d3 functions below
 // ---------------------------------
+let xCat = "AB_Similarity",
+    yCat = "C_Similarity",
+    rCat = "matchScore",
+    idCat = "ImageID";
+
+let margin = { top: 30, right: 50, bottom: 50, left: 50 };
+let outerWidth = window.innerWidth * .55;
+let outerHeight = outerWidth * .5;
+let width = outerWidth - margin.left - margin.right;
+let height = outerHeight - margin.top - margin.bottom;
+let x = d3.scale.linear()
+    .range([0, width]).nice();
+
+let y = d3.scale.linear()
+    .range([height, 0]).nice();
 
 function update_graphs(data) {
   // remove old chart
@@ -380,6 +396,16 @@ function update_graphs(data) {
     d.matchScore = +d.matchScore;
     d.ImageID = +d.ImageID;
   });
+
+  outerWidth = window.innerWidth * .5;
+  outerHeight = outerWidth * .5;
+  width = outerWidth - margin.left - margin.right;
+  height = outerHeight - margin.top - margin.bottom;
+  x = d3.scale.linear()
+      .range([0, width]).nice();
+
+  y = d3.scale.linear()
+      .range([height, 0]).nice();
 
   let xMax = d3.max(data, function(d) { return d[xCat]; }) * 1.05;
   let xMin = d3.min(data, function(d) { return d[xCat]; });
@@ -610,22 +636,3 @@ function update_graphs(data) {
     return "translate(" + x(d[xCat]) + "," + y(d[yCat]) + ")";
   }
 };
-
-
-let margin = { top: 20, right: 50, bottom: 50, left: 50 },
-outerWidth = 800,
-// outerWidth = 400,
-outerHeight = 350,
-width = outerWidth - margin.left - margin.right,
-height = outerHeight - margin.top - margin.bottom;
-
-let x = d3.scale.linear()
-    .range([0, width]).nice();
-
-let y = d3.scale.linear()
-    .range([height, 0]).nice();
-
-let xCat = "AB_Similarity",
-    yCat = "C_Similarity",
-    rCat = "matchScore",
-    idCat = "ImageID";
