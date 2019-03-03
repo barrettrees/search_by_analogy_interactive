@@ -76,12 +76,12 @@ body {
   font-size: 85%;
 }
 
-#kVar {
-  margin: 0px;
-}
-
 .buttons {
   text-align: center;
+}
+
+#kVar {
+  margin: 0px;
 }
 
 .k-container {
