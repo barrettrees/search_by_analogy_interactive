@@ -1,8 +1,8 @@
 // store data needed for each game
 game_presets = {
   mario: {
-    screenshot_path: "../images/mario_screenshots/",
-    model_path: "../models/mario_screenshots_predicted.bin",
+    screenshot_path: "./images/mario_screenshots/",
+    model_path: "./models/mario_screenshots_predicted.bin",
     num_images: 2375,
     frames_per_step: 10,
     a_time: 410,
@@ -19,8 +19,8 @@ game_presets = {
     k_save: 1
   },
   mario2: {
-    screenshot_path: "../images/mario2_screenshots/",
-    model_path: "../models/mario_screenshots_predicted2.bin",
+    screenshot_path: "./images/mario2_screenshots/",
+    model_path: "./models/mario_screenshots_predicted2.bin",
     num_images: 6524,
     frames_per_step: 10,
     a_time: 1170,
@@ -37,8 +37,8 @@ game_presets = {
     k_save: 1
   },
   metroid: {
-    screenshot_path: "../images/metroid_screenshots/",
-    model_path: "../models/metroid_screenshots_predicted.bin",
+    screenshot_path: "./images/metroid_screenshots/",
+    model_path: "./models/metroid_screenshots_predicted.bin",
     num_images: 4967,
     frames_per_step: 10,
     a_time: 943,
@@ -46,9 +46,9 @@ game_presets = {
     c_time: 2520,
     d_time: 3193,
     a_time2: 2005,
-    b_time2: 4944,
-    c_time2: 3551,
-    d_time2: 3580,
+    b_time2: 4919,
+    c_time2: 2267,
+    d_time2: 4619,
     a_save: 2005,
     b_save: 4944,
     c_save: 4623,
