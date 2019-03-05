@@ -381,11 +381,11 @@ let outerWidth = window.innerWidth * .55;
 let outerHeight = outerWidth * .5;
 let width = outerWidth - margin.left - margin.right;
 let height = outerHeight - margin.top - margin.bottom;
-let x = d3.scale.linear()
-    .range([0, width]).nice();
-
-let y = d3.scale.linear()
-    .range([height, 0]).nice();
+// let x = d3.scale.linear()
+//     .range([0, width]).nice();
+//
+// let y = d3.scale.linear()
+//     .range([height, 0]).nice();
 
 function update_graphs(data) {
   // remove old chart
@@ -401,10 +401,10 @@ function update_graphs(data) {
   outerHeight = outerWidth * .5;
   width = outerWidth - margin.left - margin.right;
   height = outerHeight - margin.top - margin.bottom;
-  x = d3.scale.linear()
+  let x = d3.scale.linear()
       .range([0, width]).nice();
 
-  y = d3.scale.linear()
+  let y = d3.scale.linear()
       .range([height, 0]).nice();
 
   let xMax = d3.max(data, function(d) { return d[xCat]; }) * 1.05;
