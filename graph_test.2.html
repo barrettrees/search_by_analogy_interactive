@@ -41,7 +41,6 @@
           <div>
             <p class="result-num">D: <span id="pointD"></span></p>
           </div>
-          <!-- <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeD" disabled> -->
         </div>
       </div>
 
@@ -67,16 +66,22 @@
           <button id="presetButton">Example 1</button>
           <button id="presetButton2">Example 2</button>
           <button id="searchButton">Search</button>
+          <select id="kListButton">
+            <option value="-1">-1</option>
+            <option value="0.01">0.01</option>
+            <option selected value="1">1</option>
+            <option value="10">10</option>
+          </select>
         </div>
 
         <div id="scatter"></div>
-        <div class="k-container">
+        <!-- <div class="k-container">
           <p id="kVar">0.0</p>
           <div>
             K
             <input class="pointRangeSlider"  type="range" min="-1" max="10" value="1" class="slider" step =.1 id="myRangeK">
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 

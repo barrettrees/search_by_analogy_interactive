@@ -86,13 +86,12 @@ let pointC = document.getElementById("pointC");
 let pointD = document.getElementById("pointD");
 
 // reference to k value
-let kVar = document.getElementById("kVar");
+let kListButton = document.getElementById("kListButton");
 
 // set reference to slider inputs A, B, C, D
 let myRangeA = document.getElementById("myRangeA");
 let myRangeB = document.getElementById("myRangeB");
 let myRangeC = document.getElementById("myRangeC");
-let myRangeK = document.getElementById("myRangeK");
 
 // set reference to the four videogame images
 let imagetest1 = document.getElementById("imagetest1");
@@ -121,7 +120,7 @@ function isValidFrame(frameNum) {
 // set event listeners for the frame # input fields
 pointA.addEventListener("input", function(e) {
   let newNum = this.value;
-  console.log(newNum);
+  // console.log(newNum);
   if(isValidFrame(newNum)) {
     myRangeA.value = newNum;
     sliderChangedA();
@@ -133,7 +132,7 @@ pointA.addEventListener("input", function(e) {
 });
 pointB.addEventListener("input", function(e) {
   let newNum = this.value;
-  console.log(newNum);
+  // console.log(newNum);
   if(isValidFrame(newNum)) {
     myRangeB.value = newNum;
     sliderChangedB();
@@ -145,7 +144,7 @@ pointB.addEventListener("input", function(e) {
 });
 pointC.addEventListener("input", function(e) {
   let newNum = this.value;
-  console.log(newNum);
+  // console.log(newNum);
   if(isValidFrame(newNum)) {
     myRangeC.value = newNum;
     sliderChangedC();
@@ -158,10 +157,6 @@ pointC.addEventListener("input", function(e) {
 
 // set event listeners for the sliders
 myRangeA.addEventListener("input",sliderChangedA);
-myRangeB.addEventListener("input",sliderChangedB);
-myRangeC.addEventListener("input",sliderChangedC);
-myRangeK.addEventListener("input",sliderChangedK);
-
 function sliderChangedA(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
@@ -171,6 +166,8 @@ function sliderChangedA(e) {
   pointA.value = myRangeA.value;
   searchButtonClicked();
 }
+
+myRangeB.addEventListener("input",sliderChangedB);
 function sliderChangedB(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
@@ -180,6 +177,8 @@ function sliderChangedB(e) {
   pointB.value = myRangeB.value;
   searchButtonClicked();
 }
+
+myRangeC.addEventListener("input",sliderChangedC);
 function sliderChangedC(e) {
   let filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
@@ -190,10 +189,7 @@ function sliderChangedC(e) {
   searchButtonClicked();
 }
 
-function sliderChangedK(e) {
-  kVar.innerHTML = parseFloat(myRangeK.value).toFixed(1);
-  searchButtonClicked();
-}
+kListButton.addEventListener("input",searchButtonClicked);
 
 // only called if value from dropdown list is changed
 gameListButton.addEventListener("change",gameListButtonClicked);
@@ -218,7 +214,7 @@ function loadPreset(e) {
   myRangeB.value = experiment_config['b_time'];
   myRangeC.value = experiment_config['c_time'];
   pointD.innerHTML = experiment_config['d_time'];
-  myRangeK.value = 1;
+  kListButton.value = 1;
   updateGallery();
   searchButtonClicked();
 }
@@ -230,7 +226,7 @@ function loadPreset2(e) {
   myRangeB.value = experiment_config['b_time2'];
   myRangeC.value = experiment_config['c_time2'];
   pointD.innerHTML = experiment_config['d_time2'];
-  myRangeK.value = 1;
+  kListButton.value = 1;
   updateGallery();
   searchButtonClicked();
 }
@@ -251,7 +247,6 @@ function updateGallery() {
   pointA.value = myRangeA.value;
   pointB.value = myRangeB.value;
   pointC.value = myRangeC.value;
-  kVar.innerHTML = parseFloat(myRangeK.value).toFixed(1);
 }
 
 let mydataset;
@@ -265,7 +260,7 @@ function searchButtonClicked(e) {
     let data = [];
     for (let i = 0; i < experiment_config['num_images']-2; i++) {
       let qVector = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value])
-      qVector = scalarMultiplication(myRangeK.value, qVector)
+      qVector = scalarMultiplication(kListButton.value, qVector)
       qVector = vectorSum(vectorArray[myRangeC.value], qVector)
       data.push( cosineSimilarity(vectorArray[i], qVector ) );
     }
@@ -302,7 +297,7 @@ function update_data(e) {
   for (i = 0; i < experiment_config['num_images']-2; i++) {
     let qVector = [];
     let ABdiff = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value]);
-    ABdiffTimesK = scalarMultiplication(myRangeK.value,ABdiff);
+    ABdiffTimesK = scalarMultiplication(kListButton.value,ABdiff);
     qVector = vectorSum(vectorArray[myRangeC.value], ABdiffTimesK);
     dataset.push({"matchScore":cosineSimilarity(vectorArray[i], qVector), "AB_Similarity":cosineSimilarity(vectorArray[i], ABdiffTimesK), "C_Similarity":cosineSimilarity(vectorArray[i], vectorArray[myRangeC.value]), "ImageID":i});
   }
