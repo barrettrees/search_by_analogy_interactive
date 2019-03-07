@@ -41,21 +41,31 @@
           <div>
             <p class="result-num">D: <span id="pointD"></span></p>
           </div>
-          <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeD" disabled>
+          <!-- <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeD" disabled> -->
         </div>
       </div>
 
       <div class="graph-container">
+        <div class="description">
+          <i>Super Mario World Search-by-Analogy Example 1:</i>
+          </br>
+                    </br>
+          In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.
+                    </br>
+          In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.
+                    </br>
+          In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.
+                    </br>
+          Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.
+        </div>
         <div class="buttons">
           <select id="gameListButton">
             <option value="mario">Mario</option>
             <option value="mario2">Mario2</option>
             <option value="metroid">Metroid</option>
           </select>
-          <button id="presetButton">Preset 1</button>
-          <button id="presetButton2">Preset 2</button>
-          <button id="saveButton">Save Preset</button>
-          <button id="loadButton">Load Save</button>
+          <button id="presetButton">Example 1</button>
+          <button id="presetButton2">Example 2</button>
           <button id="searchButton">Search</button>
         </div>
 
@@ -67,17 +77,6 @@
             <input class="pointRangeSlider"  type="range" min="-1" max="10" value="1" class="slider" step =.1 id="myRangeK">
           </div>
         </div>
-        <div class="description">
-          <i>Super Mario World Search-by-Analogy Example 1:</i>
-          </br>
-                    </br>
-          In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.
-                    </br>
-          In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.
-                    </br>
-          In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.
-                    </br>
-          Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.        </div>
       </div>
     </div>
 

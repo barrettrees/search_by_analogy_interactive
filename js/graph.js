@@ -12,11 +12,7 @@ game_presets = {
     a_time2: 1582,
     b_time2: 1309,
     c_time2: 564,
-    d_time2: 850,
-    a_save: 410,
-    b_save: 1858,
-    c_save: 1020,
-    k_save: 1
+    d_time2: 850
   },
   mario2: {
     screenshot_path: "./images/mario2_screenshots/",
@@ -30,11 +26,7 @@ game_presets = {
     a_time2: 4870,
     b_time2: 2075,
     c_time2: 4987,
-    d_time2: 1530,
-    a_save: 2232,
-    b_save: 4153,
-    c_save: 4987,
-    k_save: 1
+    d_time2: 1530
   },
   metroid: {
     screenshot_path: "./images/metroid_screenshots/",
@@ -48,11 +40,7 @@ game_presets = {
     a_time2: 2005,
     b_time2: 4919,
     c_time2: 2267,
-    d_time2: 4619,
-    a_save: 2005,
-    b_save: 4944,
-    c_save: 4623,
-    k_save: 1
+    d_time2: 4619
   }
 }
 
@@ -104,7 +92,6 @@ let kVar = document.getElementById("kVar");
 let myRangeA = document.getElementById("myRangeA");
 let myRangeB = document.getElementById("myRangeB");
 let myRangeC = document.getElementById("myRangeC");
-let myRangeD = document.getElementById("myRangeD");
 let myRangeK = document.getElementById("myRangeK");
 
 // set reference to the four videogame images
@@ -121,14 +108,6 @@ function waitVectorArray() {
     // console.log(vectorArray);
     gameListButtonClicked();
   }
-}
-
-function updateFrameNums() {
-  pointA.value = myRangeA.value;
-  pointB.value = myRangeB.value;
-  pointC.value = myRangeC.value;
-  pointD.innerHTML = myRangeD.value;
-  kVar.innerHTML = parseFloat(myRangeK.value).toFixed(1);
 }
 
 function updateImage(src, image) {
@@ -228,36 +207,6 @@ function gameListButtonClicked(e) {
   loadPreset();
 }
 
-saveButton.addEventListener("click",savePreset);
-function savePreset(e) {
-  console.log('saving user preset');
-  experiment_config['a_save'] = myRangeA.value;
-  experiment_config['b_save'] = myRangeB.value;
-  experiment_config['c_save'] = myRangeC.value;
-  experiment_config['k_save'] = myRangeK.value;
-}
-
-
-loadButton.addEventListener("click",loadSave);
-function loadSave(e) {
-  console.log('loading save config');
-  myRangeA.value = experiment_config['a_save'];
-  myRangeB.value = experiment_config['b_save'];
-  myRangeC.value = experiment_config['c_save'];
-  myRangeK.value = experiment_config['k_save'];
-  let filename = experiment_config['screenshot_path']
-    +(myRangeA.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest1);
-  filename = experiment_config['screenshot_path']
-    +(myRangeB.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest2);
-  filename = experiment_config['screenshot_path']
-    +(myRangeC.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest3);
-  updateFrameNums();
-  searchButtonClicked();
-}
-
 presetButton.addEventListener("click",loadPreset);
 function loadPreset(e) {
   console.log('loading preset config');
@@ -265,25 +214,12 @@ function loadPreset(e) {
   myRangeA.max = imgCount;
   myRangeB.max = imgCount;
   myRangeC.max = imgCount;
-  myRangeD.max = imgCount;
   myRangeA.value = experiment_config['a_time'];
   myRangeB.value = experiment_config['b_time'];
   myRangeC.value = experiment_config['c_time'];
-  myRangeD.value = experiment_config['d_time'];
+  pointD.innerHTML = experiment_config['d_time'];
   myRangeK.value = 1;
-  let filename = experiment_config['screenshot_path']
-    +(myRangeA.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest1);
-  filename = experiment_config['screenshot_path']
-    +(myRangeB.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest2);
-  filename = experiment_config['screenshot_path']
-    +(myRangeC.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest3);
-  filename = experiment_config['screenshot_path']
-    +(myRangeD.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest4);
-  updateFrameNums();
+  updateGallery();
   searchButtonClicked();
 }
 
@@ -293,8 +229,13 @@ function loadPreset2(e) {
   myRangeA.value = experiment_config['a_time2'];
   myRangeB.value = experiment_config['b_time2'];
   myRangeC.value = experiment_config['c_time2'];
-  myRangeD.value = experiment_config['d_time2'];
+  pointD.innerHTML = experiment_config['d_time2'];
   myRangeK.value = 1;
+  updateGallery();
+  searchButtonClicked();
+}
+
+function updateGallery() {
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest1);
@@ -305,17 +246,19 @@ function loadPreset2(e) {
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest3);
   filename = experiment_config['screenshot_path']
-    +(myRangeD.value*experiment_config['frames_per_step'])+".png";
+    +(pointD.innerHTML*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest4);
-  updateFrameNums();
-  searchButtonClicked();
+  pointA.value = myRangeA.value;
+  pointB.value = myRangeB.value;
+  pointC.value = myRangeC.value;
+  kVar.innerHTML = parseFloat(myRangeK.value).toFixed(1);
 }
 
 let mydataset;
 searchButton.addEventListener("click",searchButtonClicked);
 function searchButtonClicked(e) {
   if(myRangeA.value == myRangeB.value) {
-    myRangeD.value = myRangeC.value;
+    pointD.innerHTML = myRangeC.value;
     d3.select("svg").remove(); // clear graph data
   }
   else {
@@ -329,14 +272,13 @@ function searchButtonClicked(e) {
 
     sortWithIndeces(data);
     data.sortIndices.reverse();
-    myRangeD.value = data.sortIndices[0];
+    pointD.innerHTML = data.sortIndices[0];
     mydataset = update_data();
     update_graphs(mydataset);
   }
 
-  let filename = experiment_config['screenshot_path']+(myRangeD.value*experiment_config['frames_per_step'])+".png";
+  let filename = experiment_config['screenshot_path']+(pointD.innerHTML*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest4);
-  pointD.innerHTML = myRangeD.value;
 }
 
 function sortWithIndeces(toSort) {
@@ -377,16 +319,6 @@ let xCat = "AB_Similarity",
     idCat = "ImageID";
 
 let margin = { top: 30, right: 50, bottom: 50, left: 50 };
-let outerWidth = window.innerWidth * .55;
-let outerHeight = outerWidth * .5;
-let width = outerWidth - margin.left - margin.right;
-let height = outerHeight - margin.top - margin.bottom;
-// let x = d3.scale.linear()
-//     .range([0, width]).nice();
-//
-// let y = d3.scale.linear()
-//     .range([height, 0]).nice();
-
 function update_graphs(data) {
   // remove old chart
   d3.select("svg").remove();
@@ -397,26 +329,18 @@ function update_graphs(data) {
     d.ImageID = +d.ImageID;
   });
 
-  outerWidth = window.innerWidth * .5;
-  outerHeight = outerWidth * .5;
-  width = outerWidth - margin.left - margin.right;
-  height = outerHeight - margin.top - margin.bottom;
+  let outerWidth = window.innerWidth * .5;
+  let outerHeight = outerWidth * .5;
+  let width = outerWidth - margin.left - margin.right;
+  let height = outerHeight - margin.top - margin.bottom;
   let x = d3.scale.linear()
       .range([0, width]).nice();
 
   let y = d3.scale.linear()
       .range([height, 0]).nice();
 
-  let xMax = d3.max(data, function(d) { return d[xCat]; }) * 1.05;
-  let xMin = d3.min(data, function(d) { return d[xCat]; });
-  if (xMin > 0) {
-    xMin = 0;
-  }
-  let yMax = d3.max(data, function(d) { return d[yCat]; }) * 1.05;
-  let yMin = d3.min(data, function(d) { return d[yCat]; });
-  if (yMin > 0) {
-    yMin = 0;
-  }
+  let xMax = yMax = 1;
+  let xMin = yMin = -1;
 
   x.domain([xMin, xMax]);
   y.domain([yMin, yMax]);
@@ -452,7 +376,7 @@ function update_graphs(data) {
           imageName = "Moment C";
           filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
-        if(id == myRangeD.value) {
+        if(id == pointD.innerHTML) {
           imageName = "Moment D";
           filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
@@ -526,7 +450,7 @@ function update_graphs(data) {
 
   function filterPoints(data) {
     id = data.ImageID;
-    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == pointD.innerHTML) {
       return true;
     }
     return false;
@@ -534,7 +458,7 @@ function update_graphs(data) {
 
   function filterNonPoints(data) {
     id = data.ImageID;
-    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == myRangeD.value) {
+    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == pointD.innerHTML) {
       return false;
     }
     return true;
@@ -617,7 +541,7 @@ function update_graphs(data) {
         else if(id == myRangeC.value) {
           return "C";
         }
-        else if(id == myRangeD.value) {
+        else if(id == pointD.innerHTML) {
           return "D";
         }
       });
