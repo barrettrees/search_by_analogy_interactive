@@ -12,7 +12,13 @@ game_presets = {
     a_time2: 1582,
     b_time2: 1309,
     c_time2: 564,
-    d_time2: 850
+    d_time2: 850,
+    title: "Super Mario World",
+    desc: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.</br>" +
+              "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.</br>" +
+              "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.</br>" +
+              "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
+    desc2: "hello"
   },
   mario2: {
     screenshot_path: "./images/mario2_screenshots/",
@@ -26,7 +32,10 @@ game_presets = {
     a_time2: 4870,
     b_time2: 2075,
     c_time2: 4987,
-    d_time2: 1530
+    d_time2: 1530,
+    title: "Mario2",
+    desc: "In moment A, foobar.</br>",
+    desc2: "ok"
   },
   metroid: {
     screenshot_path: "./images/metroid_screenshots/",
@@ -40,7 +49,10 @@ game_presets = {
     a_time2: 2005,
     b_time2: 4919,
     c_time2: 2267,
-    d_time2: 4619
+    d_time2: 4619,
+    title: "Metroid",
+    desc: "design reasoning lab.</br>",
+    desc2: "i love u"
   }
 }
 
@@ -102,6 +114,10 @@ let kListButton = document.getElementById("kListButton");
 let exampleButton = document.getElementById("exampleButton");
 let exampleButton2 = document.getElementById("exampleButton2");
 let searchButton = document.getElementById("searchButton");
+
+// set reference to the example explanations
+let exampleTitle = document.getElementById("exampleTitle");
+let exampleDesc = document.getElementById("exampleDesc");
 
 // initialize experiment
 let myVar = setInterval(waitVectorArray, 1000);
@@ -221,6 +237,8 @@ function loadExample(e) {
   kListButton.value = 1;
   updateGallery();
   searchButtonClicked();
+  exampleTitle.innerHTML = experiment_config['title'] + " Example 1:";
+  exampleDesc.innerHTML = experiment_config['desc'];
 }
 
 exampleButton2.addEventListener("click",loadExample2);
@@ -233,6 +251,8 @@ function loadExample2(e) {
   kListButton.value = 1;
   updateGallery();
   searchButtonClicked();
+  exampleTitle.innerHTML = experiment_config['title'] + " Example 2:";
+  exampleDesc.innerHTML = experiment_config['desc2'];
 }
 
 function updateGallery() {
