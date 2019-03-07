@@ -4,44 +4,34 @@
 
 body {
   margin: 0px;
+  height: 100%;
   background-color: #FFF5EE;
 }
 
 .about {
-  margin: 4vh 30px;
-  padding: 0 20px;
+  margin-left: 40px;
+  margin-top: 4vh;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .wrapper {
   display: grid;
   grid-template-columns: 45% auto;
-  grid-gap: 20px;
-  padding: 10px 20px;
-}
-
-.description {
-  margin-bottom: 20px;
-}
-
-.graph-container {
-  margin: 20px;
+  margin-top: 4vh;
 }
 
 .frames-container {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-gap: 15px;
-  margin-left: 20px;
-  padding-left: 20px;
+  gap: 15px 20px;
   font-family: Arial, Helvetica, sans-serif;
+  padding: 0px 40px;
 }
 
 .gallery {
   text-align: center;
   border: 1px solid #777;
-  padding-bottom: 5px;
-  margin: 0 3px;
+  padding-bottom: 10px;
 }
 
 .result {
@@ -74,16 +64,17 @@ body {
   font-size: 85%;
 }
 
+.graph-container {
+  padding: 0px 40px;
+}
+
+.description {
+  padding: 0px 10px;
+}
+
 .buttons {
   text-align: center;
-}
-
-#kVar {
-  margin: 0px;
-}
-
-.k-container {
-  text-align: center;
+  margin: 10px;
 }
 
 /* d3 styles */

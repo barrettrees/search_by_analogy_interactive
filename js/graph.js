@@ -85,9 +85,6 @@ let pointB = document.getElementById("pointB");
 let pointC = document.getElementById("pointC");
 let pointD = document.getElementById("pointD");
 
-// reference to k value
-let kListButton = document.getElementById("kListButton");
-
 // set reference to slider inputs A, B, C, D
 let myRangeA = document.getElementById("myRangeA");
 let myRangeB = document.getElementById("myRangeB");
@@ -98,6 +95,13 @@ let imagetest1 = document.getElementById("imagetest1");
 let imagetest2 = document.getElementById("imagetest2");
 let imagetest3 = document.getElementById("imagetest3");
 let imagetest4 = document.getElementById("imagetest4");
+
+// set reference to the graph buttons
+let gameListButton = document.getElementById("gameListButton");
+let kListButton = document.getElementById("kListButton");
+let exampleButton = document.getElementById("exampleButton");
+let exampleButton2 = document.getElementById("exampleButton2");
+let searchButton = document.getElementById("searchButton");
 
 // initialize experiment
 let myVar = setInterval(waitVectorArray, 1000);
@@ -200,11 +204,11 @@ function gameListButtonClicked(e) {
   experiment_config = game_presets[game];
   // console.log(experiment_config);
   vectorArray = gameVectorArrays[game];
-  loadPreset();
+  loadExample();
 }
 
-presetButton.addEventListener("click",loadPreset);
-function loadPreset(e) {
+exampleButton.addEventListener("click",loadExample);
+function loadExample(e) {
   console.log('loading preset config');
   let imgCount = experiment_config['num_images'];
   myRangeA.max = imgCount;
@@ -219,8 +223,8 @@ function loadPreset(e) {
   searchButtonClicked();
 }
 
-presetButton2.addEventListener("click",loadPreset2);
-function loadPreset2(e) {
+exampleButton2.addEventListener("click",loadExample2);
+function loadExample2(e) {
   console.log('loading preset2 config');
   myRangeA.value = experiment_config['a_time2'];
   myRangeB.value = experiment_config['b_time2'];
@@ -313,19 +317,19 @@ let xCat = "AB_Similarity",
     rCat = "matchScore",
     idCat = "ImageID";
 
-let margin = { top: 30, right: 50, bottom: 50, left: 50 };
+let margin = { top: 10, right: 50, bottom: 50, left: 50 };
 function update_graphs(data) {
-  // remove old chart
+  // remove old graph
   d3.select("svg").remove();
   data.forEach(function(d) {
-    d.AB_Similarity = +d.AB_Similarity;
-    d.C_Similarity = +d.C_Similarity;
-    d.matchScore = +d.matchScore;
-    d.ImageID = +d.ImageID;
+    d.AB_Similarity = +d.AB_Similarity.toFixed(6);
+    d.C_Similarity = +d.C_Similarity.toFixed(6);
+    d.matchScore = +d.matchScore.toFixed(6);
+    // d.ImageID = d.ImageID;
   });
 
   let outerWidth = window.innerWidth * .5;
-  let outerHeight = outerWidth * .5;
+  let outerHeight = outerWidth * .7;
   let width = outerWidth - margin.left - margin.right;
   let height = outerHeight - margin.top - margin.bottom;
   let x = d3.scale.linear()
@@ -361,19 +365,19 @@ function update_graphs(data) {
         filename = "<img style=\"margin-top: 8px;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         if(id == myRangeA.value) {
           imageName = "Moment A";
-          filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+          filename = "<img style=\"margin-top: 8px;border: 2px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
         if(id == myRangeB.value) {
           imageName = "Moment B";
-          filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+          filename = "<img style=\"margin-top: 8px;border: 2px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
         if(id == myRangeC.value) {
           imageName = "Moment C";
-          filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+          filename = "<img style=\"margin-top: 8px;border: 2px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
         if(id == pointD.innerHTML) {
           imageName = "Moment D";
-          filename = "<img style=\"margin-top: 8px;border: 1px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+          filename = "<img style=\"margin-top: 8px;border: 2px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
         return imageName + "<hr>" + xCat + ": " + d[xCat] + "<br>" + yCat + ": " + d[yCat]
             + "<br>" + rCat + ": " + d[rCat] + "<br>" + filename;
@@ -399,7 +403,8 @@ function update_graphs(data) {
 
   svg.append("rect")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .style("cursor", "grab");
 
   svg.append("g")
       .classed("x axis", true)
@@ -469,6 +474,7 @@ function update_graphs(data) {
         return radius;
       })
       .attr("transform", transform)
+      .style("cursor", "pointer")
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
       .style("fill", function(d) {
@@ -508,6 +514,7 @@ function update_graphs(data) {
         return radius * 1.25;
       })
       .attr("transform", transform)
+      .style("cursor", "pointer")
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
       .style("fill", function(d) {
