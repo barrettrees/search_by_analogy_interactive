@@ -374,8 +374,6 @@ function update_graphs(data) {
       .orient("left")
       .tickSize(-width);
 
-  let color = d3.scale.category10();
-
   let tip = d3.tip()
       .attr("class", "d3-tip")
       .offset([-10, 0])
@@ -496,27 +494,27 @@ function update_graphs(data) {
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
       .style("fill", function(d) {
-        if (d[rCat] > 0.95) {return "E50300"}
-        else if (d[rCat] > 0.9) {return "DA0B09"}
-        else if (d[rCat] > 0.8) {return "CF1412"}
-        else if (d[rCat] > 0.7) {return "C41D1B"}
-        else if (d[rCat] > 0.6) {return "B92624"}
-        else if (d[rCat] > 0.5) {return "AE2F2D"}
-        else if (d[rCat] > 0.4) {return "A33736"}
-        else if (d[rCat] > 0.3) {return "98403F"}
-        else if (d[rCat] > 0.2) {return "8D4948"}
-        else if (d[rCat] > 0.1) {return "825251"}
-        else if (d[rCat] > 0) {return "775B5A"}
-        else if (d[rCat] > -0.1) {return "6D6364"}
-        else if (d[rCat] > -0.2) {return "626C6D"}
-        else if (d[rCat] > -0.3) {return "577576"}
-        else if (d[rCat] > -0.4) {return "4C7E7F"}
-        else if (d[rCat] > -0.5) {return "418788"}
-        else if (d[rCat] > -0.6) {return "2B989A"}
-        else if (d[rCat] > -0.7) {return "20A1A3"}
-        else if (d[rCat] > -0.8) {return "15AAAC"}
-        else if (d[rCat] > -0.9) {return "0AB3B5"}
-        else {return "00BCBF"}
+        if (d[rCat] > 0.95) {return "#E50300"}
+        else if (d[rCat] > 0.9) {return "#DA0B09"}
+        else if (d[rCat] > 0.8) {return "#CF1412"}
+        else if (d[rCat] > 0.7) {return "#C41D1B"}
+        else if (d[rCat] > 0.6) {return "#B92624"}
+        else if (d[rCat] > 0.5) {return "#AE2F2D"}
+        else if (d[rCat] > 0.4) {return "#A33736"}
+        else if (d[rCat] > 0.3) {return "#98403F"}
+        else if (d[rCat] > 0.2) {return "#8D4948"}
+        else if (d[rCat] > 0.1) {return "#825251"}
+        else if (d[rCat] > 0) {return "#775B5A"}
+        else if (d[rCat] > -0.1) {return "#6D6364"}
+        else if (d[rCat] > -0.2) {return "#626C6D"}
+        else if (d[rCat] > -0.3) {return "#577576"}
+        else if (d[rCat] > -0.4) {return "#4C7E7F"}
+        else if (d[rCat] > -0.5) {return "#418788"}
+        else if (d[rCat] > -0.6) {return "#2B989A"}
+        else if (d[rCat] > -0.7) {return "#20A1A3"}
+        else if (d[rCat] > -0.8) {return "#15AAAC"}
+        else if (d[rCat] > -0.9) {return "#0AB3B5"}
+        else {return "#00BCBF"}
       })
       .style("stroke", function(d) {
           return "white";
@@ -535,7 +533,7 @@ function update_graphs(data) {
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
       .style("fill", function(d) {
-          return "00FF00";
+          return "#00FF00";
       })
       .style("stroke", function(d) {
           return "black";

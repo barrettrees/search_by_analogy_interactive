@@ -15,10 +15,9 @@ body {
 }
 
 .wrapper {
-  margin-top: 3.5vh;
+  margin-top: 4.5vh;
   display: grid;
   grid-template-columns: 45% auto;
-  align-items: center;
 }
 
 .frames-container {
@@ -70,6 +69,7 @@ body {
 
 .graph-container {
   margin: 0px 40px;
+  align-self: center;
 }
 
 .description {
@@ -134,6 +134,7 @@ circle {
 
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
+  box-sizing: border-box;
   display: inline;
   font-size: 10px;
   width: 100%;
