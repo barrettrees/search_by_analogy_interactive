@@ -14,9 +14,9 @@ game_presets = {
     c_time2: 564,
     d_time2: 850,
     title: "Super Mario World",
-    desc: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.</br>" +
-              "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.</br>" +
-              "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.</br>" +
+    desc: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
+              "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
+              "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
               "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
     desc2: "hello"
   },
@@ -34,7 +34,7 @@ game_presets = {
     c_time2: 4987,
     d_time2: 1530,
     title: "Mario2",
-    desc: "In moment A, foobar.</br>",
+    desc: "In moment A, foobar.<br/>",
     desc2: "ok"
   },
   metroid: {
@@ -51,7 +51,7 @@ game_presets = {
     c_time2: 2267,
     d_time2: 4619,
     title: "Metroid",
-    desc: "design reasoning lab.</br>",
+    desc: "design reasoning lab.<br/>",
     desc2: "i love u"
   }
 }
@@ -345,7 +345,7 @@ function update_graphs(data) {
     d.AB_Similarity = +d.AB_Similarity.toFixed(6);
     d.C_Similarity = +d.C_Similarity.toFixed(6);
     d.matchScore = +d.matchScore.toFixed(6);
-    // d.ImageID = d.ImageID;
+    // d.ImageID = +d.ImageID;
   });
 
   let outerWidth = window.innerWidth * .5;
@@ -382,25 +382,25 @@ function update_graphs(data) {
       .html(function(d) {
         let id = d[idCat];
         let imageName = "Moment  " + d[idCat];
-        filename = "<img style=\"margin-top: 8px;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+        filename = "<img class=\"tip-image\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         if(id == myRangeA.value) {
           imageName = "Moment A";
-          filename = "<img style=\"margin-top: 8px;border: 2px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+          filename = "<img class=\"point-image\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
         if(id == myRangeB.value) {
           imageName = "Moment B";
-          filename = "<img style=\"margin-top: 8px;border: 2px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+          filename = "<img class=\"point-image\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
         if(id == myRangeC.value) {
           imageName = "Moment C";
-          filename = "<img style=\"margin-top: 8px;border: 2px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+          filename = "<img class=\"point-image\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
         if(id == pointD.innerHTML) {
           imageName = "Moment D";
-          filename = "<img style=\"margin-top: 8px;border: 2px solid yellow;\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
+          filename = "<img class=\"point-image\" src=" + experiment_config['screenshot_path']+d[idCat]*10+".png>";
         }
-        return imageName + "<hr>" + xCat + ": " + d[xCat] + "<br>" + yCat + ": " + d[yCat]
-            + "<br>" + rCat + ": " + d[rCat] + "<br>" + filename;
+        return imageName + "<hr>" + xCat + ": " + d[xCat] + "<br/>" + yCat + ": " + d[yCat]
+            + "<br/>" + rCat + ": " + d[rCat] + "<br/>" + filename;
       });
 
   let zoomBeh = d3.behavior.zoom()
@@ -423,8 +423,7 @@ function update_graphs(data) {
 
   svg.append("rect")
       .attr("width", width)
-      .attr("height", height)
-      .style("cursor", "grab");
+      .attr("height", height);
 
   svg.append("g")
       .classed("x axis", true)
@@ -494,7 +493,6 @@ function update_graphs(data) {
         return radius;
       })
       .attr("transform", transform)
-      .style("cursor", "pointer")
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
       .style("fill", function(d) {
@@ -534,7 +532,6 @@ function update_graphs(data) {
         return radius * 1.25;
       })
       .attr("transform", transform)
-      .style("cursor", "pointer")
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
       .style("fill", function(d) {

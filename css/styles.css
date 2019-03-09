@@ -10,14 +10,15 @@ body {
 
 .about {
   margin-left: 40px;
-  margin-top: 4vh;
+  margin-top: 3vh;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .wrapper {
+  margin-top: 3.5vh;
   display: grid;
   grid-template-columns: 45% auto;
-  margin-top: 4vh;
+  align-items: center;
 }
 
 .frames-container {
@@ -25,7 +26,7 @@ body {
   grid-template-columns: 50% 50%;
   gap: 15px 20px;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 0px 40px;
+  margin: 0px 40px;
 }
 
 .gallery {
@@ -42,30 +43,33 @@ body {
   width: 100%;
 }
 
+.moment-text {
+  margin: 10px 0px;
+}
+
 .frame-num {
-  margin: 5px;
+  margin-left: 5px;
   width: 2.8rem;
   text-align: center;
   letter-spacing: 0.05rem;
-}
-
-.result-num {
-  margin: 5px auto;
-  padding: 1px;
 }
 
 .pointRangeSlider {
   width: 80%;
 }
 
+.result-text {
+  display: flex;
+  justify-content: center;
+}
+
 #pointD {
-  padding-top: 1px;
-  margin: 5px;
+  margin-left: 5px;
   font-size: 85%;
 }
 
 .graph-container {
-  padding: 0px 40px;
+  margin: 0px 40px;
 }
 
 .description {
@@ -78,11 +82,6 @@ body {
 }
 
 /* d3 styles */
-rect {
-  fill: transparent;
-  shape-rendering: crispEdges;
-}
-
 .axis path,
 .axis line {
   fill: none;
@@ -90,8 +89,37 @@ rect {
   shape-rendering: crispEdges;
 }
 
+rect {
+  fill: transparent;
+  shape-rendering: crispEdges;
+  cursor: grab;
+}
+
+rect:active {
+  cursor: grabbing;
+}
+
+circle {
+  cursor: pointer;
+}
+
 .dot {
   fill-opacity: .5;
+}
+
+.dot:hover {
+  fill-opacity: .8;
+}
+
+.tip-image {
+  margin-top: 8px;
+  border: 2px solid black;
+}
+
+/* tip image style for points A,B,C,D */
+.point-image {
+  margin-top: 8px;
+  border: 2px solid yellow;
 }
 
 .d3-tip {
@@ -105,22 +133,31 @@ rect {
 
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
-  box-sizing: border-box;
   display: inline;
   font-size: 10px;
   width: 100%;
   line-height: 1;
   color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
   position: absolute;
-  text-align: center;
 }
 
 /* Style northward tooltips differently */
 .d3-tip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
   top: 100%;
-  left: 0;
+  left: 0%;
+  text-align: center;
 }
+
+/* Style southward tooltips differently */
+/* .d3-tip.s:after {
+  content: "\25B2";
+  margin: 0 0 1px 0;
+  top: -8px;
+  left: 0%;
+  text-align: center;
+} */
 
 /* * {
   background: #000 !important;

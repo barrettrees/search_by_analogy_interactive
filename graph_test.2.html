@@ -7,73 +7,79 @@
     <title>2D Analogy Graph</title>
   </head>
   <body>
-    <div class="about">
-      <h2>Search by Analogy Widget</h2>
-      <p>An experiment in search by analogy for videogame moments. A is to B as C is to D.</p>
-    </div>
-    <div class="wrapper">
-      <div class="frames-container">
-        <div class="gallery">
-          <img class="moment" id="imagetest1">
-          <div>
-            <label for="pointA">A:</label>
-            <input class="frame-num" type="text" id="pointA" name="pointA">
-          </div>
-          <input class="pointRangeSlider" type="range" min="1" class="slider" id="myRangeA">
-        </div>
-        <div class="gallery">
-          <img class="moment" id="imagetest2">
-          <div>
-            <label for="pointB">B:</label>
-            <input class="frame-num" type="text" id="pointB" name="pointB">
-          </div>
-          <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeB">
-        </div>
-        <div class="gallery">
-          <img class="moment" id="imagetest3">
-          <div>
-            <label for="pointC">C:</label>
-            <input class="frame-num" type="text" id="pointC" name="pointC">
-          </div>
-          <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeC">
-        </div>
-        <div class="gallery result">
-          <img class="moment" id="imagetest4">
-          <div>
-            <p class="result-num">D: <span id="pointD"></span></p>
-          </div>
-        </div>
+    <header>
+      <div class="about">
+        <h2>Search by Analogy Widget</h2>
+        <p>An experiment in search by analogy for videogame moments. A is to B as C is to D.</p>
       </div>
-
-      <div class="graph-container">
-        <div class="description">
-          <i id="exampleTitle"></i>
-          <p id="exampleDesc"><p>
-        </div>
-        <div class="buttons">
-          <select id="gameListButton">
-            <option value="mario">Mario</option>
-            <option value="mario2">Mario2</option>
-            <option value="metroid">Metroid</option>
-          </select>
-          <select id="kListButton">
-            <option value="-1">-1</option>
-            <option value="0.01">0.01</option>
-            <option selected value="1">1</option>
-            <option value="10">10</option>
-          </select>
-          <button id="exampleButton">Example 1</button>
-          <button id="exampleButton2">Example 2</button>
-          <button id="searchButton">Reset Graph</button>
+    </header>
+    <section>
+      <div class="wrapper">
+        <div class="frames-container">
+          <div class="gallery">
+            <img class="moment" id="imagetest1">
+            <div class="moment-text">
+              <label for="pointA">A:</label>
+              <input class="frame-num" type="text" id="pointA" name="pointA">
+            </div>
+            <input class="pointRangeSlider" type="range" min="1" class="slider" id="myRangeA">
+          </div>
+          <div class="gallery">
+            <img class="moment" id="imagetest2">
+            <div class="moment-text">
+              <label for="pointB">B:</label>
+              <input class="frame-num" type="text" id="pointB" name="pointB">
+            </div>
+            <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeB">
+          </div>
+          <div class="gallery">
+            <img class="moment" id="imagetest3">
+            <div class="moment-text">
+              <label for="pointC">C:</label>
+              <input class="frame-num" type="text" id="pointC" name="pointC">
+            </div>
+            <input class="pointRangeSlider"  type="range" min="1" class="slider" id="myRangeC">
+          </div>
+          <div class="gallery result">
+            <img class="moment" id="imagetest4">
+            <div class="result-text">
+              <div class="moment-text">
+                <p>D: <span id="pointD"></span></p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div id="scatter"></div>
+        <div class="graph-container">
+          <div class="description">
+            <i id="exampleTitle"></i>
+            <p id="exampleDesc"><p>
+          </div>
+          <div class="buttons">
+            <select id="gameListButton">
+              <option value="mario">Mario</option>
+              <option value="mario2">Mario2</option>
+              <option value="metroid">Metroid</option>
+            </select>
+            <select id="kListButton">
+              <option value="-1">-1</option>
+              <option value="0.01">0.01</option>
+              <option selected value="1">1</option>
+              <option value="10">10</option>
+            </select>
+            <button id="exampleButton">Example 1</button>
+            <button id="exampleButton2">Example 2</button>
+            <button id="searchButton">Reset Graph</button>
+          </div>
+
+          <div id="scatter"></div>
+        </div>
       </div>
-    </div>
+    </section>
 
     <script src="js/d3.js"></script>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
     <script src="js/vectorFunctions.js"></script>
     <script src="js/graph.js"></script>
   </body>
