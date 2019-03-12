@@ -358,8 +358,8 @@ function update_graphs(data) {
   let y = d3.scale.linear()
       .range([height, 0]).nice();
 
-  let xMax = yMax = 1;
-  let xMin = yMin = -1;
+  let xMax = yMax = 1.1;
+  let xMin = yMin = -1.1;
 
   x.domain([xMin, xMax]);
   y.domain([yMin, yMax]);
