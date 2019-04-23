@@ -7,13 +7,79 @@
     <title>2D Analogy Graph</title>
   </head>
   <body>
-    <header>
+    <div class="explainer">
+      <h1 class="textCenter">Introduction to Search by Analogy</h1>
+      <div class="textCenter">
+        <p>Imagine what fills in the blank:</p>
+        <img class="analogyMoment" src="./images/explainer/momentA.png" alt="momentA">
+        →
+        <img class="analogyMoment" src="./images/explainer/momentB.png" alt="momentB">
+        </br>
+        <img class="analogyMoment" src="./images/explainer/momentC.png" alt="momentC">
+        →
+        ?
+      </div>
+      <p>
+        The primary difference between the top two moments was that Mario was on foot (left) or riding Yoshi (right). The difference between the two moments on the left was that Mario was outdoors with a goomba (top), or indoors with Bowser (bottom). You were probably able to solve the analogy above, by imagining something like this to fill in the blank:
+      </p>
+      <img class="analogyMoment centerImage" src="./images/explainer/momentD.png" alt="momentD">
+      <p>
+        In this analogical solution, Mario is the indoors with Bowser (as on the bottom), and riding Yoshi instead of on foot (as on the right).
+      </p>
+      <p>
+        This kind of analogical reasoning is easy for humans to do, but hard for them to explain, and it is not obvious that a machine can do it at all. Below, we show how a computer can be trained to understand this analogy, and provide an interactive example.
+      </p>
+
+      <!-- new section -->
+      <h2>Parameterizing Videogame Moments</h2>
+      <p>
+        Each moment in a game has many distinct features. In a Mario game this could include things like the number of coins collected, the number of enemies on the screen, the number of lives remaining, score, etc.
+      </p>
+      <img class="diagram centerImage" src="./images/explainer/powerups.png" alt="powerups">
+      <p>
+        We can assign a numeric value to each feature and create a vector (list) of numbers to represent any specific videogame moment:
+      </p>
+      <img class="diagram centerImage" src="./images/explainer/vectorRepresentation.png" alt="vectorRepresentation">
+      <p class="textCenter">
+        Credit to <a href="https://www.kdnuggets.com/2016/05/amazing-power-word-vectors.html">Adrian Colyer</a> for inspiring this illustration.
+      </p>
+
+      <!-- new section -->
+      <p>
+        In reality our vectors will have many dimensions, but it will be easier to illustrate the rest of this explanation if we pretend that they only have two. In that case, our videogame moment vectors might look something like this.
+      </p>
+      <img class="diagram centerImage" src="./images/explainer/vectors.png" alt="vectors">
+      <p>
+        If we look at two vectors (for Moment A and Moment B):
+      </p>
+      <img class="diagram centerImage" src="./images/explainer/vectorAB.png" alt="vectorAB">
+      <p>
+        We can take the difference between them to get a new vector (B-A) This vector removes what they have in common (Mario outdoors), but leave intact what is distinct between them (on foot vs on Yoshi):
+      </p>
+      <img class="diagram centerImage" src="./images/explainer/vectorDifference.png" alt="vectorDifference">
+
+      <p>
+        We can then add this vector to another (Moment C) to create a query vector. This is like adding the distinction defined above (on foot vs on Yoshi) to Moment C:
+      </p>
+      <div class="textCenter">
+        <img class="diagram" src="./images/explainer/queryVector.png" alt="queryVector">
+        <img class="diagram" src="./images/explainer/resultVector.png" alt="resultVector">
+      </div>
+
+      <p>
+        Moments close to this query vector should be close to Moment C, offset by the difference between Moment A and Moment B. The closest moment to this vector is our analogy search result, Moment D.
+      </p>
+
+      <p>
+        The interactive below contains some examples of successful analogy search for different games. You can also make your own queries and see what happens. You’ll see the best match (Moment D). You will also see, for each moment in the corpus, similarity to Moment C, and similarity to the difference between Moment A and Moment B:
+      </p>
+
+    </div>
+    <div class="interactive">
       <div class="about">
         <h2>Search by Analogy Widget</h2>
         <p>An experiment in search by analogy for videogame moments. A is to B as C is to D.</p>
       </div>
-    </header>
-    <section>
       <div class="wrapper">
         <div class="frames-container">
           <div class="gallery">
@@ -75,7 +141,7 @@
           <div id="scatter"></div>
         </div>
       </div>
-    </section>
+    </div>
 
     <script src="js/d3.v3.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>

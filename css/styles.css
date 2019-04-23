@@ -5,13 +5,37 @@
 body {
   margin: 0px;
   height: 100%;
-  background-color: #FFF5EE;
+  /* background-color: #FFF5EE; */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.explainer {
+  margin: 0 40px;
+}
+
+.analogyMoment {
+  max-width: 400px;
+}
+
+.diagram {
+  max-width: 600px;
+}
+
+.centerImage {
+  display: block;
+  margin: auto;
+}
+
+.interactive {
+  margin: 40px 0;
 }
 
 .about {
-  margin-left: 40px;
-  margin-top: 3vh;
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0 40px;
 }
 
 .wrapper {

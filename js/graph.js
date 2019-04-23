@@ -1,5 +1,5 @@
 // store data needed for each game
-game_presets = {
+const game_presets = {
   mario: {
     screenshot_path: "./images/mario_screenshots/",
     model_path: "./models/mario_screenshots_predicted.bin",
@@ -57,7 +57,7 @@ game_presets = {
 }
 
 // store vectorArrays for each game
-gameVectorArrays = {
+const gameVectorArrays = {
   mario: [],
   mario2: [],
   metroid: []
