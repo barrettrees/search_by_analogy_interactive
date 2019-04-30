@@ -15,10 +15,13 @@ const game_presets = {
     d_time2: 850,
     title: "Super Mario World",
     desc: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
-              "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
-              "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
-              "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
-    desc2: "hello"
+      "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
+      "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
+      "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
+    desc2: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
+      "In moment B, Mario is in World 1-2, big, riding Yoshi, and in the air.<br/>" +
+      "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
+      "Result: The system then finds moment D, where Mario is in World 1-2, small, not riding Yoshi, and in the air."
   },
   mario2: {
     screenshot_path: "./images/mario2_screenshots/",
@@ -34,7 +37,7 @@ const game_presets = {
     c_time2: 4987,
     d_time2: 1530,
     title: "Mario2",
-    desc: "In moment A, foobar.<br/>",
+    desc: "In moment A, foobar.",
     desc2: "ok"
   },
   metroid: {
@@ -51,8 +54,14 @@ const game_presets = {
     c_time2: 2267,
     d_time2: 4619,
     title: "Metroid",
-    desc: "design reasoning lab.<br/>",
-    desc2: "i love u"
+    desc: "In moment A, Metroid is in a blue hall and falling to the right after firing midair.<br/>" +
+      "In moment B, Metroid is in a blue hall and moving the left.<br/>" +
+      "In moment C, Metroid is in clouded hall and falling to the right after firing midair.<br/>" +
+      "Result: The system then finds moment D, where Metroid is in clouded hall and moving to the left.",
+    desc2: "In moment A, Metroid has no missile to fire.<br/>" +
+      "In moment B, Metroid is in the same location as moment A and has a missle ready to fire.<br/>" +
+      "In moment C, Metroid has no missile to fire.<br/>" +
+      "Result: The system then finds moment D, where Metroid is in the same location as moment C and has a missle ready to fire."
   }
 }
 
