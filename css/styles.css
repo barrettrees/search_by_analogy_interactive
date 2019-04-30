@@ -101,6 +101,12 @@ body {
   padding: 0px 10px;
 }
 
+#exampleDesc {
+  display: block;
+  height: 100px;
+  overflow: scroll;
+}
+
 .buttons {
   text-align: center;
   margin: 10px;
