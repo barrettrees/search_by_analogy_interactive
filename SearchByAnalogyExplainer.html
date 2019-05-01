@@ -8,20 +8,25 @@
   </head>
   <body>
     <div class="explainer">
-      <h1 class="textCenter">Introduction to Search by Analogy (with Videogames)</h1>
+      <h1 id="title" class="textCenter">Introduction to Search by Analogy (with Videogames)</h1>
+      <h4 class="textCenter">
+        by Barrett Anderson, Kevin Lim, and Adam Smith
+        </br>
+        May 2019
+      </h4>
       <div class="textCenter">
-        <p>Imagine what fills in the blank:</p>
+        <p>Imagine the moment that fills in the bottom right blank:</p>
         <img src="./images/explainer/analogy.png" alt="analogy">
       </div>
       <p>
         The primary difference between the top two moments was that Mario was on foot (left) or riding Yoshi (right). The difference between the two moments on the left was that Mario was outdoors with a goomba (top), or indoors with Bowser (bottom). You were probably able to solve the analogy above, by imagining something like this to fill in the blank:
       </p>
-      <img class="analogyMoment centerImage" src="./images/explainer/momentD.png" alt="momentD">
+      <img class="analogyMoment centerImage" src="./images/explainer/resultMoment.png" alt="resultMoment">
       <p>
-        In this analogical solution, Mario is the indoors with Bowser (as on the bottom), and riding Yoshi instead of on foot (as on the right). If you’re a Mario fan you probably also noticed that these images aren’t from a real Mario game, but I bet that did not make it any harder to solve the analogy.
+        In this analogical solution, Mario is the indoors with Bowser (as on the bottom), and riding Yoshi instead of on foot (as on the right). If you’re a Mario fan you probably also noticed that these images aren’t from a real Mario game, but I bet that did not make it any harder for you to solve the analogy.
       </p>
       <p>
-        This kind of analogical reasoning is easy for humans to do, but hard for them to explain, and it is not obvious that a machine can do it at all. Below, we show how a computer can be trained to understand this analogy, and provide an interactive example.
+        This kind of analogical reasoning is easy for humans to do, but hard for them to explain, and it is not obvious that a machine can do it at all. Below, we show how a computer can be trained to understand this analogy, and provide a few interactive examples.
       </p>
 
       <!-- new section -->
@@ -43,23 +48,21 @@
       </p>
 
       <!-- new section -->
+      <h2>Videogame Moment Search by Analogy</h2>
       <p>
-        So, why did we bother turning each moment in the game into a list of numbers? In short, because now we can do interesting things to these moments (with math), and what we can accomplish that way might surprise you.
-      </p>
-      <p>
-        In reality our vectors will have many dimensions, but it will be easier to illustrate the rest of this explanation if we pretend that they only have two. In that case, our videogame moment vectors might look something like this.
+        So, why did we bother turning each moment in the game into a list of numbers? In short, because now we can do interesting things to these moments (with math). This is the first step in teaching a computer to understand an analogy, like the example at the top of this page. In reality our vectors will contain values for many features, but it will be easier to illustrate the rest of this explanation if we pretend that they only have two. In that case, our <i><b>videogame moment vectors</b></i> might look something like this:
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/vectorAB.png" alt="vectorAB">
 
       <p>
-        We can imagine a graph of Feature X (on the x-axis) and Feature Y (on the y-axis). If the game had only these two features, every possible moment would exist somewhere on this 2D graph. In this case we put Moment A and Moment B on the graph, from the example above.
+        We can imagine a graph with Feature X (on the x-axis) and Feature Y (on the y-axis). If the game had only these two features, every possible moment would exist somewhere on this 2D graph. This is a representation of the abstract space of all of possible game states. (This is also why we had to simplify - if every feature in our vector added another dimension to this graph it would very quickly become impossible to draw it on the page.) So, sticking to this simplified version, we can put Moment A and Moment B vectors from the example at the top of the page on this graph.
       </p>
       <p>
-        So, here’s the first part of how the search-by-anlogy trick works:
+        Here’s the first part of how the search-by-anlogy trick works:
       </p>
       <p>
-        We can take the difference between them to get a new vector (B-A) This vector removes what they have in common (Mario outdoors), but leaves intact what is distinct between them (on foot vs on Yoshi). The result of this operation (B-A) is a difference vector that we think represents something like the Yoshiness of that moment.
+        We can take the difference between the Moment A vector and the Moment B vector to get a new vector (B-A) that removes what they have in common (Mario outdoors), but leaves intact what is distinct between them (on foot vs on Yoshi). The result of this operation (B-A) is a <i><b>difference vector</b></i> that, in this case, we think represents something like the <i>Yoshiness</i> of that moment.
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/vectorDifference.png" alt="vectorDifference">
@@ -68,7 +71,7 @@
         Here’s the second part of the search-by-analogy trick:
       </p>
       <p>
-        Now that we have a difference vector representing something like Yoshiness (B-A), we can add it to a moment that has no Yoshi in it (Moment C, from our example above), and hopefully find an equivalent moment with one crucial difference (the solution of to the analogy above, Moment C + Yoshi).
+        Now that we have a <i><b>difference vector</b></i> representing something like Yoshiness (B-A), we can add it to a moment that has no Yoshi in it (Moment C, from our example above), and hopefully find an equivalent moment with one crucial difference (the solution of to the analogy above, Moment C + Yoshi).
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/newVector.png" alt="newVector">
@@ -77,23 +80,37 @@
         That is the essence of videogame moment search-by-analogy, but there is one final important wrinkle, which is the part that makes this search. Although we can imagine a graph that contains all possible moments in a game, for most games we are only ever going to be working with a small sample of those moments. What if the moment we are looking for doesn’t exist in that sample? What if the moment that we are looking for isn’t even possible?
       </p>
 
+      <p>
+        In this case, we still add the difference vector (B-A)  to another (Moment C), but instead of giving us the answer this creates a <i><b>query vector</b></i>.
+      </p>
+
       <img class="diagram centerImage" src="./images/explainer/queryVector.png" alt="queryVector">
 
       <p>
-        In this case, we add the difference vector (B-A)  to another (Moment C) to create a query vector. Just as we said above, this is like adding the distinction we defined (Yoshiness) to Moment C. The only difference is that we are not quite done yet. Now, we just need to find the moment in our sample that is closest to our query vector.
+        Now that we have a <i><b>query vector</b></i> we can compare it to all of the moments that exist in our sample (represented as dots on the graph below). The single closest moment is our analogy search result, Moment D.
       </p>
 
-      <img class="diagram centerImage" src="./images/explainer/resultVector.png" alt="resultVector">
+      <img class="diagram centerImage" src="./images/explainer/queryComparison.png" alt="queryComparison">
 
       <p>
-        This is it, the closest moment to this query vector is our analogy search result, Moment D.  The interactive below contains examples of a search-by-analogy success for a couple of games. All of the moments used came from a human playthrough of each game (Super Mario World and Super Metroid). The graph shows, for every moment in the sample, its similarity to the difference vector (B-A, on the x-axis), its similarity to Moment C (on the y-axis) and how close it is to the query vector (dot size and color). You can scroll around the graph and mouse over any moment for more detail. You can also make your own queries (changing Moments A, B, and C) and see what happens:
+        That is all there is to search-by-analogy.
       </p>
+
+      <p>
+        There is one more trick we can do that will make our graph more useful. Right now the axes are not very meaningful, but we can change that by rotating and transforming the graph. One way we can do this makes the Moment C vector vertical, and the B-A <i><b>difference vector</b></i> horizontal. This gives us a y-axis that tells us how similar each moment is to Moment C, and and an x-axis that tells us how much of the B-A distinction that we defined (e.g., Yoshiness) each moment has. We can also include how close each moment is to the <i><b>query vector</i></b>, encoded in the size and color of each dot.
+      </p>
+
+      <img class="diagram centerImage" src="./images/explainer/bestMatches.png" alt="bestMatches">
+
+      <p>
+        The interactive below contains examples of a search-by-analogy success for a couple of games. All of the moments used came from a human playthrough of each game (Super Mario World and Super Metroid). The graph shows, for every moment in the sample, its similarity to the <i><b>difference vector</i></b> (B-A, on the x-axis), its similarity to Moment C (on the y-axis) and how close it is to the <i><b>query vector</i></b> (dot size and color). You can scroll around the graph and mouse over any moment for more detail. You can also make your own queries (changing Moments A, B, and C) and see what happens:
+      </p>
+
     </div>
 
     <div class="interactive">
       <div class="about">
-        <h1>Search by Analogy Widget</h1>
-        <p>An experiment in search by analogy for videogame moments. A is to B as C is to D.</p>
+        <h1>Search by Analogy in Super Mario World and Super Metroid</h1>
       </div>
       <div class="wrapper">
         <div class="frames-container">
@@ -159,7 +176,7 @@
     </div>
 
     <p class="footer caption">
-      One final note: Our example is for videogame moments, but the properties that make this possible have also been demonstrated for <a href=https://jalammar.github.io/illustrated-word2vec/>text</a>, so we should be able to do it for anything that can be represented as a vector (e.g., music, images, etc.).
+      One final note: Our example is for videogame moments, but this will work for any sort of space with certain properties, specifically the property that subjectively important analogies happen to closely agree with the linear algebra operations above. Conveniently this has been demonstrated for <a href=https://jalammar.github.io/illustrated-word2vec/>text</a>, and it is worth investigating in many other domains (e.g., music, images, etc.).
     </p>
 
     <script src="js/d3.v3.min.js"></script>

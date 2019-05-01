@@ -54,14 +54,14 @@ const game_presets = {
     c_time2: 2267,
     d_time2: 4619,
     title: "Metroid",
-    desc: "In moment A, Metroid is in a blue hall and falling to the right after firing midair.<br/>" +
-      "In moment B, Metroid is in a blue hall and moving the left.<br/>" +
-      "In moment C, Metroid is in clouded hall and falling to the right after firing midair.<br/>" +
-      "Result: The system then finds moment D, where Metroid is in clouded hall and moving to the left.",
-    desc2: "In moment A, Metroid has no missile to fire.<br/>" +
-      "In moment B, Metroid is in the same location as moment A and has a missle ready to fire.<br/>" +
-      "In moment C, Metroid has no missile to fire.<br/>" +
-      "Result: The system then finds moment D, where Metroid is in the same location as moment C and has a missle ready to fire."
+    desc: "In moment A, Samus is in a blue room and falling to the right after firing midair.<br/>" +
+      "In moment B, Samus is in a blue room and moving the left.<br/>" +
+      "In moment C, Samus is in smoky room and falling to the right after firing midair.<br/>" +
+      "Result: The system then finds moment D, where Samus is in smoky room and moving to the left.",
+    desc2: "In moment A, Samus is in a cave and has no missile to fire.<br/>" +
+      "In moment B, Samus is in a cave and has a missle upgrade.<br/>" +
+      "In moment C, Samus is in undergroud has no missile to fire.<br/>" +
+      "Result: The system then finds moment D, where Samus is underground and has a missle upgrade."
   }
 }
 
@@ -101,48 +101,48 @@ for (let game in gameVectorArrays) {
 }
 
 // set reference to frame # displayed under image
-let pointA = document.getElementById("pointA");
-let pointB = document.getElementById("pointB");
-let pointC = document.getElementById("pointC");
-let pointD = document.getElementById("pointD");
+const pointA = document.getElementById("pointA");
+const pointB = document.getElementById("pointB");
+const pointC = document.getElementById("pointC");
+const pointD = document.getElementById("pointD");
 
 // set reference to slider inputs A, B, C, D
-let myRangeA = document.getElementById("myRangeA");
-let myRangeB = document.getElementById("myRangeB");
-let myRangeC = document.getElementById("myRangeC");
+const myRangeA = document.getElementById("myRangeA");
+const myRangeB = document.getElementById("myRangeB");
+const myRangeC = document.getElementById("myRangeC");
 
 // set reference to the four videogame images
-let imagetest1 = document.getElementById("imagetest1");
-let imagetest2 = document.getElementById("imagetest2");
-let imagetest3 = document.getElementById("imagetest3");
-let imagetest4 = document.getElementById("imagetest4");
+const imagetest1 = document.getElementById("imagetest1");
+const imagetest2 = document.getElementById("imagetest2");
+const imagetest3 = document.getElementById("imagetest3");
+const imagetest4 = document.getElementById("imagetest4");
 
 // set reference to the graph buttons
-let gameListButton = document.getElementById("gameListButton");
-let kListButton = document.getElementById("kListButton");
-let exampleButton = document.getElementById("exampleButton");
-let exampleButton2 = document.getElementById("exampleButton2");
-let searchButton = document.getElementById("searchButton");
+const gameListButton = document.getElementById("gameListButton");
+const kListButton = document.getElementById("kListButton");
+const exampleButton = document.getElementById("exampleButton");
+const exampleButton2 = document.getElementById("exampleButton2");
+const searchButton = document.getElementById("searchButton");
 
 // set reference to the example explanations
-let exampleTitle = document.getElementById("exampleTitle");
-let exampleDesc = document.getElementById("exampleDesc");
+const exampleTitle = document.getElementById("exampleTitle");
+const exampleDesc = document.getElementById("exampleDesc");
 
-// initialize experiment
-let myVar = setInterval(waitVectorArray, 1000);
-function waitVectorArray() {
+let waitVectorArray = () => {
   if(vectorArray.length > 0) {
     clearInterval(myVar);
     // console.log(vectorArray);
     gameListButtonClicked();
   }
 }
+// initialize experiment
+let myVar = setInterval(waitVectorArray, 1000);
 
-function updateImage(src, image) {
+let updateImage = (src, image) => {
   image.src = src;
 }
 
-function isValidFrame(frameNum) {
+let isValidFrame = (frameNum) => {
   return (frameNum >= 1 && frameNum <= experiment_config['num_images']);
 }
 
@@ -184,9 +184,8 @@ pointC.addEventListener("input", function(e) {
   }
 });
 
-// set event listeners for the sliders
-myRangeA.addEventListener("input",sliderChangedA);
-function sliderChangedA(e) {
+
+let sliderChangedA = (e) => {
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest1);
@@ -196,8 +195,7 @@ function sliderChangedA(e) {
   searchButtonClicked();
 }
 
-myRangeB.addEventListener("input",sliderChangedB);
-function sliderChangedB(e) {
+let sliderChangedB = (e) => {
   let filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest2);
@@ -207,8 +205,7 @@ function sliderChangedB(e) {
   searchButtonClicked();
 }
 
-myRangeC.addEventListener("input",sliderChangedC);
-function sliderChangedC(e) {
+let sliderChangedC = (e) => {
   let filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest3);
@@ -218,23 +215,19 @@ function sliderChangedC(e) {
   searchButtonClicked();
 }
 
-kListButton.addEventListener("input",searchButtonClicked);
-
-// only called if value from dropdown list is changed
-gameListButton.addEventListener("change",gameListButtonClicked);
-function gameListButtonClicked(e) {
+let gameListButtonClicked = (e) => {
   // if game is switched update accordingly
   let game = gameListButton.value;
-  console.log("game switched to " + game);
+  // console.log("game switched to " + game);
   experiment_config = game_presets[game];
   // console.log(experiment_config);
   vectorArray = gameVectorArrays[game];
   loadExample();
 }
 
-exampleButton.addEventListener("click",loadExample);
-function loadExample(e) {
-  console.log('loading preset config');
+
+let loadExample = (e) => {
+  // console.log('loading preset config');
   let imgCount = experiment_config['num_images'];
   myRangeA.max = imgCount;
   myRangeB.max = imgCount;
@@ -250,9 +243,8 @@ function loadExample(e) {
   exampleDesc.innerHTML = experiment_config['desc'];
 }
 
-exampleButton2.addEventListener("click",loadExample2);
-function loadExample2(e) {
-  console.log('loading preset2 config');
+let loadExample2 = (e) => {
+  // console.log('loading preset2 config');
   myRangeA.value = experiment_config['a_time2'];
   myRangeB.value = experiment_config['b_time2'];
   myRangeC.value = experiment_config['c_time2'];
@@ -264,7 +256,7 @@ function loadExample2(e) {
   exampleDesc.innerHTML = experiment_config['desc2'];
 }
 
-function updateGallery() {
+let updateGallery = () => {
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
   updateImage(filename, imagetest1);
@@ -282,9 +274,36 @@ function updateGallery() {
   pointC.value = myRangeC.value;
 }
 
+let sortWithIndeces = (toSort) => {
+  for (let i = 0; i < toSort.length; i++) {
+    toSort[i] = [toSort[i], i];
+  }
+  toSort.sort(function(left, right) {
+    return left[0] < right[0] ? -1 : 1;
+  });
+  toSort.sortIndices = [];
+  for (let j = 0; j < toSort.length; j++) {
+    toSort.sortIndices.push(toSort[j][1]);
+    toSort[j] = toSort[j][0];
+  }
+  return toSort;
+}
+
+let update_data = (e) => {
+  let i;
+  let dataset = [];
+  for (i = 0; i < experiment_config['num_images']-2; i++) {
+    let qVector = [];
+    let ABdiff = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value]);
+    ABdiffTimesK = scalarMultiplication(kListButton.value,ABdiff);
+    qVector = vectorSum(vectorArray[myRangeC.value], ABdiffTimesK);
+    dataset.push({"matchScore":cosineSimilarity(vectorArray[i], qVector), "AB_Similarity":cosineSimilarity(vectorArray[i], ABdiffTimesK), "C_Similarity":cosineSimilarity(vectorArray[i], vectorArray[myRangeC.value]), "ImageID":i});
+  }
+  return dataset;
+}
+
 let mydataset;
-searchButton.addEventListener("click",searchButtonClicked);
-function searchButtonClicked(e) {
+let searchButtonClicked = (e) => {
   if(myRangeA.value == myRangeB.value) {
     pointD.innerHTML = myRangeC.value;
     d3.select("svg").remove(); // clear graph data
@@ -309,33 +328,18 @@ function searchButtonClicked(e) {
   updateImage(filename, imagetest4);
 }
 
-function sortWithIndeces(toSort) {
-  for (let i = 0; i < toSort.length; i++) {
-    toSort[i] = [toSort[i], i];
-  }
-  toSort.sort(function(left, right) {
-    return left[0] < right[0] ? -1 : 1;
-  });
-  toSort.sortIndices = [];
-  for (let j = 0; j < toSort.length; j++) {
-    toSort.sortIndices.push(toSort[j][1]);
-    toSort[j] = toSort[j][0];
-  }
-  return toSort;
-}
+// set event listeners for the sliders
+myRangeA.addEventListener("input",sliderChangedA);
+myRangeB.addEventListener("input",sliderChangedB);
+myRangeC.addEventListener("input",sliderChangedC);
 
-function update_data(e) {
-  let i;
-  let dataset = [];
-  for (i = 0; i < experiment_config['num_images']-2; i++) {
-    let qVector = [];
-    let ABdiff = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value]);
-    ABdiffTimesK = scalarMultiplication(kListButton.value,ABdiff);
-    qVector = vectorSum(vectorArray[myRangeC.value], ABdiffTimesK);
-    dataset.push({"matchScore":cosineSimilarity(vectorArray[i], qVector), "AB_Similarity":cosineSimilarity(vectorArray[i], ABdiffTimesK), "C_Similarity":cosineSimilarity(vectorArray[i], vectorArray[myRangeC.value]), "ImageID":i});
-  }
-  return dataset;
-}
+kListButton.addEventListener("input",searchButtonClicked);
+
+// only called if value from dropdown list is changed
+gameListButton.addEventListener("change",gameListButtonClicked);
+exampleButton.addEventListener("click",loadExample);
+exampleButton2.addEventListener("click",loadExample2);
+searchButton.addEventListener("click",searchButtonClicked);
 
 window.addEventListener("resize", function() {update_graphs(mydataset)});
 
