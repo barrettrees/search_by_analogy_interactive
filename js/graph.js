@@ -23,23 +23,23 @@ const game_presets = {
       "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
       "Result: The system then finds moment D, where Mario is in World 1-2, small, not riding Yoshi, and in the air."
   },
-  mario2: {
-    screenshot_path: "./images/mario2_screenshots/",
-    model_path: "./models/mario_screenshots_predicted2.bin",
-    num_images: 6524,
-    frames_per_step: 10,
-    a_time: 1170,
-    b_time: 2069,
-    c_time: 4482,
-    d_time: 4545,
-    a_time2: 4870,
-    b_time2: 2075,
-    c_time2: 4987,
-    d_time2: 1530,
-    title: "Mario2",
-    desc: "In moment A, foobar.",
-    desc2: "ok"
-  },
+  // mario2: {
+  //   screenshot_path: "./images/mario2_screenshots/",
+  //   model_path: "./models/mario_screenshots_predicted2.bin",
+  //   num_images: 6524,
+  //   frames_per_step: 10,
+  //   a_time: 1170,
+  //   b_time: 2069,
+  //   c_time: 4482,
+  //   d_time: 4545,
+  //   a_time2: 4870,
+  //   b_time2: 2075,
+  //   c_time2: 4987,
+  //   d_time2: 1530,
+  //   title: "Mario2",
+  //   desc: "In moment A, foobar.",
+  //   desc2: "ok"
+  // },
   metroid: {
     screenshot_path: "./images/metroid_screenshots/",
     model_path: "./models/metroid_screenshots_predicted.bin",
@@ -58,9 +58,9 @@ const game_presets = {
       "In moment B, Samus is in a blue room and moving the left.<br/>" +
       "In moment C, Samus is in smoky room and falling to the right after firing midair.<br/>" +
       "Result: The system then finds moment D, where Samus is in smoky room and moving to the left.",
-    desc2: "In moment A, Samus is in a cave and has no missile to fire.<br/>" +
+    desc2: "In moment A, Samus is in a cave and has no upgrades.<br/>" +
       "In moment B, Samus is in a cave and has a missle upgrade.<br/>" +
-      "In moment C, Samus is in undergroud has no missile to fire.<br/>" +
+      "In moment C, Samus is in undergroud has no upgrades.<br/>" +
       "Result: The system then finds moment D, where Samus is underground and has a missle upgrade."
   }
 }
@@ -68,7 +68,6 @@ const game_presets = {
 // store vectorArrays for each game
 const gameVectorArrays = {
   mario: [],
-  mario2: [],
   metroid: []
 }
 
@@ -119,7 +118,6 @@ const imagetest4 = document.getElementById("imagetest4");
 
 // set reference to the graph buttons
 const gameListButton = document.getElementById("gameListButton");
-const kListButton = document.getElementById("kListButton");
 const exampleButton = document.getElementById("exampleButton");
 const exampleButton2 = document.getElementById("exampleButton2");
 const searchButton = document.getElementById("searchButton");
@@ -236,7 +234,6 @@ let loadExample = (e) => {
   myRangeB.value = experiment_config['b_time'];
   myRangeC.value = experiment_config['c_time'];
   pointD.innerHTML = experiment_config['d_time'];
-  kListButton.value = 1;
   updateGallery();
   searchButtonClicked();
   exampleTitle.innerHTML = experiment_config['title'] + " Example 1:";
@@ -249,7 +246,6 @@ let loadExample2 = (e) => {
   myRangeB.value = experiment_config['b_time2'];
   myRangeC.value = experiment_config['c_time2'];
   pointD.innerHTML = experiment_config['d_time2'];
-  kListButton.value = 1;
   updateGallery();
   searchButtonClicked();
   exampleTitle.innerHTML = experiment_config['title'] + " Example 2:";
@@ -295,7 +291,7 @@ let update_data = (e) => {
   for (i = 0; i < experiment_config['num_images']-2; i++) {
     let qVector = [];
     let ABdiff = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value]);
-    ABdiffTimesK = scalarMultiplication(kListButton.value,ABdiff);
+    ABdiffTimesK = scalarMultiplication(1,ABdiff);
     qVector = vectorSum(vectorArray[myRangeC.value], ABdiffTimesK);
     dataset.push({"matchScore":cosineSimilarity(vectorArray[i], qVector), "AB_Similarity":cosineSimilarity(vectorArray[i], ABdiffTimesK), "C_Similarity":cosineSimilarity(vectorArray[i], vectorArray[myRangeC.value]), "ImageID":i});
   }
@@ -312,7 +308,7 @@ let searchButtonClicked = (e) => {
     let data = [];
     for (let i = 0; i < experiment_config['num_images']-2; i++) {
       let qVector = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value])
-      qVector = scalarMultiplication(kListButton.value, qVector)
+      qVector = scalarMultiplication(1, qVector)
       qVector = vectorSum(vectorArray[myRangeC.value], qVector)
       data.push( cosineSimilarity(vectorArray[i], qVector ) );
     }
@@ -332,8 +328,6 @@ let searchButtonClicked = (e) => {
 myRangeA.addEventListener("input",sliderChangedA);
 myRangeB.addEventListener("input",sliderChangedB);
 myRangeC.addEventListener("input",sliderChangedC);
-
-kListButton.addEventListener("input",searchButtonClicked);
 
 // only called if value from dropdown list is changed
 gameListButton.addEventListener("change",gameListButtonClicked);
