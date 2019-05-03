@@ -17,8 +17,10 @@ h4 {
   margin: 8px;
 }
 
-.footer {
-  margin: 40px;
+.impact-box {
+  border: solid 2px black;
+  padding: 20px;
+  background-color: #FFF5EE;
 }
 
 .caption {

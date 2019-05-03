@@ -45,23 +45,23 @@ const game_presets = {
     model_path: "./models/metroid_screenshots_predicted.bin",
     num_images: 4967,
     frames_per_step: 10,
-    a_time: 943,
-    b_time: 1359,
-    c_time: 2520,
-    d_time: 3193,
-    a_time2: 2005,
-    b_time2: 4919,
-    c_time2: 2267,
-    d_time2: 4619,
+    a_time: 2005,
+    b_time: 4919,
+    c_time: 2267,
+    d_time: 4619,
+    a_time2: 943,
+    b_time2: 1359,
+    c_time2: 2520,
+    d_time2: 3193,
     title: "Metroid",
-    desc: "In moment A, Samus is in a blue room and falling to the right after firing midair.<br/>" +
-      "In moment B, Samus is in a blue room and moving the left.<br/>" +
-      "In moment C, Samus is in smoky room and falling to the right after firing midair.<br/>" +
-      "Result: The system then finds moment D, where Samus is in smoky room and moving to the left.",
-    desc2: "In moment A, Samus is in a cave and has no upgrades.<br/>" +
+    desc: "In moment A, Samus is in a cave and has no upgrades.<br/>" +
       "In moment B, Samus is in a cave and has a missle upgrade.<br/>" +
       "In moment C, Samus is in undergroud has no upgrades.<br/>" +
-      "Result: The system then finds moment D, where Samus is underground and has a missle upgrade."
+      "Result: The system then finds moment D, where Samus is underground and has a missle upgrade.",
+    desc2: "In moment A, Samus is in a blue room and falling to the right after firing midair.<br/>" +
+      "In moment B, Samus is in a blue room and moving the left.<br/>" +
+      "In moment C, Samus is in smoky room and falling to the right after firing midair.<br/>" +
+      "Result: The system then finds moment D, where Samus is in smoky room and moving to the left."
   }
 }
 

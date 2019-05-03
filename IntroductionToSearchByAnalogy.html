@@ -29,6 +29,16 @@
         This kind of analogical reasoning is easy for humans to do, but hard for them to explain, and it is not obvious that a machine can do it at all. Below, we show how a computer can be trained to understand this analogy, and provide a few interactive examples.
       </p>
 
+      <div class="impact-box">
+        <h2 class="textCenter">Why Search by Analogy (with Videogames) Matters</h2>
+        <p>
+          Media, including videogames, is an important part of our lives, and thinking about <a href=https://feministfrequency.com/>media critically</a> is important. We don’t know what game scholars and critics will learn using the technique described here, but this is a tool that gives them some new approaches.
+        </p>
+        <p>
+          Every time you use predictive text or conduct a web search, you are benefiting from a version of the technology described here, applied to <a href=https://jalammar.github.io/illustrated-word2vec/>text</a>. Videogame moments are a new place to experiment with these ideas, and what we learn here might have applications in other domains (e.g. text, music, images, video, etc.).
+        </p>
+      </div>
+
       <!-- new section -->
       <h2>Parameterizing Videogame Moments</h2>
       <p>
@@ -97,7 +107,7 @@
       </p>
 
       <p>
-        There is one more trick we can do that will make our graph more useful. Right now the axes are not very meaningful, but we can change that by rotating and transforming the graph. One way we can do this makes the Moment C vector vertical, and the B-A <i><b>difference vector</b></i> horizontal. This gives us a y-axis that tells us how similar each moment is to Moment C, and an x-axis that tells us how much of the B-A distinction that we defined (e.g., Yoshiness) each moment has. We can also include how close each moment is to the <i><b>query vector</i></b>, encoded in the size and color of each dot.
+        There is one more trick we can do that will make our graph more useful. Right now the axes are not very meaningful, but we can change that by rotating and transforming the graph. One way we can do this makes the Moment C vector vertical, and the B-A <i><b>difference vector</b></i> horizontal. This gives us a y-axis that tells us how similar each moment is to Moment C, and x-axis that tells us how much of the B-A distinction that we defined (e.g., Yoshiness) each moment has. We can also include how close each moment is to the <i><b>query vector</i></b>, encoded in the size and color of each dot.
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/bestMatches.png" alt="bestMatches">
@@ -167,10 +177,6 @@
         </div>
       </div>
     </div>
-
-    <p class="footer caption">
-      One final note: Our example is for videogame moments, but this will work for any sort of space with certain properties, specifically the property that subjectively important analogies happen to closely agree with the linear algebra operations described above. Conveniently this has been demonstrated for <a href=https://jalammar.github.io/illustrated-word2vec/>text</a>, and it is worth investigating in many other domains (e.g., music, images, etc.).
-    </p>
 
     <script src="js/d3.v3.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
