@@ -223,7 +223,6 @@ let gameListButtonClicked = (e) => {
   loadExample();
 }
 
-
 let loadExample = (e) => {
   // console.log('loading preset config');
   let imgCount = experiment_config['num_images'];
