@@ -10,7 +10,7 @@
     <div class="explainer">
       <h1 id="title" class="textCenter">Introduction to Search by Analogy (with Videogames)</h1>
       <h4 class="textCenter">
-        by Barrett Anderson, Kevin Lim, and Adam Smith
+        by <a href=https://barrettrees.com/>Barrett Anderson</a>, <a href=https://klimbin.github.io/>Kevin Lim</a>, and <a href=https://adamsmith.as/>Adam Smith</a>
         </br>
         May 2019
       </h4>
@@ -32,10 +32,10 @@
       <div class="impact-box">
         <h2 class="textCenter">Why Search by Analogy (with Videogames) Matters</h2>
         <p>
-          Media, including videogames, is an important part of our lives, and thinking about <a href=https://feministfrequency.com/>media critically</a> is important. Search by analogy is a tool for game scholars and critics that will make new kinds of analysis possible.
+          Media, including videogames, is an important part of our lives, and thinking about <a href=https://becausegamesmatter.com/>media</a> <a href=https://feministfrequency.com/>critically</a> is important. Search by analogy is a tool for game scholars and critics that will make new kinds of analysis possible.
         </p>
         <p>
-          Every time you use predictive text or conduct a web search, you are benefiting from the technology (<a href=https://jalammar.github.io/illustrated-word2vec/>word embeddings</a>) that makes search by analogy possible. Videogame moments are a new place to experiment with these ideas, and what we learn in these experiments might have applications in other domains (e.g. text, music, images, video, etc.).
+         Often when you conduct a web search or when you use a keyboard with predictive text, you are benefiting from the same underlying technology (<a href=https://jalammar.github.io/illustrated-word2vec/>word embeddings</a>) that makes search by analogy possible. Videogame moments are a new place to experiment with these ideas, and what we learn in these experiments might have applications in other domains (e.g. text, music, images, video, etc.).
         </p>
       </div>
 
@@ -115,6 +115,18 @@
       <p>
         The interactive below contains examples of a search-by-analogy success for a couple of games. All of the moments used came from a human playthrough of each game (Super Mario World and Super Metroid). The graph shows, for every moment in the sample, its similarity to the <i><b>difference vector</i></b> (B-A, on the x-axis), its similarity to Moment C (on the y-axis) and how close it is to the <i><b>query vector</i></b> (dot size and color). You can scroll around the graph and mouse over any moment for more detail. You can also make your own queries (changing Moments A, B, and C) and see what happens:
       </p>
+        <div class="impact-box">
+        <h2 class="textCenter">What's New About Search by Analogy (with Videogames)</h2>
+        <p>
+        This is a combination of two old ideas, applied to a new domain. The first concept is that it is possible to represent many different kinds of things as vectors in an abstract space. <a href=https://vusd.github.io/spacesheet/>Words, faces, and many other things</a> can all be turned into vectors embdeded in an appropriate space.
+        </p>
+        <p>
+        The second important concept is that the relationships between these vectors can be meaningful. The most famous result here is <a href=https://www.technologyreview.com/s/541356/king-man-woman-queen-the-marvelous-mathematics-of-computational-linguistics/>"King - Man + Woman = Queen"</a>, where a mathematical relationship between word vectors captures an analogical relationship between words.
+        </p>
+        <p>
+        Before now, these ideas had not been applied to moments in a videogame. Only recently has the work been done to create an <a href=https://adamsmith.as/papers/KEG-18_paper_4.pdf>abstract space for embedding videogame moments</a>, and possible applications are <a href=https://adamsmith.as/papers/crawling-indexing-retrieving.pdf>still being explored</a>.   
+        </p>
+      </div>
 
     </div>
 
@@ -167,6 +179,7 @@
             <select id="gameListButton">
               <option value="mario">Mario</option>
               <option value="metroid">Metroid</option>
+              <option value="mario3">Mario (larger dataset)</option>
             </select>
             <button id="exampleButton">Example 1</button>
             <button id="exampleButton2">Example 2</button>

@@ -62,13 +62,37 @@ const game_presets = {
       "In moment B, Samus is in a blue room and moving the left.<br/>" +
       "In moment C, Samus is in smoky room and falling to the right after firing midair.<br/>" +
       "Result: The system then finds moment D, where Samus is in smoky room and moving to the left."
-  }
+  },
+    mario3: {
+    screenshot_path: "./images/mario_screenshots3/",
+    model_path: "./models/mario_screenshots_predicted3.bin",
+    num_images: 8899,
+    frames_per_step: 10,
+    a_time: 410,
+    b_time: 1858,
+    c_time: 1020,
+    d_time: 2170,
+    a_time2: 1582,
+    b_time2: 1309,
+    c_time2: 563,
+    d_time2: 850,
+    title: "Super Mario World",
+    desc: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
+      "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
+      "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
+      "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
+    desc2: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
+      "In moment B, Mario is in World 1-2, big, riding Yoshi, and in the air.<br/>" +
+      "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
+      "Result: The system then finds moment D, where Mario is in World 1-2, small, not riding Yoshi, and in the air."
+  },
 }
 
 // store vectorArrays for each game
 const gameVectorArrays = {
   mario: [],
-  metroid: []
+  metroid: [],
+  mario3: []
 }
 
 let experiment_config;
