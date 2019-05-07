@@ -130,7 +130,7 @@ h4 {
 #exampleDesc {
   display: block;
   height: 100px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .buttons {
