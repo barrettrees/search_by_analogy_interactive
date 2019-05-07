@@ -11,7 +11,7 @@ const game_presets = {
     d_time: 2170,
     a_time2: 1582,
     b_time2: 1309,
-    c_time2: 564,
+    c_time2: 563,
     d_time2: 850,
     title: "Super Mario World",
     desc: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
