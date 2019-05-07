@@ -81,7 +81,7 @@
         Here’s the second part of the search-by-analogy trick:
       </p>
       <p>
-        Now that we have a <i><b>difference vector</b></i> representing something like Yoshiness (B-A), we can add it to a moment that has no Yoshi in it (Moment C, from our example above), and hopefully find an equivalent moment with one crucial difference (the solution of to the analogy above, Moment C + Yoshi).
+        Now that we have a <i><b>difference vector</b></i> representing something like <i>Yoshiness</i>(B-A), we can add it to a moment that has no Yoshi in it (Moment C, from our example above), and hopefully find an equivalent moment with one crucial difference (the solution of to the analogy above, Moment C + Yoshi).
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/newVector.png" alt="newVector">
@@ -107,7 +107,7 @@
       </p>
 
       <p>
-        There is one more trick we can do that will make our graph more useful. Right now the axes are not very meaningful, but we can change that by rotating and transforming the graph. One way we can do this makes the Moment C vector vertical, and the B-A <i><b>difference vector</b></i> horizontal. This gives us a y-axis that tells us how similar each moment is to Moment C, and x-axis that tells us how much of the B-A distinction that we defined (e.g., Yoshiness) each moment has. We can also include how close each moment is to the <i><b>query vector</i></b>, encoded in the size and color of each dot.
+        There is one more trick we can do that will make our graph more useful. Right now the axes are not very meaningful, but we can change that by rotating and transforming the graph. One way we can do this makes resemblance to the Moment C vector vertical (as measured by <a href=https://en.wikipedia.org/wiki/Cosine_similarity/>cosine similarity</a>), and resemblance to the B-A <i><b>difference vector</b></i> horizontal. This gives us a y-axis that tells us how similar each moment is to Moment C, and x-axis that tells us how much of the B-A distinction that we defined (e.g., <i>Yoshiness</i>) each moment has. We can also include how similar each moment is to the <i><b>query vector</i></b>, encoded in the size and color of each dot.
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/bestMatches.png" alt="bestMatches">
@@ -133,6 +133,7 @@
     <div class="interactive">
       <div class="about">
         <h1>Search by Analogy in Super Mario World and Super Metroid</h1>
+        <p>Each moment is specified with a frame number. You can use the dropdown and buttons to see our examples, or change the frame numbers yourself to explore other relationships between moments.</p>
       </div>
       <div class="wrapper">
         <div class="frames-container">
