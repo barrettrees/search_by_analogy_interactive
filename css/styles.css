@@ -2,24 +2,37 @@
   box-sizing: border-box;
 }
 
+h1, h2 {
+  font-family: 'Dosis', sans-serif;
+}
+
+h1 {
+  font-size: 2.2em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+.authors {
+  margin: 8px;
+  font-size: 1.1em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
   margin: 0px;
   height: 100%;
-  /* background-color: #FFF5EE; */
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #title {
   margin-bottom: 0px;
 }
 
-h4 {
-  margin: 8px;
-}
-
 .impact-box {
   border: solid 2px black;
-  padding: 20px;
+  padding: 0px 40px;
   background-color: #FFF5EE;
 }
 
