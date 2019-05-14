@@ -17,11 +17,11 @@ const game_presets = {
     desc1: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
       "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
       "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
-      "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
+      "Moment D: Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
     desc2: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
       "In moment B, Mario is in World 1-2, big, riding Yoshi, and in the air.<br/>" +
       "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
-      "Result: The system then finds moment D, where Mario is in World 1-2, small, not riding Yoshi, and in the air."
+      "Moment D: Mario is in World 1-2, small, not riding Yoshi, and in the air."
   },
   // mario2: {
   //   screenshot_path: "./images/mario2_screenshots/",
@@ -57,11 +57,11 @@ const game_presets = {
     desc1: "In moment A, Samus is in a cave and has no upgrades.<br/>" +
       "In moment B, Samus is in a cave and has a missle upgrade.<br/>" +
       "In moment C, Samus is in undergroud has no upgrades.<br/>" +
-      "Result: The system then finds moment D, where Samus is underground and has a missle upgrade.",
+      "Moment D: Samus is underground and has a missle upgrade.",
     desc2: "In moment A, Samus is in a blue room and falling to the right after firing midair.<br/>" +
       "In moment B, Samus is in a blue room and moving the left.<br/>" +
       "In moment C, Samus is in smoky room and falling to the right after firing midair.<br/>" +
-      "Result: The system then finds moment D, where Samus is in smoky room and moving to the left."
+      "Moment D: Samus is in smoky room and moving to the left."
   },
     mario3: {
     screenshot_path: "./images/mario_screenshots3/",
@@ -80,11 +80,11 @@ const game_presets = {
     desc1: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
       "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
       "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
-      "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
+      "Moment D: Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
     desc2: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
       "In moment B, Mario is in World 1-2, big, riding Yoshi, and in the air.<br/>" +
       "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
-      "Result: The system then finds moment D, where Mario is in World 1-2, small, not riding Yoshi, and in the air."
+      "Moment D: Mario is in World 1-2, small, not riding Yoshi, and in the air."
   },
 }
 
