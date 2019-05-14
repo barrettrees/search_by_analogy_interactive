@@ -5,16 +5,16 @@ const game_presets = {
     model_path: "./models/mario_screenshots_predicted.bin",
     num_images: 2375,
     frames_per_step: 10,
-    a_time: 410,
-    b_time: 1858,
-    c_time: 1020,
-    d_time: 2170,
+    a_time1: 410,
+    b_time1: 1858,
+    c_time1: 1020,
+    d_time1: 2170,
     a_time2: 1582,
     b_time2: 1309,
     c_time2: 563,
     d_time2: 850,
     title: "Super Mario World",
-    desc: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
+    desc1: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
       "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
       "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
       "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
@@ -28,16 +28,16 @@ const game_presets = {
   //   model_path: "./models/mario_screenshots_predicted2.bin",
   //   num_images: 6524,
   //   frames_per_step: 10,
-  //   a_time: 1170,
-  //   b_time: 2069,
-  //   c_time: 4482,
-  //   d_time: 4545,
+  //   a_time1: 1170,
+  //   b_time1: 2069,
+  //   c_time1: 4482,
+  //   d_time1: 4545,
   //   a_time2: 4870,
   //   b_time2: 2075,
   //   c_time2: 4987,
   //   d_time2: 1530,
   //   title: "Mario2",
-  //   desc: "In moment A, foobar.",
+  //   desc1: "In moment A, foobar.",
   //   desc2: "ok"
   // },
   metroid: {
@@ -45,16 +45,16 @@ const game_presets = {
     model_path: "./models/metroid_screenshots_predicted.bin",
     num_images: 4967,
     frames_per_step: 10,
-    a_time: 2005,
-    b_time: 4919,
-    c_time: 2267,
-    d_time: 4619,
+    a_time1: 2005,
+    b_time1: 4919,
+    c_time1: 2267,
+    d_time1: 4619,
     a_time2: 943,
     b_time2: 1359,
     c_time2: 2520,
     d_time2: 3193,
     title: "Metroid",
-    desc: "In moment A, Samus is in a cave and has no upgrades.<br/>" +
+    desc1: "In moment A, Samus is in a cave and has no upgrades.<br/>" +
       "In moment B, Samus is in a cave and has a missle upgrade.<br/>" +
       "In moment C, Samus is in undergroud has no upgrades.<br/>" +
       "Result: The system then finds moment D, where Samus is underground and has a missle upgrade.",
@@ -68,16 +68,16 @@ const game_presets = {
     model_path: "./models/mario_screenshots_predicted3.bin",
     num_images: 8899,
     frames_per_step: 10,
-    a_time: 410,
-    b_time: 1858,
-    c_time: 1020,
-    d_time: 2170,
+    a_time1: 410,
+    b_time1: 1858,
+    c_time1: 1020,
+    d_time1: 2170,
     a_time2: 1582,
     b_time2: 1309,
     c_time2: 563,
     d_time2: 850,
     title: "Super Mario World",
-    desc: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
+    desc1: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
       "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
       "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
       "Result: The system then finds moment D, where  Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
@@ -135,10 +135,10 @@ const myRangeB = document.getElementById("myRangeB");
 const myRangeC = document.getElementById("myRangeC");
 
 // set reference to the four videogame images
-const imagetest1 = document.getElementById("imagetest1");
-const imagetest2 = document.getElementById("imagetest2");
-const imagetest3 = document.getElementById("imagetest3");
-const imagetest4 = document.getElementById("imagetest4");
+const imageA = document.getElementById("imageA");
+const imageB = document.getElementById("imageB");
+const imageC = document.getElementById("imageC");
+const imageD = document.getElementById("imageD");
 
 // set reference to the graph buttons
 const gameListButton = document.getElementById("gameListButton");
@@ -150,150 +150,124 @@ const searchButton = document.getElementById("searchButton");
 const exampleTitle = document.getElementById("exampleTitle");
 const exampleDesc = document.getElementById("exampleDesc");
 
-let waitVectorArray = () => {
+// initialize experiment
+let myVar = setInterval(waitVectorArray, 1000);
+function waitVectorArray() {
   if(vectorArray.length > 0) {
     clearInterval(myVar);
     // console.log(vectorArray);
     gameListButtonClicked();
   }
 }
-// initialize experiment
-let myVar = setInterval(waitVectorArray, 1000);
 
-let updateImage = (src, image) => {
-  image.src = src;
-}
-
-let isValidFrame = (frameNum) => {
+function isValidFrame(frameNum) {
   return (frameNum >= 1 && frameNum <= experiment_config['num_images']);
 }
 
+const rangeMapping = {
+  A: myRangeA,
+  B: myRangeB,
+  C: myRangeC
+};
+
+const pointMapping = {
+  A: pointA,
+  B: pointB,
+  C: pointC
+};
+
+const imageMapping = {
+  A: imageA,
+  B: imageB,
+  C: imageC
+}
+
+function frameInputChanged(element) {
+  let newFrame = element.value;
+  moment = element.id.substr(-1);
+
+  if(isValidFrame(newFrame)) {
+    rangeMapping[moment].value = newFrame;
+    sliderChanged(moment);
+  }
+  else {
+    pointMapping[moment].style.outline = "auto red";
+    pointMapping[moment].style.outlineOffset = "-2px";
+  }
+}
+
 // set event listeners for the frame # input fields
-pointA.addEventListener("input", function(e) {
-  let newNum = this.value;
-  // console.log(newNum);
-  if(isValidFrame(newNum)) {
-    myRangeA.value = newNum;
-    sliderChangedA();
-  }
-  else {
-    pointA.style.outline = "auto red";
-    pointA.style.outlineOffset = "-2px";
-  }
-});
-pointB.addEventListener("input", function(e) {
-  let newNum = this.value;
-  // console.log(newNum);
-  if(isValidFrame(newNum)) {
-    myRangeB.value = newNum;
-    sliderChangedB();
-  }
-  else {
-    pointB.style.outline = "auto red";
-    pointB.style.outlineOffset = "-2px";
-  }
-});
-pointC.addEventListener("input", function(e) {
-  let newNum = this.value;
-  // console.log(newNum);
-  if(isValidFrame(newNum)) {
-    myRangeC.value = newNum;
-    sliderChangedC();
-  }
-  else {
-    pointC.style.outline = "auto red";
-    pointC.style.outlineOffset = "-2px";
-  }
-});
+pointA.addEventListener("input", function() { frameInputChanged(this); });
+pointB.addEventListener("input", function() { frameInputChanged(this); });
+pointC.addEventListener("input", function() { frameInputChanged(this); });
 
-
-let sliderChangedA = (e) => {
+function sliderChanged(moment) {
+  let currentRange = rangeMapping[moment];
+  let currentPoint = pointMapping[moment];
   let filename = experiment_config['screenshot_path']
-    +(myRangeA.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest1);
-  pointA.style.outline = "";
-  pointA.style.outlineOffset = "";
-  pointA.value = myRangeA.value;
+    +(currentRange.value*experiment_config['frames_per_step'])+".png";
+  imageMapping[moment].src = filename;
+  clearStyle(currentPoint);
+  currentPoint.value = currentRange.value;
   searchButtonClicked();
 }
 
-let sliderChangedB = (e) => {
-  let filename = experiment_config['screenshot_path']
-    +(myRangeB.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest2);
-  pointB.style.outline = "";
-  pointB.style.outlineOffset = "";
-  pointB.value = myRangeB.value;
-  searchButtonClicked();
-}
-
-let sliderChangedC = (e) => {
-  let filename = experiment_config['screenshot_path']
-    +(myRangeC.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest3);
-  pointC.style.outline = "";
-  pointC.style.outlineOffset = "";
-  pointC.value = myRangeC.value;
-  searchButtonClicked();
-}
-
-let gameListButtonClicked = (e) => {
-  // if game is switched update accordingly
+// game has been switched
+function gameListButtonClicked(e) {
   let game = gameListButton.value;
   // console.log("game switched to " + game);
   experiment_config = game_presets[game];
   // console.log(experiment_config);
   vectorArray = gameVectorArrays[game];
-  loadExample();
-}
 
-let loadExample = (e) => {
-  // console.log('loading preset config');
+  // set the new range of moment frames
   let imgCount = experiment_config['num_images'];
-  myRangeA.max = imgCount;
-  myRangeB.max = imgCount;
-  myRangeC.max = imgCount;
-  myRangeA.value = experiment_config['a_time'];
-  myRangeB.value = experiment_config['b_time'];
-  myRangeC.value = experiment_config['c_time'];
-  pointD.innerHTML = experiment_config['d_time'];
-  updateGallery();
-  searchButtonClicked();
-  exampleTitle.innerHTML = experiment_config['title'] + " Example 1:";
-  exampleDesc.innerHTML = experiment_config['desc'];
+  Object.values(rangeMapping).map(range => range.max = imgCount);
+  loadExample(1);
 }
 
-let loadExample2 = (e) => {
-  // console.log('loading preset2 config');
-  myRangeA.value = experiment_config['a_time2'];
-  myRangeB.value = experiment_config['b_time2'];
-  myRangeC.value = experiment_config['c_time2'];
-  pointD.innerHTML = experiment_config['d_time2'];
-  updateGallery();
-  searchButtonClicked();
-  exampleTitle.innerHTML = experiment_config['title'] + " Example 2:";
-  exampleDesc.innerHTML = experiment_config['desc2'];
+function clearStyle(currentPoint) {
+  if(currentPoint.style.outline) {
+    currentPoint.style.outline = "";
+    currentPoint.style.outlineOffset = "";
+    // console.log("cleared error styles for a frame input");
+  }
 }
 
-let updateGallery = () => {
+function loadExample(exampleNumber) {
+  // console.log('loading preset config');
+  // clear any error styles on the frame inputs
+  Object.values(pointMapping).map(point => clearStyle(point));
+
+  myRangeA.value = experiment_config['a_time' + exampleNumber];
+  myRangeB.value = experiment_config['b_time' + exampleNumber];
+  myRangeC.value = experiment_config['c_time' + exampleNumber];
+  pointD.innerHTML = experiment_config['d_time' + exampleNumber];
+  updateGallery();
+  searchButtonClicked();
+  exampleTitle.innerHTML = experiment_config['title'] + " Example " + exampleNumber + ":";
+  exampleDesc.innerHTML = experiment_config['desc' + exampleNumber];
+}
+
+function updateGallery() {
   let filename = experiment_config['screenshot_path']
     +(myRangeA.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest1);
+  imageA.src = filename;
   filename = experiment_config['screenshot_path']
     +(myRangeB.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest2);
+  imageB.src = filename;
   filename = experiment_config['screenshot_path']
     +(myRangeC.value*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest3);
+  imageC.src = filename;
   filename = experiment_config['screenshot_path']
     +(pointD.innerHTML*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest4);
+  imageD.src = filename;
   pointA.value = myRangeA.value;
   pointB.value = myRangeB.value;
   pointC.value = myRangeC.value;
 }
 
-let sortWithIndeces = (toSort) => {
+function sortWithIndeces(toSort) {
   for (let i = 0; i < toSort.length; i++) {
     toSort[i] = [toSort[i], i];
   }
@@ -308,7 +282,7 @@ let sortWithIndeces = (toSort) => {
   return toSort;
 }
 
-let update_data = (e) => {
+function update_data(e) {
   let i;
   let dataset = [];
   for (i = 0; i < experiment_config['num_images']-2; i++) {
@@ -322,7 +296,7 @@ let update_data = (e) => {
 }
 
 let mydataset;
-let searchButtonClicked = (e) => {
+function searchButtonClicked(e) {
   if(myRangeA.value == myRangeB.value) {
     pointD.innerHTML = myRangeC.value;
     d3.select("svg").remove(); // clear graph data
@@ -344,19 +318,19 @@ let searchButtonClicked = (e) => {
   }
 
   let filename = experiment_config['screenshot_path']+(pointD.innerHTML*experiment_config['frames_per_step'])+".png";
-  updateImage(filename, imagetest4);
+  imageD.src = filename;
 }
 
 // set event listeners for the sliders
-myRangeA.addEventListener("input",sliderChangedA);
-myRangeB.addEventListener("input",sliderChangedB);
-myRangeC.addEventListener("input",sliderChangedC);
+myRangeA.addEventListener("input", function() { sliderChanged('A'); });
+myRangeB.addEventListener("input", function() { sliderChanged('B'); });
+myRangeC.addEventListener("input", function() { sliderChanged('C'); });
 
 // only called if value from dropdown list is changed
-gameListButton.addEventListener("change",gameListButtonClicked);
-exampleButton.addEventListener("click",loadExample);
-exampleButton2.addEventListener("click",loadExample2);
-searchButton.addEventListener("click",searchButtonClicked);
+gameListButton.addEventListener("change", gameListButtonClicked);
+exampleButton.addEventListener("click", function() { loadExample(1); });
+exampleButton2.addEventListener("click", function() { loadExample(2); });
+searchButton.addEventListener("click", searchButtonClicked);
 
 window.addEventListener("resize", function() {update_graphs(mydataset)});
 
