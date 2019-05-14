@@ -285,10 +285,10 @@ function sortWithIndeces(toSort) {
 function update_data() {
   let i;
   let dataset = [];
-  for (i = 0; i < experiment_config['num_images']-2; i++) {
+  for (i = 0; i < experiment_config['num_images'] - 2; i++) {
     let qVector = [];
     let ABdiff = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value]);
-    ABdiffTimesK = scalarMultiplication(1,ABdiff);
+    ABdiffTimesK = scalarMultiplication(1, ABdiff);
     qVector = vectorSum(vectorArray[myRangeC.value], ABdiffTimesK);
     dataset.push({"matchScore":cosineSimilarity(vectorArray[i], qVector), "AB_Similarity":cosineSimilarity(vectorArray[i], ABdiffTimesK), "C_Similarity":cosineSimilarity(vectorArray[i], vectorArray[myRangeC.value]), "ImageID":i});
   }
@@ -303,11 +303,11 @@ function searchButtonClicked() {
   }
   else {
     let data = [];
-    for (let i = 0; i < experiment_config['num_images']-2; i++) {
+    for (let i = 0; i < experiment_config['num_images'] - 2; i++) {
       let qVector = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value])
       qVector = scalarMultiplication(1, qVector)
       qVector = vectorSum(vectorArray[myRangeC.value], qVector)
-      data.push( cosineSimilarity(vectorArray[i], qVector ) );
+      data.push( cosineSimilarity(vectorArray[i], qVector) );
     }
 
     sortWithIndeces(data);
@@ -348,7 +348,11 @@ function filterNonPoints(data) {
   if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == pointD.innerHTML) {
     return false;
   }
-  return true;
+
+  // for non A, B, C, D points
+  // only render even frame numbers to improve graph performance
+  return (id % 2 == 0);
+  // return true;
 }
 
 // d3 chart
