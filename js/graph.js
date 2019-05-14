@@ -350,8 +350,8 @@ function filterNonPoints(data) {
   }
 
   // for non A, B, C, D points
-  // only render even frame numbers to improve graph performance
-  return (id % 2 == 0);
+  // only render a third of the frames to improve graph performance
+  return (id % 3 == 0);
   // return true;
 }
 
