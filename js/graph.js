@@ -153,7 +153,7 @@ const exampleDesc = document.getElementById("exampleDesc");
 // initialize experiment
 let myVar = setInterval(waitVectorArray, 1000);
 function waitVectorArray() {
-  if(vectorArray.length) {
+  if(vectorArray) {
     clearInterval(myVar);
     // console.log(vectorArray);
     gameListButtonClicked();
