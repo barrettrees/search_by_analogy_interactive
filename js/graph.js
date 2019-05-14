@@ -213,7 +213,7 @@ function sliderChanged(moment) {
 }
 
 // game has been switched
-function gameListButtonClicked(e) {
+function gameListButtonClicked() {
   let game = gameListButton.value;
   // console.log("game switched to " + game);
   experiment_config = game_presets[game];
@@ -282,7 +282,7 @@ function sortWithIndeces(toSort) {
   return toSort;
 }
 
-function update_data(e) {
+function update_data() {
   let i;
   let dataset = [];
   for (i = 0; i < experiment_config['num_images']-2; i++) {
@@ -296,7 +296,7 @@ function update_data(e) {
 }
 
 let mydataset;
-function searchButtonClicked(e) {
+function searchButtonClicked() {
   if(myRangeA.value == myRangeB.value) {
     pointD.innerHTML = myRangeC.value;
     d3.select("svg").remove(); // clear graph data
@@ -334,14 +334,38 @@ searchButton.addEventListener("click", searchButtonClicked);
 
 window.addEventListener("resize", function() {update_graphs(mydataset)});
 
-// d3 functions below
-// ---------------------------------
+// helper functions for d3 chart
+function filterPoints(data) {
+  id = data.ImageID;
+  if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == pointD.innerHTML) {
+    return true;
+  }
+  return false;
+}
+
+function filterNonPoints(data) {
+  id = data.ImageID;
+  if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == pointD.innerHTML) {
+    return false;
+  }
+  return true;
+}
+
+// d3 chart
 let xCat = "AB_Similarity",
     yCat = "C_Similarity",
     rCat = "matchScore",
     idCat = "ImageID";
 
+let x, y;
+let xMax = yMax = 1.1;
+let xMin = yMin = -1.1;
 let margin = { top: 10, right: 50, bottom: 50, left: 50 };
+
+function transform(d) {
+  return "translate(" + x(d[xCat]) + "," + y(d[yCat]) + ")";
+}
+
 function update_graphs(data) {
   // remove old graph
   d3.select("svg").remove();
@@ -365,14 +389,11 @@ function update_graphs(data) {
 
   let width = outerWidth - margin.left - margin.right;
   let height = outerHeight - margin.top - margin.bottom;
-  let x = d3.scale.linear()
+  x = d3.scale.linear()
       .range([0, width]).nice();
 
-  let y = d3.scale.linear()
+  y = d3.scale.linear()
       .range([height, 0]).nice();
-
-  let xMax = yMax = 1.1;
-  let xMin = yMin = -1.1;
 
   x.domain([xMin, xMax]);
   y.domain([yMin, yMax]);
@@ -478,22 +499,6 @@ function update_graphs(data) {
       .attr("x2", 0)
       .attr("y2", height);
 
-  function filterPoints(data) {
-    id = data.ImageID;
-    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == pointD.innerHTML) {
-      return true;
-    }
-    return false;
-  }
-
-  function filterNonPoints(data) {
-    id = data.ImageID;
-    if(id == myRangeA.value || id == myRangeB.value || id == myRangeC.value || id == pointD.innerHTML) {
-      return false;
-    }
-    return true;
-  }
-
   // create circles for all non A,B,C,D points
   objects.selectAll()
       .data(data.filter(filterNonPoints))
@@ -507,31 +512,29 @@ function update_graphs(data) {
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
       .style("fill", function(d) {
-        if (d[rCat] > 0.95) {return "#E50300"}
-        else if (d[rCat] > 0.9) {return "#DA0B09"}
-        else if (d[rCat] > 0.8) {return "#CF1412"}
-        else if (d[rCat] > 0.7) {return "#C41D1B"}
-        else if (d[rCat] > 0.6) {return "#B92624"}
-        else if (d[rCat] > 0.5) {return "#AE2F2D"}
-        else if (d[rCat] > 0.4) {return "#A33736"}
-        else if (d[rCat] > 0.3) {return "#98403F"}
-        else if (d[rCat] > 0.2) {return "#8D4948"}
-        else if (d[rCat] > 0.1) {return "#825251"}
-        else if (d[rCat] > 0) {return "#775B5A"}
-        else if (d[rCat] > -0.1) {return "#6D6364"}
-        else if (d[rCat] > -0.2) {return "#626C6D"}
-        else if (d[rCat] > -0.3) {return "#577576"}
-        else if (d[rCat] > -0.4) {return "#4C7E7F"}
-        else if (d[rCat] > -0.5) {return "#418788"}
-        else if (d[rCat] > -0.6) {return "#2B989A"}
-        else if (d[rCat] > -0.7) {return "#20A1A3"}
-        else if (d[rCat] > -0.8) {return "#15AAAC"}
-        else if (d[rCat] > -0.9) {return "#0AB3B5"}
-        else {return "#00BCBF"}
+        if (d[rCat] > 0.95) { return "#E50300" }
+        else if (d[rCat] > 0.9) { return "#DA0B09" }
+        else if (d[rCat] > 0.8) { return "#CF1412" }
+        else if (d[rCat] > 0.7) { return "#C41D1B" }
+        else if (d[rCat] > 0.6) { return "#B92624" }
+        else if (d[rCat] > 0.5) { return "#AE2F2D" }
+        else if (d[rCat] > 0.4) { return "#A33736" }
+        else if (d[rCat] > 0.3) { return "#98403F" }
+        else if (d[rCat] > 0.2) { return "#8D4948" }
+        else if (d[rCat] > 0.1) { return "#825251" }
+        else if (d[rCat] > 0) { return "#775B5A" }
+        else if (d[rCat] > -0.1) { return "#6D6364" }
+        else if (d[rCat] > -0.2) { return "#626C6D" }
+        else if (d[rCat] > -0.3) { return "#577576" }
+        else if (d[rCat] > -0.4) { return "#4C7E7F" }
+        else if (d[rCat] > -0.5) { return "#418788" }
+        else if (d[rCat] > -0.6) { return "#2B989A" }
+        else if (d[rCat] > -0.7) { return "#20A1A3" }
+        else if (d[rCat] > -0.8) { return "#15AAAC" }
+        else if (d[rCat] > -0.9) { return "#0AB3B5" }
+        else { return "#00BCBF" }
       })
-      .style("stroke", function(d) {
-          return "white";
-      });
+      .style("stroke", "white");
 
   // create circles for A,B,C,D points
   objects.selectAll()
@@ -545,12 +548,8 @@ function update_graphs(data) {
       .attr("transform", transform)
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
-      .style("fill", function(d) {
-          return "#00FF00";
-      })
-      .style("stroke", function(d) {
-          return "black";
-      });
+      .style("fill", "#00FF00")
+      .style("stroke", "black");
 
   // create data labels A,B,C,D
   objects.selectAll()
@@ -584,9 +583,5 @@ function update_graphs(data) {
         .attr("transform", transform);
     svg.selectAll(".dataLabel")
         .attr("transform", transform);
-  }
-
-  function transform(d) {
-    return "translate(" + x(d[xCat]) + "," + y(d[yCat]) + ")";
   }
 };
