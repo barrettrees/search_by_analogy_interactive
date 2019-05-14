@@ -352,8 +352,17 @@ function update_graphs(data) {
     // d.ImageID = +d.ImageID;
   });
 
-  let outerWidth = window.innerWidth * .5;
-  let outerHeight = outerWidth * .7;
+  let outerWidth, outerHeight;
+
+  if(window.innerWidth < 800) {
+    outerWidth = window.innerWidth * .8;
+    outerHeight = outerWidth * .8;
+  }
+  else {
+    outerWidth = window.innerWidth * .5;
+    outerHeight = outerWidth * .7;
+  }
+
   let width = outerWidth - margin.left - margin.right;
   let height = outerHeight - margin.top - margin.bottom;
   let x = d3.scale.linear()
