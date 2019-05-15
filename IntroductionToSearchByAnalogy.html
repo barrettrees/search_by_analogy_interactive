@@ -12,7 +12,7 @@
     <meta property="og:title" content="Introduction to Search by Analogy (with Videogames)" />
     <meta property="og:description" content="An interactive explanation of the concept of search by analogy, with an emphasis on searching for moments within video games." />
     <meta property="og:url" content="http://barrettrees.com/search_by_analogy_interactive/IntroductionToSearchByAnalogy.html" />
-    <meta property="og:image" content="http://barrettrees.com/search_by_analogy_interactive/images/explainer/analogy.png" />
+    <meta property="og:image" content="https://barrettrees.com/Analogy.png" />
 
   </head>
   <body>
@@ -41,17 +41,17 @@
       <div class="impact-box">
         <h2 class="textCenter">Why Search by Analogy (with Videogames) Matters</h2>
         <p>
-          Media, including videogames, is an important part of our lives, and thinking about <a href=https://becausegamesmatter.com/>media</a> <a href=https://feministfrequency.com/>critically</a> is important. Search by analogy is a tool for game scholars and critics that will make new kinds of analysis possible.
+          <b>Because games matter:</b> Media, including videogames, is an important part of our lives, and thinking about <a href=https://becausegamesmatter.com/>media</a> <a href=https://feministfrequency.com/>critically</a> is important. Search by analogy is a tool for game scholars and critics that will make new kinds of analysis possible.
         </p>
         <p>
-         Often when you conduct a web search or when you use a keyboard with predictive text, you are benefiting from the same underlying technology (<a href=https://jalammar.github.io/illustrated-word2vec/>word embeddings</a>) that makes search by analogy possible. Videogame moments are a new place to experiment with these ideas, and what we learn in these experiments might have applications in other domains (e.g. text, music, images, video, etc.).
+         <b>Because games are a good place to experiment with ideas that might have broader applications:</b> Often when you conduct a web search or when you use a keyboard with predictive text, you are benefiting from the same underlying technology (<a href=https://jalammar.github.io/illustrated-word2vec/>word embeddings</a>) that makes search by analogy possible. Videogame moments are a new place to experiment with these ideas, and what we learn in these experiments might have applications in other domains (e.g. text, music, images, video, etc.).
         </p>
       </div>
 
       <!-- new section -->
       <h2>Parameterizing Videogame Moments</h2>
       <p>
-        To a human player, each moment in a game has many features, but those features can also be broken down into numbers. In a Mario game this could include things like the number of coins collected, the number of enemies on the screen, the number of lives remaining, score, and so on:
+        For a computer to get a handle on a videogame moment, it will need to turned into a something numerical. To a human player, each moment in a game has many features, and we can imagine how those features can be broken down into numbers. In a Mario game this could include things like the number of coins collected, the number of enemies on the screen, the number of lives remaining, score, and so on:
       </p>
       <img class="diagram centerImage" src="./images/explainer/features.png" alt="features">
       <p>
@@ -69,7 +69,7 @@
       <!-- new section -->
       <h2>Videogame Moment Search by Analogy</h2>
       <p>
-        So, why did we bother turning each moment in the game into a list of numbers? In short, because now we can do interesting things to these moments (with math). This is the first step in teaching a computer to understand an analogy, like the example at the top of this page. In reality our vectors will contain values for many features, but it will be easier to illustrate the rest of this explanation if we pretend that they only have two. In that case, our <i><b>videogame moment vectors</b></i> might look something like this:
+        Now that we have turned each moment in the game into a list of numbers, we can do interesting things to these moments (with math)! This is the first step in teaching a computer to understand an analogy. In reality our vectors for each moment will contain values for many features, but it will be easier to illustrate the rest of this explanation if we pretend for a little while that they only have two. In that case, our <i><b>videogame moment vectors</b></i> might look something like this:
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/vectorAB.png" alt="vectorAB">
@@ -96,17 +96,17 @@
       <img class="diagram centerImage" src="./images/explainer/newVector.png" alt="newVector">
 
       <p>
-        That is the essence of videogame moment search-by-analogy, but there is one final important wrinkle, which is the part that makes this search. Although we can imagine a graph that contains all possible moments in a game, for most games we are only ever going to be working with a small sample of those moments. What if the moment we are looking for doesn’t exist in that sample? What if the moment that we are looking for isn’t even possible?
+        That is the essence of videogame moment search-by-analogy, but there is one final important wrinkle, which is the part that makes this a form of search. Although we can imagine a graph that contains all possible moments in a game, for most games we are only ever going to be working with a small sample of those moments. What if the moment we are looking for doesn’t exist in that sample? What if the moment that we are looking for isn’t even possible?
       </p>
 
       <p>
-        In this case, we still add the difference vector (B-A)  to another (Moment C), but instead of giving us the answer this creates a <i><b>query vector</b></i>.
+        In this case, we still add the difference vector (B-A)  to another (Moment C), but instead of giving us the answer directly this creates a <i><b>query vector</b></i>.
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/queryVector.png" alt="queryVector">
 
       <p>
-        Now that we have a <i><b>query vector</b></i> we can compare it to all of the moments that exist in our sample (represented as dots on the graph below). The single closest moment is our analogy search result, Moment D.
+        Now that we have a <i><b>query vector</b></i> we can compare it to all of the moments that we actually have in our sample (represented as dots on the graph below). The single closest moment is our analogy search result, Moment D.
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/queryComparison.png" alt="queryComparison">
@@ -116,24 +116,24 @@
       </p>
 
       <p>
-        There is one more trick we can do that will make our graph more useful. Right now the axes are not very meaningful, but we can change that by rotating and transforming the graph. One way we can do this makes resemblance to the Moment C vector vertical (as measured by <a href=https://en.wikipedia.org/wiki/Cosine_similarity/>cosine similarity</a>), and resemblance to the B-A <i><b>difference vector</b></i> horizontal. This gives us a y-axis that tells us how similar each moment is to Moment C, and x-axis that tells us how much of the B-A distinction that we defined (e.g., <i>Yoshiness</i>) each moment has. We can also include how similar each moment is to the <i><b>query vector</i></b>, encoded in the size and color of each dot.
+        There is one more trick we can do that will make our graph a little more useful. Right now the axes are not very meaningful, but we can change that by rotating and transforming the graph. One way we can do this makes resemblance to the Moment C vector vertical (as measured by <a href=https://en.wikipedia.org/wiki/Cosine_similarity/>cosine similarity</a>), and resemblance to the B-A <i><b>difference vector</b></i> horizontal. This gives us a y-axis that tells us how similar each moment is to Moment C, and x-axis that tells us how much of the B-A distinction that we defined (e.g., <i>Yoshiness</i>) each moment has. We can also include how similar each moment is to the <i><b>query vector</i></b>, encoded in the size and color of each dot.
       </p>
 
       <img class="diagram centerImage" src="./images/explainer/bestMatches.png" alt="bestMatches">
 
       <p>
-        The interactive below contains examples of a search-by-analogy success for a couple of games. All of the moments used came from a human playthrough of each game (Super Mario World and Super Metroid). The graph shows, for every moment in the sample, its similarity to the <i><b>difference vector</i></b> (B-A, on the x-axis), its similarity to Moment C (on the y-axis) and how close it is to the <i><b>query vector</i></b> (dot size and color). You can scroll around the graph and mouse over any moment for more detail. You can also make your own queries (changing Moments A, B, and C) and see what happens:
+        The interactive below contains examples of search-by-analogy successes for a couple of games. All of the moments used came from a human playthrough of each game (<i>Super Mario World</i> and <i>Super Metroid</i>). The graph shows, for every moment in the sample, its similarity to the <i><b>difference vector</i></b> (B-A, on the x-axis), its similarity to Moment C (on the y-axis) and how close it is to the <i><b>query vector</i></b> (dot size and color). You can scroll around the graph and mouse over any moment for more detail. You can also make your own queries (changing Moments A, B, and C) and see what happens:
       </p>
         <div class="impact-box">
         <h2 class="textCenter">What's New About Search by Analogy (with Videogames)</h2>
         <p>
-        This is a combination of two old ideas, applied to a new domain. The first concept is that it is possible to represent many different kinds of things as vectors in an abstract space. <a href=https://vusd.github.io/spacesheet/>Words, faces, and many other things</a> can all be turned into vectors embdeded in an appropriate space.
+          <b>Combining several old ideas:</b> The first concept is that it is possible to represent many different kinds of things as vectors in an abstract space. <a href=https://vusd.github.io/spacesheet/>Words, faces, and many other things</a> can all be turned into vectors embdeded in an appropriate space.
         </p>
         <p>
-        The second important concept is that the relationships between these vectors can be meaningful. The most famous result here is <a href=https://www.technologyreview.com/s/541356/king-man-woman-queen-the-marvelous-mathematics-of-computational-linguistics/>"King - Man + Woman = Queen"</a>, where a mathematical relationship between word vectors captures an analogical relationship between words.
+        The second important concept is that the relationships between these vectors can be surprisingly meaningful. The most famous result here is <a href=https://www.technologyreview.com/s/541356/king-man-woman-queen-the-marvelous-mathematics-of-computational-linguistics/>"King - Man + Woman = Queen"</a>, where a mathematical relationship between word vectors captures an analogical relationship between words.
         </p>
         <p>
-        Before now, these ideas had not been applied to moments in a videogame. Only recently has the work been done to create an <a href=https://adamsmith.as/papers/KEG-18_paper_4.pdf>abstract space for embedding videogame moments</a>, and possible applications are <a href=https://adamsmith.as/papers/crawling-indexing-retrieving.pdf>still being explored</a>.
+        <b>Applying them to a new domain:</b> Before now, these ideas had not been applied to moments in a videogame. Only recently has the work been done to create an <a href=https://adamsmith.as/papers/KEG-18_paper_4.pdf>abstract space for embedding videogame moments</a>, and possible applications are <a href=https://adamsmith.as/papers/crawling-indexing-retrieving.pdf>still being explored</a>.
         </p>
       </div>
 
@@ -142,7 +142,7 @@
     <div class="interactive">
       <div class="about">
         <h1>Search by Analogy in Super Mario World and Super Metroid</h1>
-        <p>Each moment is specified with a frame number. You can use the dropdown and buttons to see our examples, or change the frame numbers yourself to explore other relationships between moments.</p>
+        <p>Each moment is specified with a frame number. You can use the dropdown to change games, and the button to cycle through our examples. Mouse over the dots on the graph to see individual moments, and change the frame numbers to explore other relationships between them.</p>
       </div>
       <div class="wrapper">
         <div class="frames-container">
