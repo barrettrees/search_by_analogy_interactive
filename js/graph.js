@@ -74,14 +74,14 @@ const game_presets = {
     b_time2: 674,
     c_time2: 1370,
     d_time2: 1450,
-    a_time3: 1582,
-    b_time3: 1309,
-    c_time3: 563,
-    d_time3: 850,
-    a_time4: 158,
-    b_time4: 160,
-    c_time4: 7341,
-    d_time4: 7343,
+    a_time3: 158,
+    b_time3: 160,
+    c_time3: 7341,
+    d_time3: 7343,
+    a_time4: 1582,
+    b_time4: 1309,
+    c_time4: 563,
+    d_time4: 850,
     title: "Super Mario World",
     desc1: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
       "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
@@ -91,14 +91,14 @@ const game_presets = {
       "In moment B, Mario is at the end level screen of World 1-1.<br/>" +
       "In moment C, Mario is riding Yoshi in World 1-2.<br/>" +
       "Moment D: Mario is riding Yoshi at the end level screen of World 1-2",
-    desc3: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
-      "In moment B, Mario is in World 1-2, big, riding Yoshi, and in the air.<br/>" +
-      "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
-      "Moment D: Mario is in World 1-2, small, not riding Yoshi, and in the air.",
-    desc4: "In moment A, Mario is on the map in World 1.<br/>" +
+    desc3: "In moment A, Mario is on the map in World 1.<br/>" +
       "In moment B, Mario is entering a level in World 1.<br/>" +
       "In moment C, Mario is on the map riding Yoshi in World 2.<br/>" +
       "Moment D: Mario is riding Yoshi and entering a level in World 2.",
+   desc4: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
+      "In moment B, Mario is in World 1-2, big, riding Yoshi, and in the air.<br/>" +
+      "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
+      "Moment D: Mario is in World 1-2, small, not riding Yoshi, and in the air.",
   },
 }
 
