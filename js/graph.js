@@ -165,7 +165,7 @@ const exampleTitle = document.getElementById("exampleTitle");
 const exampleDesc = document.getElementById("exampleDesc");
 
 // initialize experiment
-let myVar = setInterval(waitVectorArray, 6000);
+let myVar = setInterval(waitVectorArray, 3000);
 function waitVectorArray() {
   if(vectorArray) {
     clearInterval(myVar);
