@@ -5,46 +5,42 @@ const game_presets = {
     model_path: "./models/mario_screenshots_predicted.bin",
     num_images: 2375,
     frames_per_step: 10,
+    examples:3,
+    current_example:1,
     a_time1: 410,
     b_time1: 1858,
     c_time1: 1020,
     d_time1: 2170,
-    a_time2: 1582,
-    b_time2: 1309,
-    c_time2: 563,
-    d_time2: 850,
+    a_time2: 211,
+    b_time2: 674,
+    c_time2: 1370,
+    d_time2: 1450,
+    a_time3: 1582,
+    b_time3: 1309,
+    c_time3: 563,
+    d_time3: 850,
     title: "Super Mario World",
     desc1: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
       "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
       "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
       "Moment D: Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
-    desc2: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
+    desc2: "In moment A, Mario is walking in World 1-1.<br/>" +
+      "In moment B, Mario is at the end level screen of World 1-1.<br/>" +
+      "In moment C, Mario is riding Yoshi in World 1-2.<br/>" +
+      "Moment D: Mario is riding Yoshi at the end level screen of World 1-2",
+    desc3: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
       "In moment B, Mario is in World 1-2, big, riding Yoshi, and in the air.<br/>" +
       "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
-      "Moment D: Mario is in World 1-2, small, not riding Yoshi, and in the air."
+      "Moment D: Mario is in World 1-2, small, not riding Yoshi, and in the air.",
+
   },
-  // mario2: {
-  //   screenshot_path: "./images/mario2_screenshots/",
-  //   model_path: "./models/mario_screenshots_predicted2.bin",
-  //   num_images: 6524,
-  //   frames_per_step: 10,
-  //   a_time1: 1170,
-  //   b_time1: 2069,
-  //   c_time1: 4482,
-  //   d_time1: 4545,
-  //   a_time2: 4870,
-  //   b_time2: 2075,
-  //   c_time2: 4987,
-  //   d_time2: 1530,
-  //   title: "Mario2",
-  //   desc1: "In moment A, foobar.",
-  //   desc2: "ok"
-  // },
   metroid: {
     screenshot_path: "./images/metroid_screenshots/",
     model_path: "./models/metroid_screenshots_predicted.bin",
     num_images: 4967,
     frames_per_step: 10,
+    examples:2,
+    current_example:1,
     a_time1: 2005,
     b_time1: 4919,
     c_time1: 2267,
@@ -68,23 +64,41 @@ const game_presets = {
     model_path: "./models/mario_screenshots_predicted3.bin",
     num_images: 8899,
     frames_per_step: 10,
+    examples:4,
+    current_example:1,
     a_time1: 410,
     b_time1: 1858,
     c_time1: 1020,
     d_time1: 2170,
-    a_time2: 1582,
-    b_time2: 1309,
-    c_time2: 563,
-    d_time2: 850,
+    a_time2: 211,
+    b_time2: 674,
+    c_time2: 1370,
+    d_time2: 1450,
+    a_time3: 158,
+    b_time3: 160,
+    c_time3: 7341,
+    d_time3: 7343,
+    a_time4: 1582,
+    b_time4: 1309,
+    c_time4: 563,
+    d_time4: 850,
     title: "Super Mario World",
     desc1: "In moment A, Mario is in World 1-1, small, not riding Yoshi, and has no items.<br/>" +
       "In moment B, Mario is in World 1-1, big, riding Yoshi, and has a mushroom.<br/>" +
       "In moment C, Mario is in World 1-2, small, not riding Yoshi, and has no items.<br/>" +
       "Moment D: Mario is in World 1-2, big, riding Yoshi, and has a mushroom.",
-    desc2: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
+    desc2: "In moment A, Mario is walking in World 1-1.<br/>" +
+      "In moment B, Mario is at the end level screen of World 1-1.<br/>" +
+      "In moment C, Mario is riding Yoshi in World 1-2.<br/>" +
+      "Moment D: Mario is riding Yoshi at the end level screen of World 1-2",
+    desc3: "In moment A, Mario is on the map in World 1.<br/>" +
+      "In moment B, Mario is entering a level in World 1.<br/>" +
+      "In moment C, Mario is on the map riding Yoshi in World 2.<br/>" +
+      "Moment D: Mario is riding Yoshi and entering a level in World 2.",
+   desc4: "In moment A, Mario is in World 1-1, big, riding Yoshi, and in the air.<br/>" +
       "In moment B, Mario is in World 1-2, big, riding Yoshi, and in the air.<br/>" +
       "In moment C, Mario is in World 1-1, small, not riding Yoshi, and in the air.<br/>" +
-      "Moment D: Mario is in World 1-2, small, not riding Yoshi, and in the air."
+      "Moment D: Mario is in World 1-2, small, not riding Yoshi, and in the air.",
   },
 }
 
@@ -151,7 +165,7 @@ const exampleTitle = document.getElementById("exampleTitle");
 const exampleDesc = document.getElementById("exampleDesc");
 
 // initialize experiment
-let myVar = setInterval(waitVectorArray, 1000);
+let myVar = setInterval(waitVectorArray, 2000);
 function waitVectorArray() {
   if(vectorArray) {
     clearInterval(myVar);
@@ -232,6 +246,17 @@ function clearStyle(currentPoint) {
     currentPoint.style.outlineOffset = "";
     // console.log("cleared error styles for a frame input");
   }
+}
+
+function nextExample(){
+  if (experiment_config['current_example'] == experiment_config['examples']){
+    loadExample(1);
+    experiment_config['current_example'] = 1;
+  }
+  else{
+      loadExample(experiment_config['current_example']+1);
+      experiment_config['current_example'] = experiment_config['current_example']+1
+      };
 }
 
 function loadExample(exampleNumber) {
@@ -328,8 +353,8 @@ myRangeC.addEventListener("input", function() { sliderChanged('C'); });
 
 // only called if value from dropdown list is changed
 gameListButton.addEventListener("change", gameListButtonClicked);
-exampleButton.addEventListener("click", function() { loadExample(1); });
-exampleButton2.addEventListener("click", function() { loadExample(2); });
+exampleButton.addEventListener("click", function() { nextExample(); });
+// exampleButton2.addEventListener("click", function() { loadExample(2); });
 searchButton.addEventListener("click", searchButtonClicked);
 
 window.addEventListener("resize", function() {update_graphs(mydataset)});
@@ -351,7 +376,7 @@ function filterNonPoints(data) {
 
   // for non A, B, C, D points
   // only render a third of the frames to improve graph performance
-  return (id % 3 == 0);
+  return (id % 17 == 0);
   // return true;
 }
 
