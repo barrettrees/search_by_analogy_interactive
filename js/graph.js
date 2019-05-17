@@ -5,8 +5,8 @@ const game_presets = {
     model_path: "./models/mario_screenshots_predicted.bin",
     num_images: 2375,
     frames_per_step: 10,
-    examples:3,
-    current_example:1,
+    examples: 3,
+    current_example: 1,
     a_time1: 410,
     b_time1: 1858,
     c_time1: 1020,
@@ -39,8 +39,8 @@ const game_presets = {
     model_path: "./models/metroid_screenshots_predicted.bin",
     num_images: 4967,
     frames_per_step: 10,
-    examples:2,
-    current_example:1,
+    examples: 2,
+    current_example: 1,
     a_time1: 2005,
     b_time1: 4919,
     c_time1: 2267,
@@ -64,8 +64,8 @@ const game_presets = {
     model_path: "./models/mario_screenshots_predicted3.bin",
     num_images: 8899,
     frames_per_step: 10,
-    examples:4,
-    current_example:1,
+    examples: 4,
+    current_example: 1,
     a_time1: 410,
     b_time1: 1858,
     c_time1: 1020,
@@ -157,7 +157,7 @@ const imageD = document.getElementById("imageD");
 // set reference to the graph buttons
 const gameListButton = document.getElementById("gameListButton");
 const exampleButton = document.getElementById("exampleButton");
-const exampleButton2 = document.getElementById("exampleButton2");
+// const exampleButton2 = document.getElementById("exampleButton2");
 const searchButton = document.getElementById("searchButton");
 
 // set reference to the example explanations
@@ -248,15 +248,15 @@ function clearStyle(currentPoint) {
   }
 }
 
-function nextExample(){
-  if (experiment_config['current_example'] == experiment_config['examples']){
+function nextExample() {
+  if(experiment_config['current_example'] == experiment_config['examples']) {
     loadExample(1);
     experiment_config['current_example'] = 1;
   }
-  else{
-      loadExample(experiment_config['current_example']+1);
-      experiment_config['current_example'] = experiment_config['current_example']+1
-      };
+  else {
+    loadExample(experiment_config['current_example'] + 1);
+    experiment_config['current_example'] = experiment_config['current_example'] + 1;
+  }
 }
 
 function loadExample(exampleNumber) {
