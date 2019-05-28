@@ -8,4 +8,4 @@ A previous project resulted in defining video game moments as vectors. Existing 
 This project was prototyped in Python and then ported to Javascript for public consumption.
 
 ***
-##### Design Reasoning Lab @ UCSC
+##### [Design Reasoning Lab](https://designreasoning.soe.ucsc.edu/) @ UCSC
