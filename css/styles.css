@@ -135,6 +135,12 @@ body {
   margin: 0px 40px;
 }
 
+.result-item{
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
 .description {
   padding: 0px 10px;
 }

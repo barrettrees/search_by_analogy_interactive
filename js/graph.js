@@ -112,6 +112,7 @@ const gameVectorArrays = {
 let experiment_config;
 let vectorArray;
 let dimensions = 256;
+let searchResultsList;
 
 // get the vectorArray for each game
 for (let game in gameVectorArrays) {
@@ -322,11 +323,6 @@ function update_data() {
 
 let mydataset;
 function searchButtonClicked() {
-  if(myRangeA.value == myRangeB.value) {
-    pointD.innerHTML = myRangeC.value;
-    d3.select("svg").remove(); // clear graph data
-  }
-  else {
     let data = [];
     for (let i = 0; i < experiment_config['num_images'] - 2; i++) {
       let qVector = vectorDiff(vectorArray[myRangeB.value], vectorArray[myRangeA.value])
@@ -337,10 +333,41 @@ function searchButtonClicked() {
 
     sortWithIndeces(data);
     data.sortIndices.reverse();
+    searchResultsList = data.sortIndices;
+    function showResults(){
+    if (document.getElementById("showResultsList").checked == true)
+    {
+    d3.select('.results-container').style('display','inherit')
+    let searchResultsSel = d3.select('.results-container')
+      .selectAll('div')
+      .data(searchResultsList.slice(0,5))
+    
+    searchResultsSel.enter()
+      .append('div' ).html('<img /><p></p>')
+      .attr("class","result-item")
+    searchResultsSel
+      .select('img')
+        .attr('src', d => experiment_config['screenshot_path'] + d*10 + '.png')
+    searchResultsSel
+      .select('p')
+        .text(d => d)
+      }
+      else{
+        // d3.selectAll("result-item").remove();
+        d3.select('.results-container').style('display','none')
+      }
+    }
+    showResults()
+
     pointD.innerHTML = data.sortIndices[0];
     mydataset = update_data();
+  if(myRangeA.value == myRangeB.value) {
+    d3.select("svg").remove(); // do not display graph data if A is the same as B
+    }
+    else{
     update_graphs(mydataset);
   }
+
 
   let filename = experiment_config['screenshot_path']+(pointD.innerHTML*experiment_config['frames_per_step'])+".png";
   imageD.src = filename;
@@ -613,4 +640,6 @@ function update_graphs(data) {
     svg.selectAll(".dataLabel")
         .attr("transform", transform);
   }
+
+
 };
